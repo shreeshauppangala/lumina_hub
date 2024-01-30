@@ -1,0 +1,40 @@
+* {
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: #a3a9b6;
+
+    &:hover {
+      background: #737373;
+    }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  color: #ffffff;
+  background: #00998b;
+}
+
+input:-webkit-autofill {
+  -webkit-transition-delay: 9999s;
+}
+
+body {
+  padding: 0 !important;
+  margin: 0 !important;
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
