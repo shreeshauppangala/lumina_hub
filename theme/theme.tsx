@@ -13,7 +13,7 @@ const changePaddingValues = (size: 'small' | 'medium' | 'large' | undefined) => 
     return '8px 12px';
   }
   if (size === 'medium') {
-    return '8px 16px';
+    return '12px 16px';
   }
   if (size === 'large') {
     return '12px';

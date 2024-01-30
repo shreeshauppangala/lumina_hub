@@ -5,7 +5,7 @@ import * as theme from '@/theme/theme'
 
 const roboto = Roboto({
   subsets: ['latin'],
-  weight: ["100", "300", "400", "500", "700", "900", "100", "300", "400", "500", "700", "900"]
+  weight: ["100", "300", "400", "500", "700", "900"]
 })
 
 const RootLayout = ({
