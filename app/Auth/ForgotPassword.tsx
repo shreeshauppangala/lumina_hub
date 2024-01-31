@@ -56,20 +56,20 @@ const ForgotPassword = () => {
                   label='Email'
                   error={!!error}
                   helperText={error?.message}
-                  placeholder='Type your email'
+                  placeholder='email'
                 />
               )}
             />
             <Box display='flex' justifyContent='end'>
               <Typography sx={{ cursor: 'pointer' }}
                 variant='subtitle2'
-                onClick={() => { setOpenForgotPassword(false); setOpenSignIn(true) }}>Back to login
+                onClick={() => { setOpenForgotPassword(false); setOpenSignIn(true); reset() }}>Back to login
               </Typography>
             </Box>
           </Box>
         </DialogContent>
         <DialogActions>
-          <LoadingButton variant='contained' color='primary' fullWidth >
+          <LoadingButton variant='contained' color='primary' fullWidth type='submit'>
             Reset Password
           </LoadingButton>
         </DialogActions>

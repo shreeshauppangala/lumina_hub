@@ -68,7 +68,7 @@ const SignUp = () => {
                   label='Full Name'
                   error={!!error}
                   helperText={error?.message}
-                  placeholder='Type your full name'
+                  placeholder='full name'
                 />
               )}
             />
@@ -87,7 +87,7 @@ const SignUp = () => {
                   label='Email'
                   error={!!error}
                   helperText={error?.message}
-                  placeholder='Type your email'
+                  placeholder='email'
                 />
               )}
             />
@@ -113,7 +113,7 @@ const SignUp = () => {
                   label='Password'
                   error={!!error}
                   helperText={error?.message}
-                  placeholder='Type your password'
+                  placeholder='password'
                   InputProps={{
                     endAdornment: (
                       <IconButton onClick={() => setShowPassword(!showPassword)}>
@@ -140,7 +140,7 @@ const SignUp = () => {
                   label='Confirm Password'
                   error={!!error}
                   helperText={error?.message}
-                  placeholder='Type your password'
+                  placeholder='password'
                   InputProps={{
                     endAdornment: (
                       <IconButton onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
@@ -154,26 +154,6 @@ const SignUp = () => {
           </Box>
           <Box display='flex' gap={10}>
             <Controller
-              name='address'
-              control={control}
-              rules={{
-                required: 'Address Is Required',
-              }}
-              render={({ field, fieldState: { error } }) => (
-                <InputField
-                  required
-                  {...field}
-                  label='Address'
-                  error={!!error}
-                  helperText={error?.message}
-                  placeholder='Type your address'
-                  multiline
-                  minRows={4}
-                  maxRows={4}
-                />
-              )}
-            />
-            <Controller
               name='state'
               control={control}
               rules={{
@@ -186,12 +166,10 @@ const SignUp = () => {
                   label='State'
                   error={!!error}
                   helperText={error?.message}
-                  placeholder='Type your state'
+                  placeholder='state'
                 />
               )}
             />
-          </Box>
-          <Box display='flex' gap={10}>
             <Controller
               name='city'
               control={control}
@@ -205,10 +183,12 @@ const SignUp = () => {
                   label='City'
                   error={!!error}
                   helperText={error?.message}
-                  placeholder='Type your city'
+                  placeholder='city'
                 />
               )}
             />
+          </Box>
+          <Box display='flex' gap={10}>
             <Controller
               name='pin_code'
               control={control}
@@ -224,12 +204,10 @@ const SignUp = () => {
                   label='Pin Code'
                   error={!!error}
                   helperText={error?.message}
-                  placeholder='Type your pin code'
+                  placeholder='pin code'
                 />
               )}
             />
-          </Box>
-          <Box width='50%'>
             <Controller
               name='mobile_number'
               control={control}
@@ -248,7 +226,29 @@ const SignUp = () => {
                   label='Mobile Number'
                   error={!!error}
                   helperText={error?.message}
-                  placeholder='Type your mobile number'
+                  placeholder='mobile number'
+                />
+              )}
+            />
+          </Box>
+          <Box width='50%'>
+            <Controller
+              name='address'
+              control={control}
+              rules={{
+                required: 'Address Is Required',
+              }}
+              render={({ field, fieldState: { error } }) => (
+                <InputField
+                  required
+                  {...field}
+                  label='Address'
+                  error={!!error}
+                  helperText={error?.message}
+                  placeholder='address'
+                  multiline
+                  minRows={4}
+                  maxRows={4}
                 />
               )}
             />

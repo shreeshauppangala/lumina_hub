@@ -19,7 +19,7 @@ export const useAuth = (): AuthI => useContext(AuthContext);
 const useAuthFunc = () => {
   const [openSignIn, setOpenSignIn] = useState(false)
   const [openSignUp, setOpenSignUp] = useState(false)
-  const [openForgotPassword, setOpenForgotPassword] = useState(true)
+  const [openForgotPassword, setOpenForgotPassword] = useState(false)
 
   return {
     openSignIn, setOpenSignIn,

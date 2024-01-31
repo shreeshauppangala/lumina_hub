@@ -58,7 +58,7 @@ const SignIn = () => {
                   label='Email'
                   error={!!error}
                   helperText={error?.message}
-                  placeholder='Type your email'
+                  placeholder='email'
                 />
               )}
             />
@@ -76,7 +76,7 @@ const SignIn = () => {
                   label='Password'
                   error={!!error}
                   helperText={error?.message}
-                  placeholder='Type your password'
+                  placeholder='password'
                   InputProps={{
                     endAdornment: (
                       <IconButton onClick={() => setShowPassword(!showPassword)}>
@@ -90,7 +90,7 @@ const SignIn = () => {
             <Box display='flex' justifyContent='end'>
               <Typography sx={{ cursor: 'pointer' }}
                 variant='subtitle2'
-                onClick={() => { setOpenSignIn(false); setOpenForgotPassword(true) }}
+                onClick={() => { setOpenSignIn(false); setOpenForgotPassword(true); reset()}}
               >
                 Forgot your password?
               </Typography>
@@ -98,7 +98,7 @@ const SignIn = () => {
           </Box>
         </DialogContent>
         <DialogActions>
-          <LoadingButton variant='contained' color='primary' fullWidth >
+          <LoadingButton variant='contained' color='primary' fullWidth type='submit'>
             Sign In
           </LoadingButton>
         </DialogActions>
