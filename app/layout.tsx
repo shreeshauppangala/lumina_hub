@@ -3,8 +3,8 @@ import { Roboto } from 'next/font/google'
 import { Box } from '@mui/material'
 import * as muiCustomTheme from '@/app/theme/theme'
 import './globals.scss'
-import Header from './Components/Layout/header'
 import Footer from './Components/Layout/Footer'
+import Header from './Components/Layout/Header'
 
 const roboto = Roboto({
   subsets: ['latin'],
