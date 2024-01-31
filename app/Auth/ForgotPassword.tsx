@@ -4,7 +4,7 @@ import { LoadingButton } from '@mui/lab';
 import { Controller, useForm } from 'react-hook-form';
 import { hooks } from '@/app/hooks';
 import { pattern } from '@/app/constants';
-import { InputField } from '..';
+import { InputField } from '../Components';
 import { DialogContainer } from './styles';
 
 const ForgotPassword = () => {

@@ -6,7 +6,7 @@ import { hooks } from '@/app/hooks';
 import { LoginFormDataI } from '@/app/constants/interfaces';
 import { GreyEye, GreyCrossEye } from '@/app/Assets/Icons';
 import { pattern } from '@/app/constants';
-import { InputField } from '..';
+import { InputField } from '../Components';
 import { DialogContainer } from './styles';
 
 const SignIn = () => {

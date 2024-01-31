@@ -4,7 +4,7 @@ import { LoadingButton } from '@mui/lab'
 import { Controller, useForm } from 'react-hook-form'
 import { SignUpFormDataI } from '@/app/constants/interfaces'
 import { hooks } from '@/app/hooks'
-import { InputField } from '..'
+import { InputField } from '../Components'
 import { pattern } from '@/app/constants'
 import { GreyCrossEye, GreyEye } from '@/app/Assets/Icons'
 import { DialogContainer } from './styles'
@@ -287,7 +287,7 @@ const SignUp = () => {
         <DialogContentText
           sx={{ cursor: 'pointer' }}
           variant='caption'
-          onClick={() => { setOpenSignIn(true); setOpenSignUp(false); reset()}}
+          onClick={() => { setOpenSignIn(true); setOpenSignUp(false); reset() }}
         ><b>Sign In</b>
         </DialogContentText>
       </Box>

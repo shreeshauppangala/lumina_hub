@@ -3,7 +3,7 @@
 import React from 'react'
 import { AppBar, Box, Button, Toolbar, styled } from '@mui/material';
 import { hooks } from '@/app/hooks';
-import { ForgotPassword, SignIn, SignUp } from '..';
+import { SignIn, SignUp, ForgotPassword } from '@/app/Auth';
 
 const CustomAppBar = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.common.white,
