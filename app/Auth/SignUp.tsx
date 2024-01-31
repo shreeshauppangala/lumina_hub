@@ -4,9 +4,9 @@ import { LoadingButton } from '@mui/lab'
 import { Controller, useForm } from 'react-hook-form'
 import { SignUpFormDataI } from '@/app/constants/interfaces'
 import { hooks } from '@/app/hooks'
-import { InputField } from '../Components'
 import { pattern } from '@/app/constants'
 import { GreyCrossEye, GreyEye } from '@/app/Assets/Icons'
+import { InputField } from '../Components'
 import { DialogContainer } from './styles'
 
 const SignUp = () => {
