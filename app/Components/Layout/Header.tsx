@@ -1,7 +1,9 @@
 'use client'
 
-import { AppBar, Box, Button, Toolbar, styled } from '@mui/material';
 import React from 'react'
+import { AppBar, Box, Button, Toolbar, styled } from '@mui/material';
+import { hooks } from '@/app/hooks';
+import { ForgotPassword, SignIn, SignUp } from '..';
 
 const CustomAppBar = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.common.white,
@@ -26,15 +28,21 @@ const SignInButton = styled(Button)(({ theme }) => ({
   },
 }))
 
-const Header = () => (
+const Header = () => {
+  const { setOpenSignIn, setOpenSignUp, } = hooks.useAuth()
+  return (
     <CustomAppBar position='fixed'>
       <CustomToolbar>
         <Box display='flex' gap={12}>
-          <Button color="primary" variant='contained'>Sign Up</Button>
-          <SignInButton variant="contained">Sign In</SignInButton>
+          <Button color="primary" variant='contained' onClick={() => setOpenSignUp(true)}>Sign Up</Button>
+          <SignInButton variant="contained" onClick={() => setOpenSignIn(true)}>Sign In</SignInButton>
         </Box>
       </CustomToolbar>
+      <SignIn />
+      <SignUp />
+      <ForgotPassword/>
     </CustomAppBar>
   )
+}
 
 export default Header

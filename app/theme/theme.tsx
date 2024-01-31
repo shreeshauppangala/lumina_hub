@@ -35,6 +35,16 @@ const buttonStyles = {
 export const theme = createTheme({
 
   components: {
+    /**
+ * The MuiButtonBase object contains default props for the MUI button base component.
+ * @property {object} defaultProps - The default props for the MUI button base component.
+ * @property {boolean} defaultProps.disableRipple - Whether to disable the ripple effect on the button base.
+ */
+    MuiButtonBase: {
+      defaultProps: {
+        disableRipple: true, // No more ripple, on the whole application 💣!
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: ({ ownerState }) => ({

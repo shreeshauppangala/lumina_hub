@@ -5,6 +5,7 @@ import * as muiCustomTheme from '@/app/theme/theme'
 import './globals.scss'
 import Footer from './Components/Layout/Footer'
 import Header from './Components/Layout/Header'
+import ContextContainer from './context'
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -24,9 +25,11 @@ const RootLayout = ({
       <body className={roboto.className}>
         <StrictMode>
           <CustomMuiThemeProvider>
-            <Header />
-            <Box mt={42}>{children}</Box>
-            <Footer/>
+            <ContextContainer>
+              <Header />
+              <Box mt={42}>{children}</Box>
+              <Footer />
+            </ContextContainer>
           </CustomMuiThemeProvider>
         </StrictMode>
       </body>
