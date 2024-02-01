@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Typography } from '@mui/material';
+import { Box, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, IconButton, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { Controller, useForm } from 'react-hook-form';
 import { hooks } from '@/app/hooks';
@@ -8,6 +8,7 @@ import { GreyEye, GreyCrossEye } from '@/app/Assets/Icons';
 import { pattern } from '@/app/constants';
 import { InputField } from '../Components';
 import { DialogContainer } from './styles';
+import { GoogleLogin } from '@react-oauth/google';
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false)
@@ -103,6 +104,20 @@ const SignIn = () => {
           </LoadingButton>
         </DialogActions>
       </form>
+      <Box display='flex' alignItems='center'>
+        <Divider sx={() => ({ width: '45%' })} />
+        <Typography p='0 10px'>or</Typography>
+        <Divider sx={() => ({ width: '45%' })} />
+      </Box>
+      <Box display='flex' justifyContent='center' m='6px 0'>
+        <GoogleLogin
+          onSuccess={() => {
+          }}
+          onError={() => {
+          }}
+          useOneTap
+        />
+      </Box>
       <Box display='flex' justifyContent='center'>
         <DialogContentText variant='caption'>
           Don&apos;t have an account?

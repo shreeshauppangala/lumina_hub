@@ -1,6 +1,7 @@
 import { ReactNode, StrictMode } from 'react'
 import { Roboto } from 'next/font/google'
 import { Box } from '@mui/material'
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import * as muiCustomTheme from '@/app/theme/theme'
 import './globals.scss'
 import Footer from './Components/Layout/Footer'
@@ -25,11 +26,13 @@ const RootLayout = ({
       <body className={roboto.className}>
         <StrictMode>
           <CustomMuiThemeProvider>
+            <GoogleOAuthProvider clientId="849890460675-3o04iv7ipvdlbt8hamn98724pb27t530.apps.googleusercontent.com">
             <ContextContainer>
               <Header />
               <Box mt={42}>{children}</Box>
               <Footer />
             </ContextContainer>
+            </GoogleOAuthProvider>
           </CustomMuiThemeProvider>
         </StrictMode>
       </body>

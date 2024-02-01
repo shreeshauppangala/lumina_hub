@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { DialogTitle, DialogContentText, DialogActions, Box, IconButton, FormControlLabel, Checkbox } from '@mui/material'
+import { DialogTitle, DialogContentText, DialogActions, Box, IconButton, FormControlLabel, Checkbox, Typography, Divider } from '@mui/material'
 import { LoadingButton } from '@mui/lab'
+import { GoogleLogin } from '@react-oauth/google'
 import { Controller, useForm } from 'react-hook-form'
 import { SignUpFormDataI } from '@/app/constants/interfaces'
 import { hooks } from '@/app/hooks'
@@ -280,6 +281,20 @@ const SignUp = () => {
           </LoadingButton>
         </DialogActions>
       </form>
+      <Box display='flex' alignItems='center'>
+        <Divider sx={() => ({ width: '50%' })} />
+        <Typography p='0 10px'>or</Typography>
+        <Divider sx={() => ({ width: '47%' })} />
+      </Box>
+      <Box display='flex' justifyContent='center' m='6px 0'>
+        <GoogleLogin
+          onSuccess={() => {
+          }}
+          onError={() => {
+          }}
+          useOneTap
+        />
+      </Box>
       <Box display='flex' justifyContent='center'>
         <DialogContentText variant='caption'>
           Already have an account?
