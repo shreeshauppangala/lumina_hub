@@ -1,23 +1,28 @@
-import React, { useState } from 'react'
-import { Box, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, IconButton, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import {
+  Box,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Divider,
+  IconButton,
+  Typography,
+} from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-import { Controller, useForm } from 'react-hook-form';
 import { hooks } from '@/app/hooks';
 import { LoginFormDataI } from '@/app/constants/interfaces';
 import { GreyEye, GreyCrossEye } from '@/app/Assets/Icons';
 import { pattern } from '@/app/constants';
+import { Controller, useForm } from 'react-hook-form';
+import { GoogleLogin } from '@react-oauth/google';
 import { InputField } from '../Components';
 import { DialogContainer } from './styles';
-import { GoogleLogin } from '@react-oauth/google';
 
 const SignIn = () => {
-  const [showPassword, setShowPassword] = useState(false)
-  const { openSignIn, setOpenSignIn, setOpenSignUp, setOpenForgotPassword, } = hooks.useAuth()
-  const {
-    control,
-    handleSubmit,
-    reset
-  } = useForm<LoginFormDataI>({
+  const [showPassword, setShowPassword] = useState(false);
+  const { openSignIn, setOpenSignIn, setOpenSignUp, setOpenForgotPassword } = hooks.useAuth();
+  const { control, handleSubmit, reset } = useForm<LoginFormDataI>({
     mode: 'all',
     defaultValues: {
       email: '',
@@ -33,7 +38,10 @@ const SignIn = () => {
       open={openSignIn}
       aria-labelledby='alert-dialog-title'
       aria-describedby='alert-dialog-description'
-      onClose={() => { setOpenSignIn(false); reset() }}
+      onClose={() => {
+        setOpenSignIn(false);
+        reset();
+      }}
     >
       <DialogTitle variant='h1' textAlign='center'>
         Log In
@@ -49,7 +57,7 @@ const SignIn = () => {
               control={control}
               rules={{
                 required: 'Email Is Required',
-                pattern: { value: pattern.email, message: 'Invalid Email' }
+                pattern: { value: pattern.email, message: 'Invalid Email' },
               }}
               render={({ field, fieldState: { error } }) => (
                 <InputField
@@ -89,9 +97,14 @@ const SignIn = () => {
               )}
             />
             <Box display='flex' justifyContent='end'>
-              <Typography sx={{ cursor: 'pointer' }}
+              <Typography
+                sx={{ cursor: 'pointer' }}
                 variant='subtitle2'
-                onClick={() => { setOpenSignIn(false); setOpenForgotPassword(true); reset()}}
+                onClick={() => {
+                  setOpenSignIn(false);
+                  setOpenForgotPassword(true);
+                  reset();
+                }}
               >
                 Forgot your password?
               </Typography>
@@ -110,28 +123,24 @@ const SignIn = () => {
         <Divider sx={() => ({ width: '45%' })} />
       </Box>
       <Box display='flex' justifyContent='center' m='6px 0'>
-        <GoogleLogin
-          onSuccess={() => {
-          }}
-          onError={() => {
-          }}
-          useOneTap
-        />
+        <GoogleLogin onSuccess={() => {}} onError={() => {}} useOneTap />
       </Box>
       <Box display='flex' justifyContent='center'>
-        <DialogContentText variant='caption'>
-          Don&apos;t have an account?
-        </DialogContentText>
+        <DialogContentText variant='caption'>Don&apos;t have an account?</DialogContentText>
         <Typography
           sx={{ cursor: 'pointer' }}
           variant='caption'
-          onClick={() => { setOpenSignIn(false); setOpenSignUp(true); reset() }}
+          onClick={() => {
+            setOpenSignIn(false);
+            setOpenSignUp(true);
+            reset();
+          }}
         >
           <b>Sign Up</b>
         </Typography>
       </Box>
     </DialogContainer>
-  )
-}
+  );
+};
 
-export default SignIn
+export default SignIn;
