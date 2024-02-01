@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prettier": "prettier --check src/**/*.{js,ts,tsx,scss}",
+    "prettier:fix": "prettier --write src/**/*.{js,ts,tsx,scss}",
+    "prepare": "husky install",
+    "type-check": "tsc"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
@@ -46,4 +51,5 @@
     "eslint-webpack-plugin": "^4.0.1",
     "typescript": "^5"
   }
+
 }
