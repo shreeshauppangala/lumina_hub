@@ -1,3 +1,5 @@
+'use client';
+
 import { forwardRef } from 'react';
 import { TextField, TextFieldProps } from '@mui/material';
 import { InputLabelComponent, TextFieldComponent } from './styles';

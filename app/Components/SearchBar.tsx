@@ -1,3 +1,5 @@
+'use client';
+
 import { Box, TextFieldProps, TextField, styled } from '@mui/material';
 import React from 'react';
 import { SearchIcon } from '../Assets/Icons';

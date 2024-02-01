@@ -1,5 +1,5 @@
 import { BlackLeftArrow, BlackRightArrow } from './Arrows';
-import { MediumPrimaryCartIcon } from './CartIcon';
+import { MediumGreyCartIcon, MediumPrimaryCartIcon } from './CartIcon';
 import { GreyCrossEye, GreyEye } from './Eye';
 import { MediumPrimaryLogoutIcon } from './LogoutIcon';
 import { MediumPrimaryOrdersIcon } from './OrdersIcon';
@@ -14,6 +14,7 @@ export {
   GreyEye,
   MediumPrimaryUserIcon,
   MediumPrimaryCartIcon,
+  MediumGreyCartIcon,
   MediumPrimaryOrdersIcon,
   MediumPrimaryLogoutIcon,
 };
