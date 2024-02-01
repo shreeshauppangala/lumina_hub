@@ -1,26 +1,31 @@
-import React, { useState } from 'react'
-import { DialogTitle, DialogContentText, DialogActions, Box, IconButton, FormControlLabel, Checkbox, Typography, Divider } from '@mui/material'
-import { LoadingButton } from '@mui/lab'
-import { GoogleLogin } from '@react-oauth/google'
-import { Controller, useForm } from 'react-hook-form'
-import { SignUpFormDataI } from '@/app/constants/interfaces'
-import { hooks } from '@/app/hooks'
-import { pattern } from '@/app/constants'
-import { GreyCrossEye, GreyEye } from '@/app/Assets/Icons'
-import { InputField } from '../Components'
-import { DialogContainer } from './styles'
+import React, { useState } from 'react';
+import {
+  DialogTitle,
+  DialogContentText,
+  DialogActions,
+  Box,
+  IconButton,
+  FormControlLabel,
+  Checkbox,
+  Typography,
+  Divider,
+} from '@mui/material';
+import { LoadingButton } from '@mui/lab';
+import { GoogleLogin } from '@react-oauth/google';
+import { Controller, useForm } from 'react-hook-form';
+import { SignUpFormDataI } from '@/app/constants/interfaces';
+import { hooks } from '@/app/hooks';
+import { pattern } from '@/app/constants';
+import { GreyCrossEye, GreyEye } from '@/app/Assets/Icons';
+import { InputField } from '../Components';
+import { DialogContainer } from './styles';
 
 const SignUp = () => {
-  const [showPassword, setShowPassword] = useState(false)
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
-  const { openSignUp, setOpenSignUp, setOpenSignIn } = hooks.useAuth()
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const { openSignUp, setOpenSignUp, setOpenSignIn } = hooks.useAuth();
 
-  const {
-    control,
-    handleSubmit,
-    getValues,
-    reset
-  } = useForm<SignUpFormDataI>({
+  const { control, handleSubmit, getValues, reset } = useForm<SignUpFormDataI>({
     mode: 'all',
     defaultValues: {
       full_name: '',
@@ -45,7 +50,10 @@ const SignUp = () => {
       open={openSignUp}
       aria-labelledby='alert-dialog-title'
       aria-describedby='alert-dialog-description'
-      onClose={() => { setOpenSignUp(false); reset() }}
+      onClose={() => {
+        setOpenSignUp(false);
+        reset();
+      }}
     >
       <DialogTitle variant='h1' textAlign='center' mb={4}>
         Sign Up
@@ -78,7 +86,7 @@ const SignUp = () => {
               control={control}
               rules={{
                 required: 'Email Is Required',
-                pattern: { value: pattern.email, message: 'Invalid Email' }
+                pattern: { value: pattern.email, message: 'Invalid Email' },
               }}
               render={({ field, fieldState: { error } }) => (
                 <InputField
@@ -94,7 +102,6 @@ const SignUp = () => {
             />
           </Box>
           <Box display='flex' gap={10}>
-
             <Controller
               name='password'
               control={control}
@@ -103,8 +110,8 @@ const SignUp = () => {
                 pattern: {
                   value: pattern.strongPassword,
                   message: `Password minimum length should be 8 and should include one lowercase,
-                one uppercase, one digit and one special character`
-                }
+                one uppercase, one digit and one special character`,
+                },
               }}
               render={({ field, fieldState: { error } }) => (
                 <InputField
@@ -195,7 +202,7 @@ const SignUp = () => {
               control={control}
               rules={{
                 required: 'Pin Code Is Required',
-                pattern: { value: pattern.pinCode, message: 'Invalid Pin code' }
+                pattern: { value: pattern.pinCode, message: 'Invalid Pin code' },
               }}
               render={({ field, fieldState: { error } }) => (
                 <InputField
@@ -214,7 +221,7 @@ const SignUp = () => {
               control={control}
               rules={{
                 required: 'Mobile Number Is Required',
-                pattern: { value: pattern.mobile, message: 'Invalid Mobile Number' }
+                pattern: { value: pattern.mobile, message: 'Invalid Mobile Number' },
               }}
               render={({ field, fieldState: { error } }) => (
                 <InputField
@@ -263,14 +270,8 @@ const SignUp = () => {
             render={({ field }) => (
               <FormControlLabel
                 sx={(theme) => ({ span: { ...theme.typography.subtitle2 } })}
-                control={
-                  <Checkbox
-                    {...field}
-                    checked={field.value}
-                    name="termsAgreement"
-                  />
-                }
-                label="By signing up, you agree to our Terms and Privacy Policy."
+                control={<Checkbox {...field} checked={field.value} name='termsAgreement' />}
+                label='By signing up, you agree to our Terms and Privacy Policy.'
               />
             )}
           />
@@ -287,27 +288,24 @@ const SignUp = () => {
         <Divider sx={() => ({ width: '47%' })} />
       </Box>
       <Box display='flex' justifyContent='center' m='6px 0'>
-        <GoogleLogin
-          onSuccess={() => {
-          }}
-          onError={() => {
-          }}
-          useOneTap
-        />
+        <GoogleLogin onSuccess={() => {}} onError={() => {}} useOneTap />
       </Box>
       <Box display='flex' justifyContent='center'>
-        <DialogContentText variant='caption'>
-          Already have an account?
-        </DialogContentText>
+        <DialogContentText variant='caption'>Already have an account?</DialogContentText>
         <DialogContentText
           sx={{ cursor: 'pointer' }}
           variant='caption'
-          onClick={() => { setOpenSignIn(true); setOpenSignUp(false); reset() }}
-        ><b>Sign In</b>
+          onClick={() => {
+            setOpenSignIn(true);
+            setOpenSignUp(false);
+            reset();
+          }}
+        >
+          <b>Sign In</b>
         </DialogContentText>
       </Box>
     </DialogContainer>
-  )
-}
+  );
+};
 
-export default SignUp
+export default SignUp;

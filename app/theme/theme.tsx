@@ -1,8 +1,7 @@
-'use client'
+'use client';
 
 import React, { ReactElement, ReactNode } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material';
-
 
 /**
  * Changes the padding values based on the size of the owner state.
@@ -33,13 +32,12 @@ const buttonStyles = {
 };
 
 export const theme = createTheme({
-
   components: {
     /**
- * The MuiButtonBase object contains default props for the MUI button base component.
- * @property {object} defaultProps - The default props for the MUI button base component.
- * @property {boolean} defaultProps.disableRipple - Whether to disable the ripple effect on the button base.
- */
+     * The MuiButtonBase object contains default props for the MUI button base component.
+     * @property {object} defaultProps - The default props for the MUI button base component.
+     * @property {boolean} defaultProps.disableRipple - Whether to disable the ripple effect on the button base.
+     */
     MuiButtonBase: {
       defaultProps: {
         disableRipple: true, // No more ripple, on the whole application 💣!
@@ -50,35 +48,35 @@ export const theme = createTheme({
         root: ({ ownerState }) => ({
           ...(ownerState.color === 'primary' &&
             ownerState.variant === 'contained' && {
-            ...buttonStyles,
-            textTransform: 'initial',
-            padding: changePaddingValues(ownerState.size),
-            fontSize: ownerState.size === 'small' ? 12 : 16,
-            backgroundColor: theme.palette.primary.main,
-            color: theme.palette.common.white,
-            borderRadius: theme.spacing(12),
-            boxShadow:'none',
-            '&:hover': {
-              backgroundColor: theme.palette.primary.main,
-              border: 'none',
-              boxShadow: 'none',
-            },
-            '&:disabled': {
+              ...buttonStyles,
+              textTransform: 'initial',
+              padding: changePaddingValues(ownerState.size),
+              fontSize: ownerState.size === 'small' ? 12 : 16,
               backgroundColor: theme.palette.primary.main,
               color: theme.palette.common.white,
-              opacity: 0.5,
-              cursor: 'not-allowed',
-              pointerEvents: 'auto',
+              borderRadius: theme.spacing(12),
               boxShadow: 'none',
-            },
-          }),
+              '&:hover': {
+                backgroundColor: theme.palette.primary.main,
+                border: 'none',
+                boxShadow: 'none',
+              },
+              '&:disabled': {
+                backgroundColor: theme.palette.primary.main,
+                color: theme.palette.common.white,
+                opacity: 0.5,
+                cursor: 'not-allowed',
+                pointerEvents: 'auto',
+                boxShadow: 'none',
+              },
+            }),
         }),
       },
     },
     /**
-    * Overrides the default styles for the MuiAvatar component.
-    * @returns {object} - An object containing the style overrides for the MuiAvatar component.
-    */
+     * Overrides the default styles for the MuiAvatar component.
+     * @returns {object} - An object containing the style overrides for the MuiAvatar component.
+     */
     MuiAvatar: {
       styleOverrides: {
         root: () => ({

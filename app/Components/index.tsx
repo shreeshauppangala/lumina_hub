@@ -1,5 +1,5 @@
-import CarouselCard from "./CarouselCard";
-import InputField from "./Input";
-import SearchBar from "./SearchBar";
+import CarouselCard from './CarouselCard';
+import InputField from './Input';
+import SearchBar from './SearchBar';
 
-export { SearchBar, CarouselCard, InputField }
+export { SearchBar, CarouselCard, InputField };

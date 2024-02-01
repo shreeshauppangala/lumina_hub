@@ -1,25 +1,28 @@
-'use client'
+'use client';
 
-import React from 'react'
+import React from 'react';
 import { Avatar, Box, Typography, styled } from '@mui/material';
 import { useRouter } from 'next/navigation';
-import Slider, { Settings } from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import Slider, { Settings } from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
-interface ProductCardI { image: string; name: string; price: number }
+interface ProductCardI {
+  image: string;
+  name: string;
+  price: number;
+}
 
 interface PropsI {
   heading: string;
-  productsData: ProductCardI[]
-};
-
+  productsData: ProductCardI[];
+}
 
 const ProductImage = styled(Avatar)(({ theme }) => ({
   width: theme.spacing(128),
   height: theme.spacing(128),
   borderRadius: theme.spacing(12),
-}))
+}));
 
 const CarouselCardContainer = styled(Box)(({ theme }) => ({
   '.slick-slider': {
@@ -28,7 +31,7 @@ const CarouselCardContainer = styled(Box)(({ theme }) => ({
       right: 0,
       ':before': {
         backgroundColor: theme.palette.common.black,
-      }
+      },
     },
     '.slick-prev': {
       top: -35,
@@ -36,23 +39,27 @@ const CarouselCardContainer = styled(Box)(({ theme }) => ({
       left: 'unset',
       ':before': {
         backgroundColor: theme.palette.common.black,
-      }
-    }
-  }
-}))
+      },
+    },
+  },
+}));
 
 const CarouselCard = (props: PropsI) => {
   const { heading, productsData } = props;
 
-  const router = useRouter()
+  const router = useRouter();
 
   const ProductCard = ({ image, name, price }: ProductCardI) => (
-    <Box onClick={() => router.push(`${name}`)} sx={{cursor:'pointer'}}>
+    <Box onClick={() => router.push(`${name}`)} sx={{ cursor: 'pointer' }}>
       <ProductImage variant='square' src={image} alt={name} />
-      <Typography variant='body2' mt={6}>{name}</Typography>
-      <Typography variant='h4' mt={2}>{price}</Typography>
+      <Typography variant='body2' mt={6}>
+        {name}
+      </Typography>
+      <Typography variant='h4' mt={2}>
+        {price}
+      </Typography>
     </Box>
-  )
+  );
 
   const settings: Settings = {
     arrows: true,
@@ -69,35 +76,41 @@ const CarouselCard = (props: PropsI) => {
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
-        }
+        },
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-        }
+        },
       },
       {
         breakpoint: 480,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
   return (
     <CarouselCardContainer>
-      <Typography variant='h4' mb={12}>{heading}</Typography>
+      <Typography variant='h4' mb={12}>
+        {heading}
+      </Typography>
       <Slider {...settings}>
-        {productsData.map((product) =>
-          <ProductCard image={product.image} name={product.name} price={product.price} key={product.image} />
-        )}
+        {productsData.map((product) => (
+          <ProductCard
+            image={product.image}
+            name={product.name}
+            price={product.price}
+            key={product.image}
+          />
+        ))}
       </Slider>
-
     </CarouselCardContainer>
-  )
-}
+  );
+};
 
-export default CarouselCard
+export default CarouselCard;

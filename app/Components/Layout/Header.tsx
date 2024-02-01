@@ -1,10 +1,26 @@
-'use client'
+'use client';
 
-import React, { useState } from 'react'
-import { AppBar, Avatar, Box, Button, Divider, Menu, MenuItem, Toolbar, Typography, styled } from '@mui/material';
+import React, { useState } from 'react';
+import {
+  AppBar,
+  Avatar,
+  Box,
+  Button,
+  Divider,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Typography,
+  styled,
+} from '@mui/material';
 import { hooks } from '@/app/hooks';
 import { SignIn, SignUp, ForgotPassword } from '@/app/Auth';
-import { MediumPrimaryCartIcon, MediumPrimaryLogoutIcon, MediumPrimaryOrdersIcon, MediumPrimaryUserIcon } from '@/app/Assets/Icons';
+import {
+  MediumPrimaryCartIcon,
+  MediumPrimaryLogoutIcon,
+  MediumPrimaryOrdersIcon,
+  MediumPrimaryUserIcon,
+} from '@/app/Assets/Icons';
 
 const CustomAppBar = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.common.white,
@@ -15,7 +31,7 @@ const CustomAppBar = styled(AppBar)(({ theme }) => ({
 
 const CustomToolbar = styled(Toolbar)(() => ({
   display: 'flex',
-  justifyContent: 'end'
+  justifyContent: 'end',
 }));
 
 const SignInButton = styled(Button)(({ theme }) => ({
@@ -23,11 +39,12 @@ const SignInButton = styled(Button)(({ theme }) => ({
   color: theme.palette.grey[700],
   boxShadow: `${theme.spacing(0, 1, 2)} rgba(3,3,3,0.1)`,
   '&:hover': {
-    backgroundColor: theme.palette.common.white, color: theme.palette.grey[700],
+    backgroundColor: theme.palette.common.white,
+    color: theme.palette.grey[700],
     boxShadow: `${theme.spacing(0, 1, 2)} rgba(3,3,3,0.1)`,
     border: 'none',
   },
-}))
+}));
 
 const ProfileMenu = styled(Menu)(({ theme }) => ({
   '.MuiPaper-root': {
@@ -51,14 +68,18 @@ const ProfileMenu = styled(Menu)(({ theme }) => ({
 }));
 
 const Header = () => {
-  const [anchorEl, setAnchorEl] = useState<EventTarget & HTMLDivElement | null>(null)
-  const { setOpenSignIn, setOpenSignUp, } = hooks.useAuth()
+  const [anchorEl, setAnchorEl] = useState<(EventTarget & HTMLDivElement) | null>(null);
+  const { setOpenSignIn, setOpenSignUp } = hooks.useAuth();
   return (
     <CustomAppBar position='fixed'>
       <CustomToolbar>
         <Box display='flex' gap={12}>
-          <Button color="primary" variant='contained' onClick={() => setOpenSignUp(true)}>Sign Up</Button>
-          <SignInButton variant="contained" onClick={() => setOpenSignIn(true)}>Sign In</SignInButton>
+          <Button color='primary' variant='contained' onClick={() => setOpenSignUp(true)}>
+            Sign Up
+          </Button>
+          <SignInButton variant='contained' onClick={() => setOpenSignIn(true)}>
+            Sign In
+          </SignInButton>
         </Box>
         <Avatar onClick={(event) => setAnchorEl(event.currentTarget)} />
         <ProfileMenu
@@ -132,7 +153,7 @@ const Header = () => {
       <SignUp />
       <ForgotPassword />
     </CustomAppBar>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

@@ -1,5 +1,12 @@
-import React from 'react'
-import { DialogTitle, DialogContentText, DialogContent, Box, Typography, DialogActions } from '@mui/material';
+import React from 'react';
+import {
+  DialogTitle,
+  DialogContentText,
+  DialogContent,
+  Box,
+  Typography,
+  DialogActions,
+} from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { Controller, useForm } from 'react-hook-form';
 import { hooks } from '@/app/hooks';
@@ -8,13 +15,10 @@ import { InputField } from '../Components';
 import { DialogContainer } from './styles';
 
 const ForgotPassword = () => {
-  const { openForgotPassword, setOpenForgotPassword, setOpenSignUp, setOpenSignIn } = hooks.useAuth()
+  const { openForgotPassword, setOpenForgotPassword, setOpenSignUp, setOpenSignIn } =
+    hooks.useAuth();
 
-  const {
-    control,
-    handleSubmit,
-    reset
-  } = useForm<{ email: string }>({
+  const { control, handleSubmit, reset } = useForm<{ email: string }>({
     mode: 'all',
     defaultValues: {
       email: '',
@@ -30,7 +34,10 @@ const ForgotPassword = () => {
       open={openForgotPassword}
       aria-labelledby='alert-dialog-title'
       aria-describedby='alert-dialog-description'
-      onClose={() => { setOpenForgotPassword(false); reset() }}
+      onClose={() => {
+        setOpenForgotPassword(false);
+        reset();
+      }}
     >
       <DialogTitle variant='h1' textAlign='center'>
         Reset Password
@@ -46,7 +53,7 @@ const ForgotPassword = () => {
               control={control}
               rules={{
                 required: 'Email Is Required',
-                pattern: { value: pattern.email, message: 'Invalid Email' }
+                pattern: { value: pattern.email, message: 'Invalid Email' },
               }}
               render={({ field, fieldState: { error } }) => (
                 <InputField
@@ -61,9 +68,16 @@ const ForgotPassword = () => {
               )}
             />
             <Box display='flex' justifyContent='end'>
-              <Typography sx={{ cursor: 'pointer' }}
+              <Typography
+                sx={{ cursor: 'pointer' }}
                 variant='subtitle2'
-                onClick={() => { setOpenForgotPassword(false); setOpenSignIn(true); reset() }}>Back to login
+                onClick={() => {
+                  setOpenForgotPassword(false);
+                  setOpenSignIn(true);
+                  reset();
+                }}
+              >
+                Back to login
               </Typography>
             </Box>
           </Box>
@@ -78,14 +92,19 @@ const ForgotPassword = () => {
         <DialogContentText textAlign='center' variant='caption'>
           Don&apos;t have an account?
         </DialogContentText>
-        <Typography sx={{ cursor: 'pointer' }}
+        <Typography
+          sx={{ cursor: 'pointer' }}
           variant='caption'
-          onClick={() => { setOpenForgotPassword(false); setOpenSignUp(true) }}
-        ><b>Sign Up</b>
+          onClick={() => {
+            setOpenForgotPassword(false);
+            setOpenSignUp(true);
+          }}
+        >
+          <b>Sign Up</b>
         </Typography>
       </Box>
     </DialogContainer>
-  )
-}
+  );
+};
 
-export default ForgotPassword
+export default ForgotPassword;

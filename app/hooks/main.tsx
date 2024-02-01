@@ -1,7 +1,3 @@
-import { ProvideAuth, useAuth } from "./auth";
+import { ProvideAuth, useAuth } from './auth';
 
-
-export {
-  ProvideAuth,
-  useAuth,
-}
+export { ProvideAuth, useAuth };

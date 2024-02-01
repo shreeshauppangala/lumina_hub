@@ -1,4 +1,4 @@
-import { Dialog, styled } from "@mui/material";
+import { Dialog, styled } from '@mui/material';
 
 export const DialogContainer = styled(Dialog)(({ theme }) => ({
   '.MuiPaper-root': {

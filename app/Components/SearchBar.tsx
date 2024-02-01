@@ -1,5 +1,5 @@
 import { Box, TextFieldProps, TextField, styled } from '@mui/material';
-import React from 'react'
+import React from 'react';
 import { SearchIcon } from '../Assets/Icons';
 
 const SearchWrapper = styled(Box)(({ theme }) => ({
@@ -23,7 +23,6 @@ type PropsI = TextFieldProps & {
 };
 
 const SearchBar = (props: PropsI) => {
-
   const { placeholder = 'Search', InputProps, width } = props;
   return (
     <SearchWrapper width={width}>
@@ -40,7 +39,7 @@ const SearchBar = (props: PropsI) => {
         }}
       />
     </SearchWrapper>
-  )
-}
+  );
+};
 
-export default SearchBar
+export default SearchBar;

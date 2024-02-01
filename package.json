@@ -8,8 +8,8 @@
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "prettier": "prettier --check src/**/*.{js,ts,tsx,scss}",
-    "prettier:fix": "prettier --write src/**/*.{js,ts,tsx,scss}",
+    "prettier": "prettier --check app/**/*.{js,ts,tsx,scss}",
+    "prettier:fix": "prettier --write app/**/*.{js,ts,tsx,scss}",
     "prepare": "husky",
     "type-check": "tsc"
   },
