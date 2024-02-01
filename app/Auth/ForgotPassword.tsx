@@ -30,7 +30,7 @@ const ForgotPassword = () => {
       open={openForgotPassword}
       aria-labelledby='alert-dialog-title'
       aria-describedby='alert-dialog-description'
-      onClose={() => { reset() }}
+      onClose={() => { setOpenForgotPassword(false); reset() }}
     >
       <DialogTitle variant='h1' textAlign='center'>
         Reset Password

@@ -37,27 +37,27 @@ const HeaderImageBox = styled(Box)(({ theme }) => ({
 }));
 const data = [
   {
-    image: "https://example.com/image1.jpg",
+    image: "https://5.imimg.com/data5/AU/ZY/UK/SELLER-86701761/led-bulb-10-volt.jpg",
     name: "Product A",
     price: 25
   },
   {
-    image: "https://example.com/image2.jpg",
+    image: "https://climatekids.nasa.gov/light-bulbs/led.png",
     name: "Product B",
     price: 30
   },
   {
-    image: "https://example.com/image3.jpg",
+    image: "https://climatekids.nasa.gov/light-bulbs/halogen.png",
     name: "Product C",
     price: 15
   },
   {
-    image: "https://example.com/image4.jpg",
+    image: "https://climatekids.nasa.gov/light-bulbs/cfl.png",
     name: "Product D",
     price: 40
   },
   {
-    image: "https://example.com/image5.jpg",
+    image: "https://climatekids.nasa.gov/light-bulbs/incandescent.png",
     name: "Product E",
     price: 20
   },
@@ -153,11 +153,11 @@ const Home = () => (
           </Box>
         </Box>
       </HeaderImageBox>
-      <Box mt={16}>
+      <Box m='32px 0'>
         <Box mb={16}>
-        <CarouselCard heading="New Arrivals" productsData={data} />
+            <CarouselCard heading="New Arrivals" productsData={data} />
         </Box>
-        <CarouselCard heading="You might like" productsData={data} />
+          <CarouselCard heading="You might like" productsData={data} />
       </Box>
     </Box>
   </Box>

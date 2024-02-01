@@ -75,6 +75,20 @@ export const theme = createTheme({
         }),
       },
     },
+    /**
+    * Overrides the default styles for the MuiAvatar component.
+    * @returns {object} - An object containing the style overrides for the MuiAvatar component.
+    */
+    MuiAvatar: {
+      styleOverrides: {
+        root: () => ({
+          backgroundColor: theme.palette.primary.light,
+          img: {
+            objectFit: 'contain',
+          },
+        }),
+      },
+    },
   },
 
   /**
@@ -153,9 +167,9 @@ export const theme = createTheme({
    */
   palette: {
     primary: {
-      light: '#EAFFFD',
+      light: '#ffe2be',
       main: '#eb8f1b',
-      dark: '#007A6F',
+      dark: '#d57b0a',
     },
     secondary: {
       light: '#CCE9F0',

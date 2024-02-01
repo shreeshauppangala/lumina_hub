@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { Avatar, Box, Typography, styled } from '@mui/material';
+import Link from 'next/link';
 import Slider, { Settings } from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -44,11 +45,11 @@ const CarouselCard = (props: PropsI) => {
   const { heading, productsData } = props;
 
   const ProductCard = ({ image, name, price }: ProductCardI) => (
-    <Box mt={12}>
+    <Link href="/[name]" as={`/${name}`}>
       <ProductImage variant='square' src={image} alt={name} />
       <Typography variant='body2' mt={6}>{name}</Typography>
       <Typography variant='h4' mt={2}>{price}</Typography>
-    </Box>
+    </Link>
   )
 
   const settings: Settings = {

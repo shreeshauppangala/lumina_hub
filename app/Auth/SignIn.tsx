@@ -32,7 +32,7 @@ const SignIn = () => {
       open={openSignIn}
       aria-labelledby='alert-dialog-title'
       aria-describedby='alert-dialog-description'
-      onClose={() => { reset() }}
+      onClose={() => { setOpenSignIn(false); reset() }}
     >
       <DialogTitle variant='h1' textAlign='center'>
         Log In
