@@ -2,7 +2,7 @@
 import React from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { Box, Button, styled } from '@mui/material';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 export const PaymentContainer = styled(Box)(({ theme }) => ({
   display: 'grid',
@@ -36,7 +36,7 @@ const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
 
-  const { control, handleSubmit } = useForm({
+  const { handleSubmit } = useForm({
     mode: 'all',
   });
 
@@ -55,11 +55,7 @@ const CheckoutForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <PaymentContainer>
-        <Controller
-          name='card'
-          control={control}
-          render={({ field }) => <CardElement {...field} />}
-        />
+        <CardElement />
         <Button type='submit' disabled={!stripe} className='checkout_button' variant='contained'>
           Proceed to Buy
         </Button>
