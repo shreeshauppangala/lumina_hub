@@ -44,17 +44,23 @@ export const CheckoutDialogContainer = styled(Dialog)(({ theme }) => ({
     width: '50%',
     padding: theme.spacing(12, 16),
     borderRadius: theme.spacing(8),
-    backgroundColor: theme.palette.common.white,
+    color: theme.palette.common.white,
+    backgroundColor: theme.palette.primary.main,
 
     '.MuiDialogTitle-root': {
       padding: theme.spacing(0),
-      marginBottom: theme.spacing(4),
+      marginBottom: theme.spacing(14),
     },
 
     '.MuiDialogContent-root': {
       ...theme.typography.caption,
       padding: theme.spacing(0),
       marginBottom: theme.spacing(6),
+
+      '.product_image': {
+        width: theme.spacing(40),
+        height: theme.spacing(40),
+      },
     },
   },
 }));

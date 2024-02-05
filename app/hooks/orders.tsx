@@ -16,7 +16,7 @@ const OrdersContext = createContext<any>(null);
 export const useOrders = (): OrdersI => useContext(OrdersContext);
 
 const useOrdersFunc = () => {
-  const [openCheckoutModal, setOpenCheckoutModal] = useState(true);
+  const [openCheckoutModal, setOpenCheckoutModal] = useState(false);
   return {
     openCheckoutModal,
     setOpenCheckoutModal,

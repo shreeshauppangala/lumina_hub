@@ -2,15 +2,16 @@
 
 import React, { useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
-import { useRouter } from 'next/navigation';
+import { hooks } from '@/app/hooks';
 import { MediumGreyCartIcon } from '@/app/Assets/Icons';
 import { getAmountWithCommas } from '@/app/utils';
 import { Breadcrumb } from '../../Components';
 import { DetailsContainer, ListedImages, PreviewImage, PriceText, AddToCart } from '../styles';
+import CheckoutModal from '../CheckoutModal';
 
 const Page = () => {
   const [previewImageIndex, setPreviewImageIndex] = useState(0);
-  const router = useRouter();
+  const { setOpenCheckoutModal } = hooks.useOrders();
 
   const images = [
     'https://5.imimg.com/data5/AU/ZY/UK/SELLER-86701761/led-bulb-10-volt.jpg',
@@ -51,7 +52,11 @@ const Page = () => {
               Watts :
             </Typography>
             <Box display='flex' gap={12} mt={10} alignItems='center'>
-              <Button color='primary' variant='contained' onClick={() => router.push('/cart')}>
+              <Button
+                color='primary'
+                variant='contained'
+                onClick={() => setOpenCheckoutModal(true)}
+              >
                 Buy Now
               </Button>
               <AddToCart variant='contained'>
@@ -61,6 +66,7 @@ const Page = () => {
           </Box>
         </Box>
       </Box>
+      <CheckoutModal />
     </DetailsContainer>
   );
 };

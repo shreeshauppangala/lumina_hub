@@ -27,10 +27,6 @@ export const CartContainer = styled(Box)(() => ({
     color: theme.palette.common.white,
     borderRadius: theme.spacing(12),
     height: 'fit-content',
-
-    '.checkout_button': {
-      color: theme.palette.common.white,
-    },
   },
 
   '.product_image': {

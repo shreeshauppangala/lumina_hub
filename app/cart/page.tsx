@@ -2,10 +2,10 @@
 
 import React, { useEffect, useState } from 'react';
 import { Avatar, Box, Button, Checkbox, Divider, IconButton, Typography } from '@mui/material';
-import { Breadcrumb, SearchableDropdown } from '../Components';
+import { Breadcrumb, SearchableDropdown, Stripe } from '../Components';
 import { RedLargeDeleteIcon } from '../Assets/Icons';
 import { CartContainer, quantityDropdown } from './styles';
-import { getAmountWithCommas } from '../utils';
+import { getAmountWithCommas, getQuantityOptions } from '../utils';
 
 const Cart = () => {
   const [quantity, setQuantity] = useState<null | { quantity: number; id: string }>(null);
@@ -50,16 +50,6 @@ const Cart = () => {
     },
   ];
 
-  const getOptions = () => {
-    const generatedArray = [];
-
-    for (let i = 0; i <= 10; i += 1) {
-      generatedArray.push({ label: i === 0 ? `${i.toString()} (delete)` : i.toString(), value: i });
-    }
-
-    return generatedArray;
-  };
-
   const handleCheckboxChange = (id: string) => {
     if (selectedItems.includes(id)) {
       setSelectedItems(selectedItems.filter((item) => item !== id));
@@ -91,7 +81,7 @@ const Cart = () => {
               </Button>
             )}
           </Box>
-          <Box display='grid' gap={10} mt={12}>
+          <Box display='grid' gap={10} mt={12} maxHeight='50vh' overflow='auto'>
             {data.map((item) => (
               <>
                 <Box key={item.name} display='flex' justifyContent='space-between' flexWrap='wrap'>
@@ -108,7 +98,7 @@ const Cart = () => {
                       <Box mt={5} display='flex' alignItems='center'>
                         <SearchableDropdown
                           value={{ label: item.quantity, value: item.quantity }}
-                          options={getOptions()}
+                          options={getQuantityOptions()}
                           onChange={(value) => setQuantity({ quantity: value, id: item.id })}
                           styles={quantityDropdown}
                           dropdownInnerText='Qty:'
@@ -147,8 +137,8 @@ const Cart = () => {
               <Typography>{getAmountWithCommas(100)}</Typography>
             </Box>
             <Box display='flex' justifyContent='space-between'>
-              <Typography variant='h3'>Total</Typography>
-              <Typography variant='h3'>{getAmountWithCommas(100)}</Typography>
+              <Typography variant='h4'>Total</Typography>
+              <Typography variant='h4'>{getAmountWithCommas(100)}</Typography>
             </Box>
             <Box display='flex' justifyContent='space-between' mt={20}>
               <Typography>Address</Typography>
@@ -159,9 +149,9 @@ const Cart = () => {
                 <Typography textAlign='right'>+91 9633301322</Typography>
               </Box>
             </Box>
-            <Button className='checkout_button' variant='contained' color='success'>
-              Proceed to Buy
-            </Button>
+
+            <Typography variant='h4'>Payment</Typography>
+            <Stripe />
           </Box>
         </Box>
       </Box>

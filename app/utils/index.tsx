@@ -76,3 +76,13 @@ export const getAmountWithCommas = (number?: string | number, showZero?: string)
 
   return `₹ ${number.toLocaleString('en-IN')}`;
 };
+
+export const getQuantityOptions = () => {
+  const generatedArray = [];
+
+  for (let i = 0; i <= 10; i += 1) {
+    generatedArray.push({ label: i === 0 ? `${i.toString()} (delete)` : i.toString(), value: i });
+  }
+
+  return generatedArray;
+};
