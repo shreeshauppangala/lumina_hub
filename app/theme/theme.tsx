@@ -81,6 +81,7 @@ export const theme = createTheme({
       styleOverrides: {
         root: () => ({
           backgroundColor: theme.palette.primary.light,
+          borderRadius: theme.spacing(12),
           img: {
             objectFit: 'contain',
           },

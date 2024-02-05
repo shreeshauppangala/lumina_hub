@@ -1,3 +1,4 @@
 import { ProvideAuth, useAuth } from './auth';
+import { ProvideOrders, useOrders } from './orders';
 
-export { ProvideAuth, useAuth };
+export { ProvideAuth, useAuth, ProvideOrders, useOrders };

@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import Slider, { Settings } from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { getAmountWithCommas } from '../utils';
 
 interface ProductCardI {
   image: string;
@@ -21,7 +22,6 @@ interface PropsI {
 const ProductImage = styled(Avatar)(({ theme }) => ({
   width: theme.spacing(128),
   height: theme.spacing(128),
-  borderRadius: theme.spacing(12),
 }));
 
 const CarouselCardContainer = styled(Box)(({ theme }) => ({
@@ -56,7 +56,7 @@ const CarouselCard = (props: PropsI) => {
         {name}
       </Typography>
       <Typography variant='h4' mt={2}>
-        {price}
+        {getAmountWithCommas(price)}
       </Typography>
     </Box>
   );

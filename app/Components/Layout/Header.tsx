@@ -21,6 +21,7 @@ import {
   MediumPrimaryOrdersIcon,
   MediumPrimaryUserIcon,
 } from '@/app/Assets/Icons';
+import { useRouter } from 'next/navigation';
 
 const CustomAppBar = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.common.white,
@@ -70,6 +71,8 @@ const ProfileMenu = styled(Menu)(({ theme }) => ({
 const Header = () => {
   const [anchorEl, setAnchorEl] = useState<(EventTarget & HTMLDivElement) | null>(null);
   const { setOpenSignIn, setOpenSignUp } = hooks.useAuth();
+
+  const router = useRouter();
   return (
     <CustomAppBar position='fixed'>
       <CustomToolbar>
@@ -105,8 +108,8 @@ const Header = () => {
           </Box>
           <MenuItem
             onClick={() => {
+              router.push('/profile');
               setAnchorEl(null);
-              // navigate('profile');
             }}
           >
             <Box display='flex' gap={4} alignItems='center'>
@@ -116,7 +119,7 @@ const Header = () => {
           </MenuItem>
           <MenuItem
             onClick={() => {
-              // setLogoutModalOpen(true);
+              router.push('/cart');
               setAnchorEl(null);
             }}
           >
@@ -127,7 +130,7 @@ const Header = () => {
           </MenuItem>
           <MenuItem
             onClick={() => {
-              // setLogoutModalOpen(true);
+              router.push('/orders');
               setAnchorEl(null);
             }}
           >

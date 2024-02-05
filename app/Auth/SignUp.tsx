@@ -32,7 +32,8 @@ const SignUp = () => {
       email: '',
       password: '',
       confirm_password: '',
-      address: '',
+      house_name: '',
+      village: '',
       city: '',
       state: '',
       pin_code: undefined,
@@ -162,6 +163,42 @@ const SignUp = () => {
           </Box>
           <Box display='flex' gap={10}>
             <Controller
+              name='house_name'
+              control={control}
+              rules={{
+                required: 'Flat, House no., Building, Company, Apartment Is Required',
+              }}
+              render={({ field, fieldState: { error } }) => (
+                <InputField
+                  required
+                  {...field}
+                  label='Flat, House no., Building, Company, Apartment'
+                  error={!!error}
+                  helperText={error?.message}
+                  placeholder='Flat, House no., Building, Company, Apartment'
+                />
+              )}
+            />
+            <Controller
+              name='village'
+              control={control}
+              rules={{
+                required: 'Area, Street, Sector, Village Is Required',
+              }}
+              render={({ field, fieldState: { error } }) => (
+                <InputField
+                  required
+                  {...field}
+                  label='Area, Street, Sector, Village'
+                  error={!!error}
+                  helperText={error?.message}
+                  placeholder='Area, Street, Sector, Village'
+                />
+              )}
+            />
+          </Box>
+          <Box display='flex' gap={10}>
+            <Controller
               name='state'
               control={control}
               rules={{
@@ -239,28 +276,6 @@ const SignUp = () => {
               )}
             />
           </Box>
-          <Box width='50%'>
-            <Controller
-              name='address'
-              control={control}
-              rules={{
-                required: 'Address Is Required',
-              }}
-              render={({ field, fieldState: { error } }) => (
-                <InputField
-                  required
-                  {...field}
-                  label='Address'
-                  error={!!error}
-                  helperText={error?.message}
-                  placeholder='address'
-                  multiline
-                  minRows={4}
-                  maxRows={4}
-                />
-              )}
-            />
-          </Box>
           <Controller
             name='termsAgreement'
             control={control}
@@ -283,7 +298,7 @@ const SignUp = () => {
         </DialogActions>
       </form>
       <Box display='flex' alignItems='center'>
-        <Divider sx={() => ({ width: '50%' })} />
+        <Divider sx={() => ({ width: '47%' })} />
         <Typography p='0 10px'>or</Typography>
         <Divider sx={() => ({ width: '47%' })} />
       </Box>

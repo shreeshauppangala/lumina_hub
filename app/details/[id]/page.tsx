@@ -1,53 +1,16 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Avatar, Box, Button, Typography, styled } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
+import { useRouter } from 'next/navigation';
 import { MediumGreyCartIcon } from '@/app/Assets/Icons';
+import { getAmountWithCommas } from '@/app/utils';
 import { Breadcrumb } from '../../Components';
-
-const DetailsContainer = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(5, 10),
-}));
-
-const ListedImages = styled(Avatar)(({ theme }) => ({
-  width: theme.spacing(30),
-  height: theme.spacing(40),
-  borderRadius: theme.spacing(12),
-}));
-
-const PreviewImage = styled(Avatar)(({ theme }) => ({
-  width: theme.spacing(233),
-  height: theme.spacing(262),
-  borderRadius: theme.spacing(12),
-}));
-
-const PriceText = styled(Typography)(({ theme }) => ({
-  ...theme.typography.h4,
-  boxShadow: '0px 2px 4px rgba(3,3,3,0.1)',
-  borderRadius: theme.spacing(12),
-  padding: theme.spacing(5, 10),
-  color: theme.palette.grey[600],
-}));
-
-const AddToCart = styled(Button)(({ theme }) => ({
-  ...theme.typography.subtitle2,
-  backgroundColor: theme.palette.common.white,
-  color: theme.palette.grey[700],
-  boxShadow: `${theme.spacing(0, 1, 2)} rgba(3,3,3,0.1)`,
-  display: 'flex',
-  gap: theme.spacing(3),
-  alignItems: 'center',
-  padding: theme.spacing(3, 8),
-  '&:hover': {
-    backgroundColor: theme.palette.common.white,
-    color: theme.palette.grey[700],
-    boxShadow: `${theme.spacing(0, 1, 2)} rgba(3,3,3,0.1)`,
-    border: 'none',
-  },
-}));
+import { DetailsContainer, ListedImages, PreviewImage, PriceText, AddToCart } from '../styles';
 
 const Page = () => {
   const [previewImageIndex, setPreviewImageIndex] = useState(0);
+  const router = useRouter();
 
   const images = [
     'https://5.imimg.com/data5/AU/ZY/UK/SELLER-86701761/led-bulb-10-volt.jpg',
@@ -76,7 +39,7 @@ const Page = () => {
           <Box flex={2}>
             <Box display='flex' gap={24} alignItems='center'>
               <Typography variant='h3'>Name</Typography>
-              <PriceText>Price</PriceText>
+              <PriceText>{getAmountWithCommas(20)}</PriceText>
             </Box>
             <Typography variant='body2' mt={20}>
               Description
@@ -88,7 +51,7 @@ const Page = () => {
               Watts :
             </Typography>
             <Box display='flex' gap={12} mt={10} alignItems='center'>
-              <Button color='primary' variant='contained'>
+              <Button color='primary' variant='contained' onClick={() => router.push('/cart')}>
                 Buy Now
               </Button>
               <AddToCart variant='contained'>
