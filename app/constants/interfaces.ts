@@ -53,3 +53,36 @@ export interface CartDataI {
   products: ProductDetailsI[];
   total: number;
 }
+
+export interface StripeTokenI {
+  id: string;
+  object: string;
+  card: {
+    id: string;
+    object: string;
+    address_city: null;
+    address_country: null;
+    address_line1: null;
+    address_line1_check: null;
+    address_line2: null;
+    address_state: null;
+    address_zip: string;
+    address_zip_check: string;
+    brand: string;
+    country: string;
+    cvc_check: string;
+    dynamic_last4: null;
+    exp_month: number;
+    exp_year: number;
+    funding: string;
+    last4: string;
+    name: null;
+    tokenization_method: null;
+    wallet: null;
+  };
+  client_ip: string;
+  created: number;
+  livemode: false;
+  type: string;
+  used: false;
+}

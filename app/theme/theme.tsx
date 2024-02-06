@@ -46,30 +46,45 @@ export const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: ({ ownerState }) => ({
-          ...(ownerState.color === 'primary' &&
-            ownerState.variant === 'contained' && {
-              ...buttonStyles,
-              textTransform: 'initial',
-              padding: changePaddingValues(ownerState.size),
-              fontSize: ownerState.size === 'small' ? 12 : 16,
+          ...(ownerState.variant === 'contained' && {
+            ...buttonStyles,
+            ...ownerState,
+            textTransform: 'initial',
+            padding: changePaddingValues(ownerState.size),
+            fontSize: ownerState.size === 'small' ? 12 : 16,
+            borderRadius: theme.spacing(12),
+            boxShadow: 'none',
+            '&:hover': {
+              border: 'none',
+              boxShadow: 'none',
+            },
+            '&:disabled': {
+              opacity: 0.5,
+              cursor: 'not-allowed',
+              pointerEvents: 'auto',
+              boxShadow: 'none',
+            },
+          }),
+          ...(ownerState.variant === 'outlined' && {
+            ...buttonStyles,
+            ...ownerState,
+            textTransform: 'initial',
+            padding: changePaddingValues(ownerState.size),
+            borderRadius: theme.spacing(12),
+          }),
+          ...(ownerState.color === 'primary' && {
+            ...buttonStyles,
+            ...ownerState,
+            backgroundColor: theme.palette.primary.main,
+            color: theme.palette.common.white,
+            '&:hover': {
+              backgroundColor: theme.palette.primary.main,
+            },
+            '&:disabled': {
               backgroundColor: theme.palette.primary.main,
               color: theme.palette.common.white,
-              borderRadius: theme.spacing(12),
-              boxShadow: 'none',
-              '&:hover': {
-                backgroundColor: theme.palette.primary.main,
-                border: 'none',
-                boxShadow: 'none',
-              },
-              '&:disabled': {
-                backgroundColor: theme.palette.primary.main,
-                color: theme.palette.common.white,
-                opacity: 0.5,
-                cursor: 'not-allowed',
-                pointerEvents: 'auto',
-                boxShadow: 'none',
-              },
-            }),
+            },
+          }),
         }),
       },
     },
