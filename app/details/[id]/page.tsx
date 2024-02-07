@@ -59,7 +59,7 @@ const Page = () => {
               >
                 Buy Now
               </Button>
-              <AddToCart variant='contained'>
+              <AddToCart>
                 <MediumGreyCartIcon /> Add To Cart
               </AddToCart>
             </Box>

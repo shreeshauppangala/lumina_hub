@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Dialog, Typography, styled } from '@mui/material';
+import { Avatar, Box, Dialog, IconButton, Typography, styled } from '@mui/material';
 
 export const DetailsContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(5, 10),
@@ -22,7 +22,7 @@ export const PriceText = styled(Typography)(({ theme }) => ({
   color: theme.palette.grey[600],
 }));
 
-export const AddToCart = styled(Button)(({ theme }) => ({
+export const AddToCart = styled(IconButton)(({ theme }) => ({
   ...theme.typography.subtitle2,
   backgroundColor: theme.palette.common.white,
   color: theme.palette.grey[700],
@@ -31,6 +31,7 @@ export const AddToCart = styled(Button)(({ theme }) => ({
   gap: theme.spacing(3),
   alignItems: 'center',
   padding: theme.spacing(3, 8),
+  borderRadius: theme.spacing(12),
   '&:hover': {
     backgroundColor: theme.palette.common.white,
     color: theme.palette.grey[700],
