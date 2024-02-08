@@ -13,7 +13,7 @@ export const CartContainer = styled(Box)(() => ({
 
     '.select_all_button': {
       textDecoration: 'underline',
-      textTransform: 'unset',
+      color: theme.palette.primary.main,
 
       ':hover': {
         backgroundColor: 'transparent',

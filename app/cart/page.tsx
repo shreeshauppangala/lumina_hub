@@ -70,13 +70,18 @@ const Cart = () => {
                 <Typography>{selectedItems.length} items selected</Typography>
                 <Button
                   className='select_all_button'
+                  color='inherit'
                   onClick={() => setSelectedItems(data.map((product) => product.id))}
                 >
                   Select all items
                 </Button>
               </>
             ) : (
-              <Button className='select_all_button' onClick={() => setSelectedItems([])}>
+              <Button
+                color='inherit'
+                className='select_all_button'
+                onClick={() => setSelectedItems([])}
+              >
                 Deselect all items
               </Button>
             )}

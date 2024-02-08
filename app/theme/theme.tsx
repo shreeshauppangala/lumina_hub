@@ -46,6 +46,7 @@ export const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: ({ ownerState }) => ({
+          textTransform: 'unset',
           ...(ownerState.variant === 'contained' && {
             ...buttonStyles,
             ...ownerState,
