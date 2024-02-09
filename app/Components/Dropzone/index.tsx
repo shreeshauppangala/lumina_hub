@@ -18,9 +18,22 @@ const DropZone = ({ setFiles, files, sx, accept }: PropsI) => {
   const { fileRejections, acceptedFiles, getRootProps, getInputProps, isDragActive } = useDropzone({
     accept,
   });
+
+  const processImageFile = (file: File): Promise<File> =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        resolve(Object.assign(file, { preview: event.target?.result }));
+      };
+      reader.onerror = (error) => {
+        reject(error);
+      };
+      reader.readAsDataURL(file);
+    });
+
   /**
    * useEffect hook that is triggered when the `acceptedFiles` array changes.
-   * If the array is not empty, it checks the type of the first file in the array.
+   * If the array is not empty, it checks the type of each file in the array.
    * If the type includes 'image', it reads the file as a data URL and sets the file
    * with a preview image. If the type includes 'pdf', 'sheet', 'text/plain',
    * 'msword', or 'wordprocessingml.document', it sets the file with a corresponding
@@ -29,16 +42,11 @@ const DropZone = ({ setFiles, files, sx, accept }: PropsI) => {
    * @param {Array<File>} acceptedFiles - The array of accepted files.
    * @returns None
    */
+
   useEffect(() => {
-    acceptedFiles.forEach((file) => {
+    acceptedFiles.forEach(async (file) => {
       if (file.type.includes('image')) {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          file = Object.assign(file, {
-            preview: event.target?.result,
-          });
-        };
-        reader.readAsDataURL(file);
+        file = await processImageFile(file);
       } else if (file.type.includes('pdf')) {
         file = Object.assign(file, {
           preview: PDF.src,
