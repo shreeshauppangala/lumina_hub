@@ -1,23 +1,27 @@
 import React, { Dispatch, SetStateAction, useEffect } from 'react';
-import { Box, FormHelperText, SxProps, Theme, Typography } from '@mui/material';
+import { Box, FormHelperText, IconButton, SxProps, Theme, Typography } from '@mui/material';
 import Dropzone, { Accept, useDropzone } from 'react-dropzone';
 import Docs from '@/app/Assets/Images/Docs.png';
 import PDF from '@/app/Assets/Images/PDF.png';
 import Excel from '@/app/Assets/Images/Excel.png';
 import PPT from '@/app/Assets/Images/PPT.png';
+import { LargeGreyCloseIcon, LargeGreyUploadIcon, RedLargeDeleteIcon } from '@/app/Assets/Icons';
 import { CustomAvatar, DropZoneWrapper } from './styles';
 
 interface PropsI {
   setFiles: Dispatch<SetStateAction<File[]>>;
   files: File[];
   sx?: SxProps<Theme>;
-  accept?: Accept;
+  accept: Accept;
+  onlyImages?: boolean;
 }
 
-const DropZone = ({ setFiles, files, sx, accept }: PropsI) => {
+const DropZone = ({ setFiles, files, sx, accept, onlyImages }: PropsI) => {
   const { fileRejections, acceptedFiles, getRootProps, getInputProps, isDragActive } = useDropzone({
     accept,
   });
+
+  const acceptedFileExtensions = Object.values(accept).reduce((acc, val) => acc.concat(val), []);
 
   const processImageFile = (file: File): Promise<File> =>
     new Promise((resolve, reject) => {
@@ -80,31 +84,79 @@ const DropZone = ({ setFiles, files, sx, accept }: PropsI) => {
         {() => (
           <Box display='flex' gap={8} alignItems='center' justifyContent='center'>
             <Box className='dropzone' {...getRootProps()}>
-              Drag & drop file or Browse
-              <input {...getInputProps()} />
-              {isDragActive && <Typography>Drop the files here ...</Typography>}
+              <Box display='grid' gap={5}>
+                <Box display='flex' justifyContent='center'>
+                  <LargeGreyUploadIcon />
+                </Box>
+                <Typography textAlign='center'> Drag & drop file or Browse</Typography>
+                <FormHelperText className='file_name'>
+                  note: only {acceptedFileExtensions.map((extension) => extension).join(', ')} files
+                  are accepted
+                </FormHelperText>
+                <input {...getInputProps()} />
+                {isDragActive && <Typography>Drop the files here ...</Typography>}
+              </Box>
             </Box>
-            {fileRejections.length
-              ? fileRejections.map((file) =>
-                  file.errors.map((err) => (
-                    <FormHelperText error key={err.code} className='file_name'>
-                      {err.message}
-                    </FormHelperText>
-                  )),
-                )
-              : ''}
           </Box>
         )}
       </Dropzone>
+      <ul>
+        {fileRejections.length
+          ? fileRejections.map((fileRejection) =>
+              fileRejection.errors.map((err) => (
+                <li key={err.code}>
+                  <Box display='flex' gap={2}>
+                    <FormHelperText className='file_name'>
+                      {' '}
+                      {fileRejection.file.name} -{' '}
+                    </FormHelperText>
+                    <FormHelperText error className='file_name'>
+                      {err.message}
+                    </FormHelperText>
+                  </Box>
+                </li>
+              )),
+            )
+          : ''}
+      </ul>
       <Box className='preview_box'>
         {files.map((file) => {
           const fileName = typeof file === 'object' ? file.name : file;
           const preview =
             typeof file === 'object' ? (file as File & { preview: string }).preview : file;
-          return (
+          return onlyImages ? (
+            <Box className='image_box'>
+              <Box>
+                <CustomAvatar
+                  className='only_image_preview'
+                  variant='square'
+                  src={preview}
+                  alt={fileName}
+                  sx={sx}
+                />
+                <Typography className='file_name'>{fileName}</Typography>
+              </Box>
+              <IconButton
+                onClick={() => {
+                  setFiles((prevFiles) => prevFiles.filter((prevFile) => prevFile !== file));
+                }}
+              >
+                <LargeGreyCloseIcon />
+              </IconButton>
+            </Box>
+          ) : (
             <Box key={fileName} className='file'>
-              <CustomAvatar variant='square' src={preview} alt={fileName} sx={sx} />
-              <Typography className='file_name'>{fileName}</Typography>
+              <Box display='flex' alignItems='center' gap={5}>
+                <CustomAvatar variant='square' src={preview} alt={fileName} sx={sx} />
+                <Typography className='file_name'>{fileName}</Typography>
+              </Box>
+              <IconButton
+                onClick={() => {
+                  setFiles((prevFiles) => prevFiles.filter((prevFile) => prevFile !== file));
+                }}
+              >
+                <RedLargeDeleteIcon />
+              </IconButton>
             </Box>
           );
         })}

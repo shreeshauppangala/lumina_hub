@@ -1,11 +1,13 @@
 import { BlackDownArrow, BlackLeftArrow, BlackRightArrow, BlackUpArrow } from './Arrows';
 import { MediumGreyCartIcon, MediumPrimaryCartIcon } from './CartIcon';
+import { LargeGreyCloseIcon } from './CloseIcon';
 import { RedLargeDeleteIcon } from './DeleteIcon';
 import { GreyCrossEye, GreyEye } from './Eye';
 import { GreyLargeInfoIcon } from './InfoIcon';
 import { MediumPrimaryLogoutIcon } from './LogoutIcon';
 import { MediumPrimaryOrdersIcon } from './OrdersIcon';
 import SearchIcon from './Search';
+import { LargeGreyUploadIcon } from './UploadIcon';
 import { MediumPrimaryUserIcon } from './UserIcon';
 
 export {
@@ -23,4 +25,6 @@ export {
   MediumPrimaryLogoutIcon,
   RedLargeDeleteIcon,
   GreyLargeInfoIcon,
+  LargeGreyUploadIcon,
+  LargeGreyCloseIcon,
 };

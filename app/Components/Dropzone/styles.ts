@@ -6,9 +6,12 @@ export const DropZoneWrapper = styled(Box)(({ theme }) => ({
   borderRadius: theme.spacing(3),
 
   '.dropzone': {
+    display: 'flex',
+    justifyContent: 'center',
     padding: theme.spacing(10),
     border: `${theme.spacing(0.5)} dashed ${theme.palette.grey[700]}`,
     cursor: 'pointer',
+    width: '100%',
     ':hover': {
       backgroundColor: theme.palette.grey[100],
     },
@@ -19,15 +22,26 @@ export const DropZoneWrapper = styled(Box)(({ theme }) => ({
     marginTop: theme.spacing(15),
     '.file': {
       display: 'flex',
-      alignItems: 'center',
-      gap: theme.spacing(5),
+      justifyContent: 'space-between',
       backgroundColor: theme.palette.primary.light,
       borderRadius: theme.spacing(8),
       padding: theme.spacing(2.5),
-
-      '.file_name': {
-        ...theme.typography.caption,
-        color: theme.palette.grey[600],
+    },
+    '.file_name': {
+      ...theme.typography.caption,
+      color: theme.palette.grey[600],
+    },
+    '.image_box': {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'start',
+      backgroundColor: theme.palette.primary.light,
+      padding: theme.spacing(2.5),
+      borderRadius: theme.spacing(8),
+      width: 'fit-content',
+      '.only_image_preview': {
+        width: theme.spacing(100),
+        height: theme.spacing(100),
       },
     },
   },
