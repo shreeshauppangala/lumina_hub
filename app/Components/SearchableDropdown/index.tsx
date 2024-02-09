@@ -1,5 +1,5 @@
 import React, { forwardRef, useMemo } from 'react';
-import { Box, FormHelperText, Theme as MUITheme, Typography } from '@mui/material';
+import { Box, FormHelperText, InputLabel, Typography } from '@mui/material';
 import ReactSelect, {
   ActionMeta,
   StylesConfig,
@@ -22,7 +22,6 @@ interface SearchableDropDownI extends Props {
   placeholder?: string;
   helperText?: string | null;
   error?: boolean;
-  isDisabled?: boolean;
   type?: string;
   loadOptions?: (
     usersSearchText: string,
@@ -43,23 +42,11 @@ interface SearchableDropDownI extends Props {
   className?: string;
   styles?: StylesConfig;
   hidden?: boolean;
-  formLabel?: boolean;
 }
 
 const SearchableDropdown = forwardRef((props: SearchableDropDownI, ref) => {
-  const {
-    label,
-    error,
-    helperText,
-    isDisabled,
-    type,
-    width,
-    className,
-    styles,
-    formLabel,
-    required,
-    dropdownInnerText,
-  } = props;
+  const { label, error, helperText, type, width, className, styles, required, dropdownInnerText } =
+    props;
 
   const CreatableAsyncPaginate = withAsyncPaginate(CreatableSelect);
 
@@ -114,34 +101,15 @@ const SearchableDropdown = forwardRef((props: SearchableDropDownI, ref) => {
     );
   };
 
-  /**
-   * Determines the appropriate text color based on the provided theme and other conditions.
-   * @param {MUITheme} theme - The Material UI theme object.
-   * @returns {string} The color value for the text.
-   */
-  const getTextColor = (theme: MUITheme) => {
-    if (isDisabled) {
-      return theme.palette.grey[500];
-    }
-    if (error) {
-      return theme.palette.error.main;
-    }
-    if (formLabel) {
-      return theme.palette.grey[400];
-    }
-    return theme.palette.common.black;
-  };
-
   return (
     <BoxContainer width={width} className={className}>
       {label && (
-        <Typography
-          sx={(theme) => ({ color: getTextColor(theme) })}
+        <InputLabel
+          sx={(theme) => ({ color: error ? theme.palette.error.main : theme.palette.common.black })}
           className='select-label'
-          variant={formLabel ? 'caption' : 'h5'}
         >
           {label} {required && <span className='required'>*</span>}
-        </Typography>
+        </InputLabel>
       )}
       <RenderComponent
         {...props}

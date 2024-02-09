@@ -86,6 +86,23 @@ export const theme = createTheme({
               color: theme.palette.common.white,
             },
           }),
+          ...(ownerState.color === 'secondary' && {
+            ...buttonStyles,
+            ...ownerState,
+            backgroundColor: theme.palette.common.white,
+            color: theme.palette.grey[700],
+            boxShadow: `${theme.spacing(0, 1, 2)} rgba(3,3,3,0.1)`,
+            '&:hover': {
+              backgroundColor: theme.palette.common.white,
+              color: theme.palette.grey[700],
+              boxShadow: `${theme.spacing(0, 1, 2)} rgba(3,3,3,0.1)`,
+              border: 'none',
+            },
+            '&:disabled': {
+              backgroundColor: theme.palette.common.white,
+              color: theme.palette.common.white,
+            },
+          }),
         }),
       },
     },

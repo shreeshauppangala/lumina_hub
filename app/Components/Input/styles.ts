@@ -5,7 +5,6 @@ import { styled, InputLabel, Box } from '@mui/material';
 export const TextFieldComponent = styled(Box)(({ theme }) => ({
   width: '100%',
   '.MuiTextField-root': {
-    padding: theme.spacing(2.5, 0),
     '.MuiInputBase-root': {
       boxShadow: '0px 2px 8px rgba(64,60,67,0.24)',
       border: 0,

@@ -31,38 +31,23 @@ export const customStyles: CustomStyleConfig = {
    * @param {object} state - The state of the control object.
    * @returns {object} - The control object with the specified styles.
    */
-  control: (base, state: any) => {
-    const getBorderColor = () => {
-      if (state.isDisabled) {
-        return theme.palette.grey[400];
-      }
-      if (state.menuIsOpen) {
-        return theme.palette.primary.main;
-      }
-      if (state.selectProps.error) {
-        return theme.palette.error.main;
-      }
-      return theme.palette.grey[300];
-    };
+  control: (base, state: any) => ({
+    ...base,
+    cursor: state.isDisabled ? 'not-allowed' : 'default',
+    pointerEvents: 'auto',
+    background: theme.palette.common.white,
+    borderRadius: theme.spacing(12),
+    boxShadow: '0px 2px 8px rgba(64,60,67,0.24)',
+    border: `${theme.spacing(0.5)} solid ${state.isDisabled ? theme.palette.grey[400] : 'transparent'}`,
+    padding: theme.spacing(1, 0),
 
-    return {
-      ...base,
-      cursor: state.isDisabled ? 'not-allowed' : 'default',
-      pointerEvents: 'auto',
-      minHeight: theme.spacing(29),
-      background: theme.palette.common.white,
-      borderRadius: theme.spacing(2),
-      boxShadow: theme.palette.success.main,
-      border: `${theme.spacing(0.5)} solid ${getBorderColor()}`,
-
-      '&:focus': {
-        border: state.isDisabled ? '' : `${theme.spacing(0.5)} solid ${getBorderColor()}`,
-      },
-      '&:hover': {
-        backgroundColor: state.isDisabled ? '' : getBorderColor(),
-      },
-    };
-  },
+    '&:focus': {
+      border: '',
+    },
+    '&:hover': {
+      backgroundColor: '',
+    },
+  }),
   /**
    * Returns a placeholder style object for an input field based on the given base and state.
    * @param {object} base - the base style object for the placeholder
@@ -72,8 +57,9 @@ export const customStyles: CustomStyleConfig = {
   placeholder: (base, state) => ({
     ...base,
     fontWeight: 400,
-    fontSize: theme.spacing(8),
+    fontSize: theme.spacing(9),
     color: state.isDisabled ? (theme.palette.grey as unknown as string) : '#b7b7b8',
+    fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
   }),
   /**
    * Returns a modified version of the base menu list style object with updated typography and color.
@@ -95,12 +81,12 @@ export const customStyles: CustomStyleConfig = {
     ...base,
     borderRadius: theme.spacing(2),
     '&:hover': {
-      background: theme.palette.primary.main,
-      color: theme.palette.common as unknown as string,
+      background: theme.palette.primary.light,
+      color: theme.palette.common.black as unknown as string,
     },
     '&:active': {
       background: theme.palette.primary.main,
-      color: theme.palette.common as unknown as string,
+      color: theme.palette.common.white as unknown as string,
     },
   }),
   /**
@@ -111,9 +97,10 @@ export const customStyles: CustomStyleConfig = {
    */
   singleValue: (base, state) => ({
     ...base,
-    fontSize: theme.spacing(8),
+    fontSize: theme.spacing(9),
     color: theme.palette.common.black,
     opacity: state.isDisabled ? 0.6 : 1,
+    fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
   }),
 
   /**
@@ -127,7 +114,7 @@ export const customStyles: CustomStyleConfig = {
     ...base,
     background: theme.palette.primary.main,
     borderRadius: theme.spacing(16),
-    color: theme.palette.common as unknown as string,
+    color: theme.palette.common.white as unknown as string,
     padding: theme.spacing(4, 6),
   }),
 
@@ -135,7 +122,7 @@ export const customStyles: CustomStyleConfig = {
     ...base,
     fontSize: theme.spacing(6),
     fontWeight: 600,
-    color: theme.palette.common as unknown as string,
+    color: theme.palette.common.white as unknown as string,
     paddingRight: theme.spacing(4),
     marginRight: theme.spacing(2),
     borderRight: `${theme.spacing(0.5)} solid ${theme.palette.grey[300]}`,
@@ -155,7 +142,8 @@ export const customStyles: CustomStyleConfig = {
 
 export const BoxContainer = styled(Box)(() => ({
   '.select-label': {
-    marginBottom: theme.spacing(3),
+    ...theme.typography.caption,
+    marginBottom: theme.spacing(2),
   },
 
   '.required': {

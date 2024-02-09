@@ -21,4 +21,19 @@ const pattern = {
   strongPassword: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
 };
 
-export { pattern };
+const bulbTypes = [
+  {
+    label: 'LED',
+    value: 'LED',
+  },
+  {
+    label: 'Fluorescent',
+    value: 'Fluorescent',
+  },
+  {
+    label: 'Halogen',
+    value: 'Halogen',
+  },
+];
+
+export { pattern, bulbTypes };

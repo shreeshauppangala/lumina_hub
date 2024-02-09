@@ -42,6 +42,15 @@ export interface LoginFormDataI {
   password: string;
 }
 
+export interface AddProductFormDataI {
+  name: string;
+  price: number | null;
+  type: DropdownValue;
+  watt: number;
+  quantity: number;
+  description: string;
+}
+
 export interface ProductDetailsI {
   name: string;
   image: string;
