@@ -100,26 +100,26 @@ const DropZone = ({ setFiles, files, sx, accept, onlyImages }: PropsI) => {
           </Box>
         )}
       </Dropzone>
-      <ul>
-        {fileRejections.length
-          ? fileRejections.map((fileRejection) =>
-              fileRejection.errors.map((err) => (
-                <li key={err.code}>
-                  <Box display='flex' gap={2}>
-                    <FormHelperText className='file_name'>
-                      {' '}
-                      {fileRejection.file.name} -{' '}
-                    </FormHelperText>
-                    <FormHelperText error className='file_name'>
-                      {err.message}
-                    </FormHelperText>
-                  </Box>
-                </li>
-              )),
-            )
-          : ''}
-      </ul>
-      <Box className='preview_box'>
+      {fileRejections.length ? (
+        <ul>
+          {fileRejections.map((fileRejection) =>
+            fileRejection.errors.map((err) => (
+              <li key={err.code}>
+                <Box display='flex' gap={2}>
+                  <FormHelperText className='file_name'>
+                    {' '}
+                    {fileRejection.file.name} -{' '}
+                  </FormHelperText>
+                  <FormHelperText error className='file_name'>
+                    {err.message}
+                  </FormHelperText>
+                </Box>
+              </li>
+            )),
+          )}
+        </ul>
+      ) : null}
+      <Box className='preview_box' mt={files.length ? 15 : 0}>
         {files.map((file) => {
           const fileName = typeof file === 'object' ? file.name : file;
           const preview =

@@ -2,8 +2,8 @@ import { Avatar, Box, styled } from '@mui/material';
 
 export const DropZoneWrapper = styled(Box)(({ theme }) => ({
   padding: theme.spacing(10),
-  border: `${theme.spacing(0.5)} solid ${theme.palette.grey[700]}`,
-  borderRadius: theme.spacing(3),
+  boxShadow: '0px 2px 8px rgba(64,60,67,0.24)',
+  borderRadius: theme.spacing(12),
 
   '.dropzone': {
     display: 'flex',
@@ -19,7 +19,6 @@ export const DropZoneWrapper = styled(Box)(({ theme }) => ({
   '.preview_box': {
     display: 'grid',
     gap: theme.spacing(5),
-    marginTop: theme.spacing(15),
     '.file': {
       display: 'flex',
       justifyContent: 'space-between',
