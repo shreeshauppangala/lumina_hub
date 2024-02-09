@@ -151,12 +151,16 @@ const AddProduct = () => {
               )}
             />
           </Box>
-          <DropZone
-            files={productImages}
-            setFiles={setProductImages}
-            accept={{ 'image/png': ['.png', '.gif', '.jpeg', '.jpg'] }}
-            onlyImages
-          />
+          <Box width='49%'>
+            <DropZone
+              files={productImages}
+              setFiles={setProductImages}
+              accept={{ 'image/png': ['.png', '.gif', '.jpeg', '.jpg'] }}
+              onlyImages
+              label='Product Images'
+              required
+            />
+          </Box>
           <Box display='flex' justifyContent='end' gap={5}>
             <Button type='submit' variant='contained' color='primary'>
               Add Product
