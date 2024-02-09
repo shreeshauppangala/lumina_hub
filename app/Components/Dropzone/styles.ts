@@ -20,14 +20,11 @@ export const DropZoneWrapper = styled(Box)(({ theme }) => ({
     '.file': {
       display: 'flex',
       alignItems: 'center',
+      gap: theme.spacing(5),
       backgroundColor: theme.palette.primary.light,
       borderRadius: theme.spacing(8),
       padding: theme.spacing(2.5),
-      '.preview': {
-        width: theme.spacing(22),
-        height: theme.spacing(28),
-        margin: 'auto',
-      },
+
       '.file_name': {
         ...theme.typography.caption,
         color: theme.palette.grey[600],
@@ -36,9 +33,7 @@ export const DropZoneWrapper = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const CustomAvatar = styled(Avatar)(({ theme }) => ({
-  width: theme.spacing(15),
-  height: theme.spacing(15),
+export const CustomAvatar = styled(Avatar)(() => ({
   backgroundColor: 'transparent',
   '.MuiSvgIcon-root': {
     display: 'none',

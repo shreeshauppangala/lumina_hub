@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import { Box, FormHelperText, SxProps, Theme, Typography } from '@mui/material';
 import Dropzone, { Accept, useDropzone } from 'react-dropzone';
 import Docs from '@/app/Assets/Images/Docs.png';
@@ -8,8 +8,8 @@ import PPT from '@/app/Assets/Images/PPT.png';
 import { CustomAvatar, DropZoneWrapper } from './styles';
 
 interface PropsI {
-  setFiles: (file: File[] | string[]) => void;
-  files: File[] | string[];
+  setFiles: Dispatch<SetStateAction<File[]>>;
+  files: File[];
   sx?: SxProps<Theme>;
   accept?: Accept;
 }
@@ -29,44 +29,42 @@ const DropZone = ({ setFiles, files, sx, accept }: PropsI) => {
    * @param {Array<File>} acceptedFiles - The array of accepted files.
    * @returns None
    */
-  type FileWithPreview = File & { preview?: string | ArrayBuffer | null | undefined };
   useEffect(() => {
-    acceptedFiles.forEach((file: FileWithPreview) => {
-      if (file?.type.includes('image')) {
+    acceptedFiles.forEach((file) => {
+      if (file.type.includes('image')) {
         const reader = new FileReader();
         reader.onload = (event) => {
-          const image = event?.target?.result;
           file = Object.assign(file, {
-            preview: image,
+            preview: event.target?.result,
           });
         };
         reader.readAsDataURL(file);
-      } else if (file?.type.includes('pdf')) {
+      } else if (file.type.includes('pdf')) {
         file = Object.assign(file, {
-          preview: PDF,
+          preview: PDF.src,
         });
-      } else if (file?.type.includes('sheet')) {
+      } else if (file.type.includes('sheet')) {
         file = Object.assign(file, {
-          preview: Excel,
+          preview: Excel.src,
         });
       } else if (
-        file?.type.includes('text/plain') ||
-        file?.type.includes('application/msword') ||
-        file?.type.includes(
+        file.type.includes('text/plain') ||
+        file.type.includes('application/msword') ||
+        file.type.includes(
           'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
         )
       ) {
         file = Object.assign(file, {
-          preview: Docs,
+          preview: Docs.src,
         });
-      } else if (file?.type.includes('presentation') || file?.type.includes('ms-powerpoint')) {
+      } else if (file.type.includes('presentation') || file.type.includes('ms-powerpoint')) {
         file = Object.assign(file, {
-          preview: PPT,
+          preview: PPT.src,
         });
       }
+      setFiles((prevValues) => [...prevValues, file]);
     });
-    setFiles([...files, ...acceptedFiles] as File[]);
-  }, [acceptedFiles]);
+  }, [acceptedFiles, setFiles]);
 
   return (
     <DropZoneWrapper>
@@ -79,8 +77,8 @@ const DropZone = ({ setFiles, files, sx, accept }: PropsI) => {
               {isDragActive && <Typography>Drop the files here ...</Typography>}
             </Box>
             {fileRejections.length
-              ? fileRejections.map((fle) =>
-                  fle.errors.map((err) => (
+              ? fileRejections.map((file) =>
+                  file.errors.map((err) => (
                     <FormHelperText error key={err.code} className='file_name'>
                       {err.message}
                     </FormHelperText>
@@ -91,12 +89,13 @@ const DropZone = ({ setFiles, files, sx, accept }: PropsI) => {
         )}
       </Dropzone>
       <Box className='preview_box'>
-        {files?.map((file) => {
-          const fileName = typeof file === 'object' ? (file as any).name : file;
-          const preview = typeof file === 'object' ? (file as any).preview : file;
+        {files.map((file) => {
+          const fileName = typeof file === 'object' ? file.name : file;
+          const preview =
+            typeof file === 'object' ? (file as File & { preview: string }).preview : file;
           return (
             <Box key={fileName} className='file'>
-              <CustomAvatar variant='square' src={preview} alt='id' className='preview' sx={sx} />
+              <CustomAvatar variant='square' src={preview} alt={fileName} sx={sx} />
               <Typography className='file_name'>{fileName}</Typography>
             </Box>
           );
