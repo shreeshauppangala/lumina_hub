@@ -1,3 +1,14 @@
+/**
+ * The URL of the API server.
+ * @type {string}
+ */
+const BASE_SERVER_URL = process.env.BASE_SERVER_URL!;
+
+const API = {
+  signIn: 'signin',
+  signUp: 'signup',
+};
+
 const pattern = {
   email: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
   mobile: /^([+]\d{2})?[6-9]\d{9}$/,
@@ -36,4 +47,4 @@ const bulbTypes = [
   },
 ];
 
-export { pattern, bulbTypes };
+export { BASE_SERVER_URL, API, pattern, bulbTypes };
