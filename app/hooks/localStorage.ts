@@ -1,3 +1,5 @@
+'use client';
+
 import { LoggedInUserI } from 'Constants/interfaces';
 
 interface ServiceI extends Storage {
@@ -41,51 +43,47 @@ const LocalStorageService = (function () {
    * @returns None
    */
   const setToken = (tokenObj: { access_token: string; refresh_token: string }) => {
-    localStorage.setItem('access_token', tokenObj.access_token);
-    localStorage.setItem('refresh_token', tokenObj.refresh_token);
-  };
-
-  /**
-   * Retrieves the access token from the browser's local storage.
-   * @returns {string | null} The access token, or null if it is not found.
-   */
-  const getAccessToken = () => localStorage.getItem('access_token');
-
-  /**
-   * Retrieves the refresh token from the browser's local storage.
-   * @returns {string | null} The refresh token, or null if it does not exist.
-   */
-  const getRefreshToken = () => localStorage.getItem('refresh_token');
-
-  /**
-   * Clears the access token, refresh token, and user data from the local storage.
-   * @returns None
-   */
-  const clear = () => {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
-    localStorage.removeItem('user');
-  };
-
-  /**
-   * Sets the logged in user data in the local storage.
-   * @param {LoggedInUserI} data - The data of the logged in user.
-   * @returns None
-   */
-  const setUser = (data: LoggedInUserI) => {
-    localStorage.setItem('user', JSON.stringify(data));
-  };
-
-  /**
-   * Retrieves the user object from the local storage and returns it as a LoggedInUserI object.
-   * @returns {LoggedInUserI | null} The user object if it exists in the local storage, otherwise null.
-   */
-  const getUser = () => {
-    const userObjectString = localStorage.getItem('user');
-    if (userObjectString) {
-      return JSON.parse(userObjectString) as LoggedInUserI;
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('access_token', tokenObj.access_token);
+      window.localStorage.setItem('refresh_token', tokenObj.refresh_token);
     }
+  };
 
+  const getAccessToken = () => {
+    if (typeof window !== 'undefined') {
+      return window.localStorage.getItem('access_token');
+    }
+    return null;
+  };
+
+  const getRefreshToken = () => {
+    if (typeof window !== 'undefined') {
+      return window.localStorage.getItem('refresh_token');
+    }
+    return null;
+  };
+
+  const clear = () => {
+    if (typeof window !== 'undefined') {
+      window.localStorage.removeItem('access_token');
+      window.localStorage.removeItem('refresh_token');
+      window.localStorage.removeItem('user');
+    }
+  };
+
+  const setUser = (data: LoggedInUserI) => {
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('user', JSON.stringify(data));
+    }
+  };
+
+  const getUser = () => {
+    if (typeof window !== 'undefined') {
+      const userObjectString = window.localStorage.getItem('user');
+      if (userObjectString) {
+        return JSON.parse(userObjectString) as LoggedInUserI;
+      }
+    }
     return null;
   };
 

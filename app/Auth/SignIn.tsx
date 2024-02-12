@@ -21,7 +21,14 @@ import { DialogContainer } from './styles';
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { openSignIn, setOpenSignIn, setOpenSignUp, setOpenForgotPassword } = hooks.useAuth();
+  const {
+    openSignIn,
+    setOpenSignIn,
+    setOpenSignUp,
+    setOpenForgotPassword,
+    onSignIn,
+    isSignInLoading,
+  } = hooks.useAuth();
   const { control, handleSubmit, reset } = useForm<LoginFormDataI>({
     mode: 'all',
     defaultValues: {
@@ -31,7 +38,7 @@ const SignIn = () => {
   });
 
   const onSubmit = (data: LoginFormDataI) => {
-    JSON.stringify(data);
+    onSignIn(data);
   };
   return (
     <DialogContainer
@@ -112,7 +119,13 @@ const SignIn = () => {
           </Box>
         </DialogContent>
         <DialogActions>
-          <LoadingButton variant='contained' color='primary' fullWidth type='submit'>
+          <LoadingButton
+            loading={isSignInLoading}
+            variant='contained'
+            color='primary'
+            fullWidth
+            type='submit'
+          >
             Sign In
           </LoadingButton>
         </DialogActions>

@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode, createContext, useContext, useState } from 'react';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { LoginFormDataI } from '../constants/interfaces';
 import { signIn } from './controllers/auth';
@@ -14,6 +14,9 @@ interface ProvideAuthI {
 }
 
 interface AuthI {
+  onSignIn: (data: LoginFormDataI) => void;
+  isSignInLoading: boolean;
+
   openSignIn: boolean;
   setOpenSignIn: (open: boolean) => void;
   openSignUp: boolean;
@@ -33,7 +36,7 @@ const LocalStorage = LocalStorageService.getService();
 
 const useAuthFunc = () => {
   const [user, setUser] = useState(LocalStorage.getUser());
-  const [openSignIn, setOpenSignIn] = useState(false);
+  const [openSignIn, setOpenSignIn] = useState(true);
   const [openSignUp, setOpenSignUp] = useState(false);
   const [openForgotPassword, setOpenForgotPassword] = useState(false);
 
@@ -53,11 +56,7 @@ const useAuthFunc = () => {
    *   - mutateSignIn: A function that triggers the sign-in mutation.
    *   - isLoading: A boolean indicating whether the sign-in mutation is currently loading.
    */
-  const { mutate: mutateSignIn, isPending: isSignInLoading } = useMutation<
-    AxiosResponse<any, { message: string }>,
-    any,
-    any
-  >({
+  const { mutate: mutateSignIn, isPending: isSignInLoading } = useMutation({
     mutationFn: signIn,
     onSuccess: ({ data }) => {
       /**
@@ -93,23 +92,7 @@ const useAuthFunc = () => {
        * @returns None
        */
       queryClient.clear();
-      /**
-       * Navigates to a specific route based on the user's access level.
-       * If the user has access to the dashboard, it navigates to '/dashboard'.
-       * If the user has access to the project list, it navigates to '/projects'.
-       * Otherwise, it navigates to 'calendar'.
-       * @param {string} route - The route to navigate to.
-       * @param {object} options - Additional options for the navigation.
-       * @returns None
-       */
-      // navigate(
-      //   data.user?.access.dashboard
-      //     ? '/dashboard'
-      //     : data.user?.access.project_list
-      //       ? '/projects'
-      //       : 'calendar',
-      //   { replace: true },
-      // );
+      setOpenSignIn(false);
     },
     onError: (error) => {
       ShowApiErrorSnackBar(error);
@@ -119,7 +102,9 @@ const useAuthFunc = () => {
   /**
    * A function that is called when the user signs in.
    */
-  const onSignIn = (data: LoginFormDataI) => mutateSignIn(data);
+  const onSignIn = (data: LoginFormDataI) => {
+    mutateSignIn(data);
+  };
 
   return {
     onSignIn,

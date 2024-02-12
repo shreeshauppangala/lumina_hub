@@ -2,7 +2,7 @@
  * The URL of the API server.
  * @type {string}
  */
-const BASE_SERVER_URL = process.env.BASE_SERVER_URL!;
+const BASE_SERVER_URL = 'http://localhost:3000/api/';
 
 const API = {
   signIn: 'signin',
