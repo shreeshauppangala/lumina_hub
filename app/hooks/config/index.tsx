@@ -14,12 +14,13 @@ const LocalStorage = LocalStorageService.getService();
  * @returns None
  */
 axios.defaults.headers.common.Authorization = `Bearer ${LocalStorage.getAccessToken()}`;
+axios.defaults.baseURL = BASE_SERVER_URL;
 /**
  * Gets the API data from the server.
  * @param {string} url - the url to get the data from.
  * @returns {Promise} - the data from the server.
  */
-export const getApi = (url: string) => axios.get(BASE_SERVER_URL + url);
+export const getApi = (url: string) => axios.get(url);
 
 /**
  * Posts data to the API server.
@@ -27,7 +28,7 @@ export const getApi = (url: string) => axios.get(BASE_SERVER_URL + url);
  * @param {any} data - the data to send.
  * @returns {Promise} - the promise of the post.
  */
-export const postApi = (url: string, data: any) => axios.post(BASE_SERVER_URL + url, data);
+export const postApi = (url: string, data: any) => axios.post(url, data);
 
 /**
  * Posts data to the API server.
@@ -35,7 +36,7 @@ export const postApi = (url: string, data: any) => axios.post(BASE_SERVER_URL + 
  * @param {any} data - the data to send.
  * @returns {Promise} - the promise of the post.
  */
-export const patchApi = (url: string, data: any) => axios.patch(BASE_SERVER_URL + url, data);
+export const patchApi = (url: string, data: any) => axios.patch(url, data);
 
 /**
  * Sends a PUT request to the API server.
@@ -43,7 +44,7 @@ export const patchApi = (url: string, data: any) => axios.patch(BASE_SERVER_URL 
  * @param {any} [data] - the data to send with the request.
  * @returns {Promise} - the promise of the request.
  */
-export const putApi = (url: string, data: any) => axios.put(BASE_SERVER_URL + url, data);
+export const putApi = (url: string, data: any) => axios.put(url, data);
 
 /**
  * Deletes the given url from the API server.
@@ -51,4 +52,4 @@ export const putApi = (url: string, data: any) => axios.put(BASE_SERVER_URL + ur
  * @param {any} [data] - the data to send with the request.
  * @returns {Promise} - the promise of the request.
  */
-export const deleteApi = (url: string, data?: any) => axios.delete(BASE_SERVER_URL + url, data);
+export const deleteApi = (url: string, data?: any) => axios.delete(url, data);
