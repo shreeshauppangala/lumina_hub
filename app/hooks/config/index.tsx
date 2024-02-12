@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { BASE_SERVER_URL } from '@/app/constants';
 import LocalStorageService from '../localStorage';
 
 /**
@@ -14,7 +13,7 @@ const LocalStorage = LocalStorageService.getService();
  * @returns None
  */
 axios.defaults.headers.common.Authorization = `Bearer ${LocalStorage.getAccessToken()}`;
-axios.defaults.baseURL = BASE_SERVER_URL;
+axios.defaults.baseURL = '/api/';
 /**
  * Gets the API data from the server.
  * @param {string} url - the url to get the data from.

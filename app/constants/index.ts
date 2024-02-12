@@ -2,7 +2,6 @@
  * The URL of the API server.
  * @type {string}
  */
-const BASE_SERVER_URL = 'http://localhost:3000/api/';
 
 const API = {
   signIn: 'signin',
@@ -47,4 +46,4 @@ const bulbTypes = [
   },
 ];
 
-export { BASE_SERVER_URL, API, pattern, bulbTypes };
+export { API, pattern, bulbTypes };
