@@ -17,7 +17,7 @@ export const connect = async () => {
   } catch (error) {
     console.error(
       '\x1b[91m Could Not Connect to Database :\x1b[91m',
-      `\x1b[91m ${err} \x1b[91m \x1b[0m`,
+      `\x1b[91m ${error} \x1b[91m \x1b[0m`,
     );
   }
 };
