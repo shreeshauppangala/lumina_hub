@@ -13,7 +13,7 @@ const LocalStorage = LocalStorageService.getService();
  * @returns None
  */
 axios.defaults.headers.common.Authorization = `Bearer ${LocalStorage.getAccessToken()}`;
-axios.defaults.baseURL = '/api/';
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 /**
  * Gets the API data from the server.
  * @param {string} url - the url to get the data from.
