@@ -21,18 +21,11 @@ export const POST = async (request: NextRequest) => {
       return NextResponse.json({ message: 'Invalid Password' }, { status: 400 });
     }
 
-    const tokenData = {
-      // eslint-disable-next-line no-underscore-dangle
-      id: user._id,
-      full_name: user.full_name,
-      email: user.email,
-    };
-
-    const token = jwt.sign(tokenData, process.env.JWT_SECRET!, { expiresIn: '1d' });
+    const token = jwt.sign(user, process.env.JWT_SECRET!, { expiresIn: '1d' });
 
     const response = NextResponse.json({
       message: 'User logged in successfully',
-      data: tokenData,
+      data: user,
     });
     response.cookies.set('token', token, { httpOnly: true });
 

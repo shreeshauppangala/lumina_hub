@@ -1,6 +1,8 @@
 import dayjs, { Dayjs } from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
+import { NextRequest } from 'next/server';
+import jwt from 'jsonwebtoken';
 
 dayjs.extend(timezone);
 dayjs.extend(utc);
@@ -85,4 +87,18 @@ export const getQuantityOptions = () => {
   }
 
   return generatedArray;
+};
+
+export const getDataFromToken = (request: NextRequest) => {
+  try {
+    const token = request.cookies.get('token')?.value || '';
+
+    const decodedToken: { id: string } = jwt.verify(token, process.env.JWT_SECRET!) as {
+      id: string;
+    };
+
+    return decodedToken.id;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
 };
