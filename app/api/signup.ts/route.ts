@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from 'next/server';
 import bcryptjs from 'bcryptjs';
-import { sendEmail } from '@/app/utils';
+import { sendEmail } from '@/app/utils/API_utils';
 import { connect } from '../../../dbconfig';
 import User from '../../../models/users';
 
