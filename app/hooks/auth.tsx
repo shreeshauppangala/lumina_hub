@@ -2,6 +2,7 @@
 
 import { ReactNode, createContext, useContext, useState } from 'react';
 import axios from 'axios';
+import { CredentialResponse } from '@react-oauth/google';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { LoginFormDataI, SignUpFormDataI } from '../constants/interfaces';
 import { getProfileData, signIn, signUp } from './controllers/auth';
@@ -14,7 +15,7 @@ interface ProvideAuthI {
 }
 
 interface AuthI {
-  onSignIn: (data: LoginFormDataI) => void;
+  onSignIn: (data: LoginFormDataI | CredentialResponse) => void;
   isSignInLoading: boolean;
 
   onSignUp: (data: SignUpFormDataI) => void;
@@ -39,8 +40,8 @@ const LocalStorage = LocalStorageService.getService();
 
 const useAuthFunc = () => {
   const [user, setUser] = useState(LocalStorage.getUser());
-  const [openSignIn, setOpenSignIn] = useState(false);
-  const [openSignUp, setOpenSignUp] = useState(true);
+  const [openSignIn, setOpenSignIn] = useState(true);
+  const [openSignUp, setOpenSignUp] = useState(false);
   const [openForgotPassword, setOpenForgotPassword] = useState(false);
 
   const queryClient = useQueryClient();

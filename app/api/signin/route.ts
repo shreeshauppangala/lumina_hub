@@ -1,24 +1,29 @@
 import { NextResponse, NextRequest } from 'next/server';
 import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { GoogleDataI } from '@/app/constants/interfaces';
+import User from '@/models/user';
 import { connect } from '../../../dbconfig';
-import User from '../../../models/user';
 
 connect();
 
 export const POST = async (request: NextRequest) => {
   try {
     const body = await request.json();
-    const { email, password } = body;
-    const user = await User.findOne({ email });
+    const { email, password, credential: googleSigninToken } = body;
+    const decodedJWT = jwt.decode(googleSigninToken) as GoogleDataI;
+    const user = await User.findOne({ email: email || decodedJWT.email });
 
     if (!user) {
       return NextResponse.json({ message: 'User does not exists' }, { status: 404 });
     }
-    const validPassword = await bcryptjs.compare(password, user.password);
 
-    if (!validPassword) {
-      return NextResponse.json({ message: 'Invalid Password' }, { status: 400 });
+    if (password && !googleSigninToken) {
+      const validPassword = await bcryptjs.compare(password, user.password);
+
+      if (!validPassword) {
+        return NextResponse.json({ message: 'Invalid Password' }, { status: 400 });
+      }
     }
 
     const token = jwt.sign({ ...user }, process.env.JWT_SECRET!, { expiresIn: '1d' });
