@@ -23,7 +23,7 @@ import { DialogContainer } from './styles';
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const { openSignUp, setOpenSignUp, setOpenSignIn, onSignUp } = hooks.useAuth();
+  const { openSignUp, setOpenSignUp, setOpenSignIn, onSignUp, isSignUpLoading } = hooks.useAuth();
 
   const { control, handleSubmit, getValues, reset } = useForm<SignUpFormDataI>({
     mode: 'all',
@@ -292,7 +292,13 @@ const SignUp = () => {
           />
         </Box>
         <DialogActions>
-          <LoadingButton variant='contained' color='primary' fullWidth type='submit'>
+          <LoadingButton
+            loading={isSignUpLoading}
+            variant='contained'
+            color='primary'
+            fullWidth
+            type='submit'
+          >
             SignUp
           </LoadingButton>
         </DialogActions>
