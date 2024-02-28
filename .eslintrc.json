@@ -55,9 +55,10 @@
   },
   "overrides": [
     {
-      "files": ["./app/api/**", "dbconfig.ts"], // Match all JavaScript files in the /api/ directory and its subdirectories
+      "files": ["./app/api/**", "dbconfig.ts"],
       "rules": {
-        "no-console": "off"
+        "no-console": "off",
+        "no-underscore-dangle": "off"
       }
     }
   ]

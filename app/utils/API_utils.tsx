@@ -28,7 +28,7 @@ export const sendEmail = async ({
   _id: string;
 }) => {
   try {
-    const hashedToken = bcryptjs.hash(_id.toString(), 10);
+    const hashedToken = await bcryptjs.hash(_id.toString(), 10);
 
     const expiryTime = Date.now() + 3600000;
 

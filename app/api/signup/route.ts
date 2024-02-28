@@ -26,7 +26,7 @@ export const POST = async (request: NextRequest) => {
     });
     await newUser.save();
 
-    await sendEmail({ ...newUser, type: 'verifyEmail' });
+    await sendEmail({ _id: newUser._id, email: newUser.email, type: 'verifyEmail' });
 
     return NextResponse.json({ message: 'User created', data: newUser });
   } catch (error) {
