@@ -10,14 +10,6 @@
       "type": "chrome",
       "url": "http://localhost:3000",
       "webRoot": "${workspaceFolder}",
-      // "runtimeArgs": ["--remote-debugging-port=9222"],
-      // "sourceMaps": true,
-      // "sourceMapPathOverrides": {
-      //   "webpack:///./*": "${webRoot}/*",
-      //   "webpack:///src/*": "${webRoot}/*",
-      //   "webpack:///*": "*",
-      //   "webpack:///./~/*": "${webRoot}/node_modules/*"
-      // }
     }
   ]
 }
