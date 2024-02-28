@@ -6,6 +6,7 @@
 const API = {
   signIn: 'signin',
   signUp: 'signup',
+  profile: 'profile',
 };
 
 const pattern = {

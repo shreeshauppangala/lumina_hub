@@ -2,9 +2,9 @@
 
 import { ReactNode, createContext, useContext, useState } from 'react';
 import axios from 'axios';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { LoginFormDataI } from '../constants/interfaces';
-import { signIn } from './controllers/auth';
+import { getProfileData, signIn } from './controllers/auth';
 import LocalStorageService from './localStorage';
 import useToken from './useToken';
 import { useSnackBar } from './snackbar';
@@ -106,9 +106,23 @@ const useAuthFunc = () => {
     mutateSignIn(data);
   };
 
+  /**
+   * Custom hook that uses the `useQuery` hook from a query library to fetch profile data.
+   * @returns An object containing the profile data.
+   */
+  const UseGetProfileData = () =>
+    useQuery({
+      queryKey: ['profile'],
+      queryFn: () => getProfileData(),
+      select: ({ data }) => data,
+      // enabled: !!LocalStorage.getAccessToken() && !!LocalStorage.getRefreshToken(),
+    });
+
   return {
     onSignIn,
     isSignInLoading,
+
+    UseGetProfileData,
 
     user,
 
