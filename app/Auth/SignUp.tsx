@@ -23,7 +23,7 @@ import { DialogContainer } from './styles';
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const { openSignUp, setOpenSignUp, setOpenSignIn } = hooks.useAuth();
+  const { openSignUp, setOpenSignUp, setOpenSignIn, onSignUp } = hooks.useAuth();
 
   const { control, handleSubmit, getValues, reset } = useForm<SignUpFormDataI>({
     mode: 'all',
@@ -43,7 +43,7 @@ const SignUp = () => {
   });
 
   const onSubmit = (data: SignUpFormDataI) => {
-    JSON.stringify(data);
+    onSignUp(data);
   };
 
   return (

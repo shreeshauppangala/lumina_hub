@@ -3,8 +3,8 @@
 import { ReactNode, createContext, useContext, useState } from 'react';
 import axios from 'axios';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { LoginFormDataI } from '../constants/interfaces';
-import { getProfileData, signIn } from './controllers/auth';
+import { LoginFormDataI, SignUpFormDataI } from '../constants/interfaces';
+import { getProfileData, signIn, signUp } from './controllers/auth';
 import LocalStorageService from './localStorage';
 import useToken from './useToken';
 import { useSnackBar } from './snackbar';
@@ -16,6 +16,9 @@ interface ProvideAuthI {
 interface AuthI {
   onSignIn: (data: LoginFormDataI) => void;
   isSignInLoading: boolean;
+
+  onSignUp: (data: SignUpFormDataI) => void;
+  isSignUpLoading: boolean;
 
   openSignIn: boolean;
   setOpenSignIn: (open: boolean) => void;
@@ -36,8 +39,8 @@ const LocalStorage = LocalStorageService.getService();
 
 const useAuthFunc = () => {
   const [user, setUser] = useState(LocalStorage.getUser());
-  const [openSignIn, setOpenSignIn] = useState(true);
-  const [openSignUp, setOpenSignUp] = useState(false);
+  const [openSignIn, setOpenSignIn] = useState(false);
+  const [openSignUp, setOpenSignUp] = useState(true);
   const [openForgotPassword, setOpenForgotPassword] = useState(false);
 
   const queryClient = useQueryClient();
@@ -49,6 +52,24 @@ const useAuthFunc = () => {
    * @returns None
    */
   const { setToken } = useToken();
+
+  const { mutate: mutateSignUp, isPending: isSignUpLoading } = useMutation({
+    mutationFn: signUp,
+    onSuccess: () => {
+      queryClient.clear();
+      setOpenSignUp(false);
+    },
+    onError: (error) => {
+      ShowApiErrorSnackBar(error);
+    },
+  });
+
+  /**
+   * A function that is called when the user signs up.
+   */
+  const onSignUp = (data: SignUpFormDataI) => {
+    mutateSignUp(data);
+  };
 
   /**
    * A hook that handles the sign-in mutation and updates the necessary state and local storage.
@@ -121,6 +142,9 @@ const useAuthFunc = () => {
   return {
     onSignIn,
     isSignInLoading,
+
+    onSignUp,
+    isSignUpLoading,
 
     UseGetProfileData,
 
