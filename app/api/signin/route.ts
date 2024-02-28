@@ -2,7 +2,7 @@ import { NextResponse, NextRequest } from 'next/server';
 import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { connect } from '../../../dbconfig';
-import User from '../../../models/users';
+import User from '../../../models/user';
 
 connect();
 

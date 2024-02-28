@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import bcryptjs from 'bcryptjs';
 import nodemailer from 'nodemailer';
 import { Types } from 'mongoose';
-import User from '@/models/users';
+import User from '@/models/user';
 
 export const getDataFromToken = (request: NextRequest) => {
   try {

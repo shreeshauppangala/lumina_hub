@@ -2,8 +2,9 @@ import { Model, Schema, model, models } from 'mongoose';
 import { pattern } from '@/app/constants';
 import { UserI } from '@/app/constants/interfaces';
 
-interface UserDocument extends UserI {}
-interface UserModel extends Model<UserDocument> {}
+type UserDocument = UserI & Document;
+type UserModel = Model<UserDocument>;
+
 
 const userSchema = new Schema<UserDocument>({
   full_name: {

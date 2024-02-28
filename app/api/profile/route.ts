@@ -1,7 +1,7 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { getDataFromToken } from '@/app/utils/API_utils';
 import { connect } from '../../../dbconfig';
-import User from '../../../models/users';
+import User from '../../../models/user';
 
 connect();
 
