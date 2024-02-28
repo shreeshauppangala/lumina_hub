@@ -10,12 +10,12 @@ import {
   Typography,
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+import { Controller, useForm } from 'react-hook-form';
+import { GoogleLogin } from '@react-oauth/google';
 import { hooks } from '@/app/hooks';
 import { LoginFormDataI } from '@/app/constants/interfaces';
 import { GreyEye, GreyCrossEye } from '@/app/Assets/Icons';
 import { pattern } from '@/app/constants';
-import { Controller, useForm } from 'react-hook-form';
-import { GoogleLogin } from '@react-oauth/google';
 import { InputField } from '../Components';
 import { DialogContainer } from './styles';
 
