@@ -23,17 +23,37 @@ export type MultiDropdownValue =
     }[]
   | null;
 
-export interface SignUpFormDataI {
+export interface UserI {
   full_name: string;
   email: string;
   password: string & { length: { gte: 8 } };
-  confirm_password: string & { length: { gte: 8 } };
   house_name: string;
   village: string;
   city: string;
   state: string;
   pin_code: (number & { length: 6 }) | undefined;
   mobile_number: (number & { length: 10 }) | undefined;
+  isEmailVerified: boolean;
+  isAdmin: boolean;
+  cart: [];
+  forgotPasswordToken: string | null;
+  forgotPasswordTokenExpiry: Date | null;
+  verifyEmailToken: string | null;
+  verifyEmailTokenExpiry: Date | null;
+}
+
+export interface SignUpFormDataI
+  extends Omit<
+    UserI,
+    | 'cart'
+    | 'forgotPasswordToken'
+    | 'forgotPasswordTokenExpiry'
+    | 'verifyEmailToken'
+    | 'verifyEmailTokenExpiry'
+    | 'isAdmin'
+    | 'isEmailVerified'
+  > {
+  confirm_password: string & { length: { gte: 8 } };
   termsAgreement: boolean;
 }
 

@@ -9,10 +9,11 @@ connect();
 export const POST = async (request: NextRequest) => {
   try {
     const body = await request.json();
-    const { email, password } = body;
-    const user = await User.findOne({ email });
+    const { email, password, mobile_number } = body;
+    const isEmail = await User.findOne({ email });
+    const isMobile = await User.findOne({ mobile_number });
 
-    if (user) {
+    if (isEmail || isMobile) {
       return NextResponse.json({ message: 'User already exists' }, { status: 400 });
     }
 

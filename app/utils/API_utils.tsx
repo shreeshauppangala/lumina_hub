@@ -2,13 +2,14 @@ import { NextRequest } from 'next/server';
 import jwt from 'jsonwebtoken';
 import bcryptjs from 'bcryptjs';
 import nodemailer from 'nodemailer';
+import { Types } from 'mongoose';
 import User from '@/models/users';
 
 export const getDataFromToken = (request: NextRequest) => {
   try {
     const token = request.cookies.get('token')?.value || '';
 
-    const decodedToken: { id: string } = jwt.verify(token, process.env.JWT_SECRET!) as {
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET!) as {
       id: string;
     };
 
@@ -25,7 +26,7 @@ export const sendEmail = async ({
 }: {
   email: string;
   type: 'forgotPassword' | 'verifyEmail';
-  _id: string;
+  _id: Types.ObjectId;
 }) => {
   try {
     const hashedToken = await bcryptjs.hash(_id.toString(), 10);
@@ -57,9 +58,9 @@ export const sendEmail = async ({
       from: 'test@lume.com',
       to: email,
       subject: type === 'forgotPassword' ? 'Reset Password' : 'Verify Email',
-      text: `Click on the link to ${
+      html: `<p>Copy the link to your browser ${
         type === 'forgotPassword' ? 'reset your password' : 'verify your email'
-      } http://localhost:3000/${type}/${hashedToken}`,
+      }<br/> <i> http://localhost:3000/${type}/${hashedToken}</i></p>`,
     });
 
     return mailResponse;

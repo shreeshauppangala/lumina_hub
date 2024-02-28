@@ -58,7 +58,8 @@
       "files": ["./app/api/**", "dbconfig.ts"],
       "rules": {
         "no-console": "off",
-        "no-underscore-dangle": "off"
+        "no-underscore-dangle": "off",
+        "@typescript-eslint/naming-convention": "off"
       }
     }
   ]
