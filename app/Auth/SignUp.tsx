@@ -45,7 +45,7 @@ const SignUp = () => {
   });
 
   const onSubmit = (data: SignUpFormDataI) => {
-    onSignUp(data);
+    onSignUp({ ...data, picture: image[0] });
   };
 
   return (

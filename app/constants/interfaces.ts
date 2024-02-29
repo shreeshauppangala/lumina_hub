@@ -24,7 +24,7 @@ export type MultiDropdownValue =
   | null;
 
 export interface UserI {
-  picture: string;
+  picture: string | File;
   full_name: string;
   email: string;
   password: string & { length: { gte: 8 } };

@@ -27,11 +27,6 @@ const userSchema = new Schema<UserDocument>({
   password: {
     type: String,
     required: [true, 'Password is required'],
-    validate: {
-      validator: (value: string) => pattern.strongPassword.test(value),
-      message: () =>
-        'Password minimum length should be 8 and should include one lowercase,one uppercase, one digit and one special character',
-    },
   },
   house_name: {
     type: String,
