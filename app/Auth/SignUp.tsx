@@ -17,15 +17,17 @@ import { SignUpFormDataI } from '@/app/constants/interfaces';
 import { hooks } from '@/app/hooks';
 import { pattern } from '@/app/constants';
 import { GreyCrossEye, GreyEye } from '@/app/Assets/Icons';
-import { InputField } from '../Components';
+import { DropZone, InputField } from '../Components';
 import { DialogContainer } from './styles';
+import { getDecodedJWT } from '../utils';
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [image, setImage] = useState<File[] | string[]>([]);
   const { openSignUp, setOpenSignUp, setOpenSignIn, onSignUp, isSignUpLoading } = hooks.useAuth();
 
-  const { control, handleSubmit, getValues, reset } = useForm<SignUpFormDataI>({
+  const { control, handleSubmit, getValues, reset, setValue } = useForm<SignUpFormDataI>({
     mode: 'all',
     defaultValues: {
       full_name: '',
@@ -64,6 +66,11 @@ const SignUp = () => {
       </DialogContentText>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box display='grid' gap={8} mt={12}>
+          <DropZone
+            files={image}
+            setFiles={setImage}
+            accept={{ 'image/png': ['.png', '.gif', '.jpeg', '.jpg'] }}
+          />
           <Box display='flex' gap={10}>
             <Controller
               name='full_name'
@@ -311,7 +318,11 @@ const SignUp = () => {
       <Box display='flex' justifyContent='center' m='6px 0'>
         <GoogleLogin
           onSuccess={(credentialResponse) => {
-            onSignUp({ ...credentialResponse });
+            const data = getDecodedJWT(credentialResponse.credential);
+
+            setValue('email', data?.email);
+            setValue('full_name', data?.name);
+            setImage([data?.picture]);
           }}
           useOneTap
         />

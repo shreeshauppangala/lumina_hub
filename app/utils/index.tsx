@@ -1,6 +1,8 @@
 import dayjs, { Dayjs } from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
+import jwt from 'jsonwebtoken';
+import { GoogleDataI } from '../constants/interfaces';
 
 dayjs.extend(timezone);
 dayjs.extend(utc);
@@ -86,3 +88,5 @@ export const getQuantityOptions = () => {
 
   return generatedArray;
 };
+
+export const getDecodedJWT = (token: string | undefined) => jwt.decode(token!) as GoogleDataI;

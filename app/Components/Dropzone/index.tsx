@@ -5,21 +5,32 @@ import Docs from '@/app/Assets/Images/Docs.png';
 import PDF from '@/app/Assets/Images/PDF.png';
 import Excel from '@/app/Assets/Images/Excel.png';
 import PPT from '@/app/Assets/Images/PPT.png';
+import { truncateString } from '@/app/utils';
 import { LargeGreyCloseIcon, LargeGreyUploadIcon, RedLargeDeleteIcon } from '@/app/Assets/Icons';
 import { CustomAvatar, DropZoneWrapper } from './styles';
 import { InputLabelComponent } from '../Input/styles';
 
 interface PropsI {
-  setFiles: Dispatch<SetStateAction<File[]>>;
-  files: File[];
+  setFiles: Dispatch<SetStateAction<File[] | string[]>>;
+  files: File[] | string[];
   sx?: SxProps<Theme>;
   accept: Accept;
   onlyImages?: boolean;
   required?: boolean;
   label?: string;
+  multiple?: boolean;
 }
 
-const DropZone = ({ setFiles, files, sx, accept, onlyImages, required, label }: PropsI) => {
+const DropZone = ({
+  setFiles,
+  files,
+  sx,
+  accept,
+  onlyImages,
+  required,
+  label,
+  multiple = false,
+}: PropsI) => {
   const { fileRejections, acceptedFiles, getRootProps, getInputProps, isDragActive } = useDropzone({
     accept,
   });
@@ -77,9 +88,9 @@ const DropZone = ({ setFiles, files, sx, accept, onlyImages, required, label }: 
           preview: PPT.src,
         });
       }
-      setFiles((prevValues) => [...prevValues, file]);
+      setFiles((prevValues) => (multiple ? ([...prevValues, file] as File[]) : ([file] as File[])));
     });
-  }, [acceptedFiles, setFiles]);
+  }, [acceptedFiles, multiple, setFiles]);
 
   return (
     <Box>
@@ -94,7 +105,7 @@ const DropZone = ({ setFiles, files, sx, accept, onlyImages, required, label }: 
         </InputLabelComponent>
       )}
       <DropZoneWrapper>
-        <Dropzone multiple>
+        <Dropzone multiple={multiple}>
           {() => (
             <Box display='flex' gap={8} alignItems='center' justifyContent='center'>
               <Box className='dropzone' {...getRootProps()}>
@@ -148,11 +159,13 @@ const DropZone = ({ setFiles, files, sx, accept, onlyImages, required, label }: 
                     alt={fileName}
                     sx={sx}
                   />
-                  <Typography className='file_name'>{fileName}</Typography>
+                  <Typography className='file_name'>{truncateString(fileName, 60)}</Typography>
                 </Box>
                 <IconButton
                   onClick={() => {
-                    setFiles((prevFiles) => prevFiles.filter((prevFile) => prevFile !== file));
+                    setFiles(
+                      (prevFiles) => prevFiles.filter((prevFile) => prevFile !== file) as File[],
+                    );
                   }}
                 >
                   <LargeGreyCloseIcon />
@@ -160,13 +173,15 @@ const DropZone = ({ setFiles, files, sx, accept, onlyImages, required, label }: 
               </Box>
             ) : (
               <Box key={fileName} className='file'>
-                <Box display='flex' alignItems='center' gap={5}>
+                <Box display='flex' alignItems='center' gap={6}>
                   <CustomAvatar variant='square' src={preview} alt={fileName} sx={sx} />
-                  <Typography className='file_name'>{fileName}</Typography>
+                  <Typography className='file_name'>{truncateString(fileName, 60)}</Typography>
                 </Box>
                 <IconButton
                   onClick={() => {
-                    setFiles((prevFiles) => prevFiles.filter((prevFile) => prevFile !== file));
+                    setFiles(
+                      (prevFiles) => prevFiles.filter((prevFile) => prevFile !== file) as File[],
+                    );
                   }}
                 >
                   <RedLargeDeleteIcon />
