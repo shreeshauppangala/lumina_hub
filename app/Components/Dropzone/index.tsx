@@ -159,7 +159,7 @@ const DropZone = ({
                     alt={fileName}
                     sx={sx}
                   />
-                  <Typography className='file_name'>{truncateString(fileName, 60)}</Typography>
+                  <Typography className='file_name'>{truncateString(fileName, 60, '.')}</Typography>
                 </Box>
                 <IconButton
                   onClick={() => {

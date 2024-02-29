@@ -50,6 +50,7 @@ const SignUp = () => {
 
   return (
     <DialogContainer
+      sx={{ '.MuiPaper-root': { minWidth: '60%' } }}
       open={openSignUp}
       aria-labelledby='alert-dialog-title'
       aria-describedby='alert-dialog-description'
