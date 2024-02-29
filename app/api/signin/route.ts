@@ -1,7 +1,8 @@
 import { NextResponse, NextRequest } from 'next/server';
 import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { GoogleDataI } from '@/app/constants/interfaces';
+import { CredentialResponse } from '@react-oauth/google';
+import { GoogleDataI, LoginFormDataI } from '@/app/constants/interfaces';
 import User from '@/models/user';
 import { connect } from '../../../dbconfig';
 
@@ -9,9 +10,9 @@ connect();
 
 export const POST = async (request: NextRequest) => {
   try {
-    const body = await request.json();
+    const body: LoginFormDataI & CredentialResponse = await request.json();
     const { email, password, credential: googleSigninToken } = body;
-    const decodedJWT = jwt.decode(googleSigninToken) as GoogleDataI;
+    const decodedJWT = jwt.decode(googleSigninToken!) as unknown as GoogleDataI;
     const user = await User.findOne({ email: email || decodedJWT.email });
 
     if (!user) {

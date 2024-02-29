@@ -1,3 +1,4 @@
+import { SignUpFormDataI } from '@/app/constants/interfaces';
 import { NextResponse, NextRequest } from 'next/server';
 import bcryptjs from 'bcryptjs';
 import { sendEmail } from '@/app/utils/API_utils';
@@ -8,7 +9,7 @@ connect();
 
 export const POST = async (request: NextRequest) => {
   try {
-    const body = await request.json();
+    const body: SignUpFormDataI = await request.json();
     const { email, password, mobile_number } = body;
     const isEmail = await User.findOne({ email });
     const isMobile = await User.findOne({ mobile_number });
