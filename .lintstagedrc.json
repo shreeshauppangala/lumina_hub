@@ -1,4 +1,5 @@
 {
   "app/**/*.{js,jsx,ts,tsx}": "eslint --fix",
-  "app/**/*.{js,jsx,ts,tsx,css,scss,md}": "prettier --write --ignore-unknown"
+  "app/**/*.{js,jsx,ts,tsx,css,scss,md}": "prettier --write --ignore-unknown",
+  "app/**/*.ts,tsx}": "tsc --ignore-unknown"
 }
