@@ -309,7 +309,12 @@ const SignUp = () => {
         <Divider sx={() => ({ width: '47%' })} />
       </Box>
       <Box display='flex' justifyContent='center' m='6px 0'>
-        <GoogleLogin onSuccess={() => {}} onError={() => {}} useOneTap />
+        <GoogleLogin
+          onSuccess={(credentialResponse) => {
+            onSignUp({ ...credentialResponse });
+          }}
+          useOneTap
+        />
       </Box>
       <Box display='flex' justifyContent='center'>
         <DialogContentText variant='caption'>Already have an account?</DialogContentText>

@@ -18,7 +18,7 @@ interface AuthI {
   onSignIn: (data: LoginFormDataI | CredentialResponse) => void;
   isSignInLoading: boolean;
 
-  onSignUp: (data: SignUpFormDataI) => void;
+  onSignUp: (data: SignUpFormDataI | CredentialResponse) => void;
   isSignUpLoading: boolean;
 
   openSignIn: boolean;
@@ -40,8 +40,8 @@ const LocalStorage = LocalStorageService.getService();
 
 const useAuthFunc = () => {
   const [user, setUser] = useState(LocalStorage.getUser());
-  const [openSignIn, setOpenSignIn] = useState(true);
-  const [openSignUp, setOpenSignUp] = useState(false);
+  const [openSignIn, setOpenSignIn] = useState(false);
+  const [openSignUp, setOpenSignUp] = useState(true);
   const [openForgotPassword, setOpenForgotPassword] = useState(false);
 
   const queryClient = useQueryClient();

@@ -7,6 +7,10 @@ type UserModel = Model<UserDocument>;
 
 
 const userSchema = new Schema<UserDocument>({
+  picture: {
+    type: String,
+    required: [true, 'Picture is required'],
+  },
   full_name: {
     type: String,
     required: [true, 'Full name is required'],
