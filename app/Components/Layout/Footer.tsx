@@ -22,7 +22,7 @@ const ConnectLink = styled(Link)(({ theme }) => ({
 const Footer = () => (
   <FooterContainer>
     <Typography variant='h1' maxWidth='50%'>
-      FEMTOLUME ELECTRONICS
+      LUMINA HUB ELECTRONICS
     </Typography>
     <Box>
       <Typography variant='h5' mb={6}>
