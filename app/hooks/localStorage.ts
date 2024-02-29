@@ -3,9 +3,6 @@
 // import { LoggedInUserI } from 'Constants/interfaces';
 
 interface ServiceI extends Storage {
-  setToken: (tokenObj: { access_token: string; refresh_token: string }) => void;
-  getAccessToken: () => string | null;
-  getRefreshToken: () => string | null;
   clear: () => void;
   setUser: (data: any) => void;
   getUser: () => any | null;
@@ -35,34 +32,6 @@ const LocalStorageService = (function () {
     return service;
   }
 
-  /**
-   * Sets the access token and refresh token in the local storage.
-   * @param {Object} tokenObj - An object containing the access token and refresh token.
-   * @param {string} tokenObj.access_token - The access token to be stored.
-   * @param {string} tokenObj.refresh_token - The refresh token to be stored.
-   * @returns None
-   */
-  const setToken = (tokenObj: { access_token: string; refresh_token: string }) => {
-    if (typeof window !== 'undefined') {
-      window.localStorage.setItem('access_token', tokenObj.access_token);
-      window.localStorage.setItem('refresh_token', tokenObj.refresh_token);
-    }
-  };
-
-  const getAccessToken = () => {
-    if (typeof window !== 'undefined') {
-      return window.localStorage.getItem('access_token');
-    }
-    return null;
-  };
-
-  const getRefreshToken = () => {
-    if (typeof window !== 'undefined') {
-      return window.localStorage.getItem('refresh_token');
-    }
-    return null;
-  };
-
   const clear = () => {
     if (typeof window !== 'undefined') {
       window.localStorage.removeItem('access_token');
@@ -89,9 +58,6 @@ const LocalStorageService = (function () {
 
   return {
     getService,
-    setToken,
-    getAccessToken,
-    getRefreshToken,
     clear,
     getUser,
     setUser,

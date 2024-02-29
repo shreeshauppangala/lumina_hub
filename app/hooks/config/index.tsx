@@ -1,18 +1,10 @@
 import axios from 'axios';
-import LocalStorageService from '../localStorage';
-
-/**
- * Creates an instance of the LocalStorageService and returns it.
- * @returns An instance of the LocalStorageService.
- */
-const LocalStorage = LocalStorageService.getService();
 
 /**
  * Sets the Authorization header for all Axios requests to include the access token
  * retrieved from local storage.
  * @returns None
  */
-axios.defaults.headers.common.Authorization = `Bearer ${LocalStorage.getAccessToken()}`;
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 /**
  * Gets the API data from the server.
