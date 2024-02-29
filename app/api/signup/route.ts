@@ -30,7 +30,17 @@ export const POST = async (request: NextRequest) => {
 
     await sendEmail({ _id: newUser._id, email: newUser.email, type: 'verifyEmail' });
 
-    return NextResponse.json({ message: 'User created', data: newUser });
+    return NextResponse.json({
+      message: 'User created',
+      data: {
+        _id: newUser._id,
+        email: newUser.email,
+        full_name: newUser.full_name,
+        picture: newUser.picture,
+        isAdmin: newUser.isAdmin,
+        isEmailVerified: newUser.isEmailVerified,
+      },
+    });
   } catch (error) {
     return NextResponse.json({ error }, { status: 500 });
   }
