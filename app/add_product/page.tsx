@@ -13,7 +13,7 @@ const AddProductContainer = styled(Box)(({ theme }) => ({
 }));
 
 const AddProduct = () => {
-  const [productImages, setProductImages] = useState<File[]>([]);
+  const [productImages, setProductImages] = useState<File[] | string[]>([]);
   const router = useRouter();
   const { control, handleSubmit, reset } = useForm<AddProductFormDataI>({
     mode: 'all',
