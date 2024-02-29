@@ -44,7 +44,7 @@ const ContextContainer = ({ children }: { children: ReactNode }) => {
     <CustomMuiThemeProvider>
       <SnackBarProvider>
         <QueryClientProvider client={queryClient}>
-          <GoogleOAuthProvider clientId='849890460675-3o04iv7ipvdlbt8hamn98724pb27t530.apps.googleusercontent.com'>
+          <GoogleOAuthProvider clientId={process.env.NEXT_GOOGLE_CLIENT_SECRET!}>
             <hooks.ProvideAuth>
               <hooks.ProvideOrders>{children}</hooks.ProvideOrders>
             </hooks.ProvideAuth>
