@@ -3,7 +3,7 @@ import { CredentialResponse } from '@react-oauth/google';
 import { AxiosResponse } from 'axios';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { LoginFormDataI, SignUpFormDataI, SignedInUserI } from '../constants/interfaces';
-import { getProfileData, signIn, signUp } from './controllers/auth';
+import { getProfileData, signIn, signOut, signUp } from './controllers/auth';
 import LocalStorageService from './localStorage';
 import { useSnackBar } from './snackbar';
 
@@ -14,16 +14,21 @@ interface ProvideAuthI {
 interface AuthI {
   user: SignedInUserI;
 
+  openSignIn: boolean;
+  setOpenSignIn: (open: boolean) => void;
   onSignIn: (data: LoginFormDataI | CredentialResponse) => void;
   isSigningIn: boolean;
 
+  openSignUp: boolean;
+  setOpenSignUp: (open: boolean) => void;
   onSignUp: (data: SignUpFormDataI | CredentialResponse) => void;
   isSignUpLoading: boolean;
 
-  openSignIn: boolean;
-  setOpenSignIn: (open: boolean) => void;
-  openSignUp: boolean;
-  setOpenSignUp: (open: boolean) => void;
+  logoutModalOpen: boolean;
+  setLogoutModalOpen: (logoutModalOpen: boolean) => void;
+  isSigningOut: boolean;
+  onSignOut: () => void;
+
   openForgotPassword: boolean;
   setOpenForgotPassword: (openForgotPassword: boolean) => void;
 }
@@ -41,6 +46,7 @@ const useAuthFunc = () => {
   const [user, setUser] = useState(LocalStorage.getUser());
   const [openSignIn, setOpenSignIn] = useState(false);
   const [openSignUp, setOpenSignUp] = useState(false);
+  const [logoutModalOpen, setLogoutModalOpen] = useState(false);
   const [openForgotPassword, setOpenForgotPassword] = useState(false);
 
   const queryClient = useQueryClient();
@@ -111,6 +117,23 @@ const useAuthFunc = () => {
     mutateSignIn(data);
   };
 
+  const { mutate: mutateSignOut, isPending: isSigningOut } = useMutation({
+    mutationFn: signOut,
+    onSuccess: () => {
+      LocalStorageService.clear();
+      queryClient.clear();
+      setUser(null);
+      setLogoutModalOpen(false);
+    },
+    onError: (error) => {
+      ShowApiErrorSnackBar(error);
+    },
+  });
+
+  const onSignOut = () => {
+    mutateSignOut();
+  };
+
   /**
    * Custom hook that uses the `useQuery` hook from a query library to fetch profile data.
    * @returns An object containing the profile data.
@@ -129,6 +152,11 @@ const useAuthFunc = () => {
 
     onSignUp,
     isSignUpLoading,
+
+    logoutModalOpen,
+    setLogoutModalOpen,
+    isSigningOut,
+    onSignOut,
 
     UseGetProfileData,
 

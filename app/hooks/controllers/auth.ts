@@ -11,4 +11,6 @@ export const signIn = (data: LoginFormDataI) => postApi(`${API.signIn}`, data);
 
 export const signUp = (data: SignUpFormDataI) => postApi(`${API.signUp}`, data);
 
+export const signOut = () => getApi(`${API.signOut}`);
+
 export const getProfileData = () => getApi(`${API.profile}`);
