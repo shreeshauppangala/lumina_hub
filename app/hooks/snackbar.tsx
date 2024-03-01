@@ -1,5 +1,3 @@
-'use client';
-
 import React, { createContext, useContext, useState, ReactNode, useMemo } from 'react';
 import { Snackbar, Alert, styled, AlertColor } from '@mui/material';
 

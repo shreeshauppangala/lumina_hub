@@ -81,6 +81,15 @@ export interface LoginFormDataI {
   password: string;
 }
 
+export interface SignedInUserI {
+  _id: string;
+  email: string;
+  full_name: string;
+  picture: string;
+  isAdmin: boolean;
+  isEmailVerified: boolean;
+}
+
 export interface AddProductFormDataI {
   name: string;
   price: number | null;

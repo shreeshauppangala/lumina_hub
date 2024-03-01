@@ -1,11 +1,9 @@
-'use client';
-
-// import { LoggedInUserI } from 'Constants/interfaces';
+import { SignedInUserI } from '../constants/interfaces';
 
 interface ServiceI extends Storage {
   clear: () => void;
-  setUser: (data: any) => void;
-  getUser: () => any | null;
+  setUser: (data: SignedInUserI) => void;
+  getUser: () => SignedInUserI | null;
 }
 
 /**
@@ -40,7 +38,7 @@ const LocalStorageService = (function () {
     }
   };
 
-  const setUser = (data: any) => {
+  const setUser = (data: SignedInUserI) => {
     if (typeof window !== 'undefined') {
       window.localStorage.setItem('user', JSON.stringify(data));
     }
@@ -50,7 +48,7 @@ const LocalStorageService = (function () {
     if (typeof window !== 'undefined') {
       const userObjectString = window.localStorage.getItem('user');
       if (userObjectString) {
-        return JSON.parse(userObjectString) as any;
+        return JSON.parse(userObjectString) as SignedInUserI;
       }
     }
     return null;

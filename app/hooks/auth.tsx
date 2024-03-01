@@ -1,9 +1,8 @@
-'use client';
-
 import { ReactNode, createContext, useContext, useState } from 'react';
 import { CredentialResponse } from '@react-oauth/google';
+import { AxiosResponse } from 'axios';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { LoginFormDataI, SignUpFormDataI } from '../constants/interfaces';
+import { LoginFormDataI, SignUpFormDataI, SignedInUserI } from '../constants/interfaces';
 import { getProfileData, signIn, signUp } from './controllers/auth';
 import LocalStorageService from './localStorage';
 import { useSnackBar } from './snackbar';
@@ -13,6 +12,8 @@ interface ProvideAuthI {
 }
 
 interface AuthI {
+  user: SignedInUserI;
+
   onSignIn: (data: LoginFormDataI | CredentialResponse) => void;
   isSignInLoading: boolean;
 
@@ -69,25 +70,28 @@ const useAuthFunc = () => {
    *   - mutateSignIn: A function that triggers the sign-in mutation.
    *   - isLoading: A boolean indicating whether the sign-in mutation is currently loading.
    */
-  const { mutate: mutateSignIn, isPending: isSignInLoading } = useMutation({
+  const { mutate: mutateSignIn, isPending: isSignInLoading } = useMutation<
+    AxiosResponse<{ message: 'User logged in successfully'; data: SignedInUserI }, any>,
+    Error,
+    LoginFormDataI,
+    unknown
+  >({
     mutationFn: signIn,
     onSuccess: ({ data }) => {
       /**
        * Sets the user data in the local storage, including the logo image URL.
-       * @param {Object} data.user - The user data object.
-       * @param {string} data.user.logo - The logo image URL.
+       * @param {Object} data.data - The user data object.
        * @returns None
        */
-      LocalStorage.setUser({ ...data.user });
+      LocalStorage.setUser({ ...data.data });
       /**
        * Updates the user object with a new logo image URL.
        * If the logo image URL is not provided or is empty, it sets the logo property to an empty string.
        * @param {Object} data - The data object containing the user and logo information.
-       * @param {Object} data.user - The user object to update.
-       * @param {string} data.user.logo - The current logo image URL.
+       * @param {Object} data.data - The user object to update.
        * @returns None
        */
-      setUser({ ...data.user });
+      setUser({ ...data.data });
       /**
        * Clears the query cache of the query client.
        * @returns None
