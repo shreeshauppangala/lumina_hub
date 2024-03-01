@@ -15,7 +15,7 @@ interface AuthI {
   user: SignedInUserI;
 
   onSignIn: (data: LoginFormDataI | CredentialResponse) => void;
-  isSignInLoading: boolean;
+  isSigningIn: boolean;
 
   onSignUp: (data: SignUpFormDataI | CredentialResponse) => void;
   isSignUpLoading: boolean;
@@ -39,7 +39,7 @@ const LocalStorage = LocalStorageService.getService();
 
 const useAuthFunc = () => {
   const [user, setUser] = useState(LocalStorage.getUser());
-  const [openSignIn, setOpenSignIn] = useState(true);
+  const [openSignIn, setOpenSignIn] = useState(false);
   const [openSignUp, setOpenSignUp] = useState(false);
   const [openForgotPassword, setOpenForgotPassword] = useState(false);
 
@@ -70,7 +70,7 @@ const useAuthFunc = () => {
    *   - mutateSignIn: A function that triggers the sign-in mutation.
    *   - isLoading: A boolean indicating whether the sign-in mutation is currently loading.
    */
-  const { mutate: mutateSignIn, isPending: isSignInLoading } = useMutation<
+  const { mutate: mutateSignIn, isPending: isSigningIn } = useMutation<
     AxiosResponse<{ message: 'User logged in successfully'; data: SignedInUserI }, any>,
     Error,
     LoginFormDataI,
@@ -125,7 +125,7 @@ const useAuthFunc = () => {
 
   return {
     onSignIn,
-    isSignInLoading,
+    isSigningIn,
 
     onSignUp,
     isSignUpLoading,

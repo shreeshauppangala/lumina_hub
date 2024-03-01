@@ -49,7 +49,6 @@ export const theme = createTheme({
           textTransform: 'unset',
           ...(ownerState.variant === 'contained' && {
             ...buttonStyles,
-            ...ownerState,
             textTransform: 'initial',
             padding: changePaddingValues(ownerState.size),
             fontSize: ownerState.size === 'small' ? 12 : 16,
@@ -68,14 +67,12 @@ export const theme = createTheme({
           }),
           ...(ownerState.variant === 'outlined' && {
             ...buttonStyles,
-            ...ownerState,
             textTransform: 'initial',
             padding: changePaddingValues(ownerState.size),
             borderRadius: theme.spacing(12),
           }),
           ...(ownerState.color === 'primary' && {
             ...buttonStyles,
-            ...ownerState,
             backgroundColor: theme.palette.primary.main,
             color: theme.palette.common.white,
             '&:hover': {
@@ -88,7 +85,6 @@ export const theme = createTheme({
           }),
           ...(ownerState.color === 'secondary' && {
             ...buttonStyles,
-            ...ownerState,
             backgroundColor: theme.palette.common.white,
             color: theme.palette.grey[700],
             boxShadow: `${theme.spacing(0, 1, 2)} rgba(3,3,3,0.1)`,
