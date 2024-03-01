@@ -2,14 +2,10 @@
 
 import { ReactNode } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { GoogleOAuthProvider } from '@react-oauth/google';
-import * as muiCustomTheme from '@/app/theme/theme';
 import * as snack from '@/app/hooks/snackbar';
 import { hooks } from './hooks';
 
 const ContextContainer = ({ children }: { children: ReactNode }) => {
-  const { CustomMuiThemeProvider } = muiCustomTheme;
-
   const { SnackBarProvider } = snack;
 
   /**
@@ -41,17 +37,13 @@ const ContextContainer = ({ children }: { children: ReactNode }) => {
     },
   });
   return (
-    <CustomMuiThemeProvider>
-      <SnackBarProvider>
-        <QueryClientProvider client={queryClient}>
-          <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET!}>
-            <hooks.ProvideAuth>
-              <hooks.ProvideOrders>{children}</hooks.ProvideOrders>
-            </hooks.ProvideAuth>
-          </GoogleOAuthProvider>
-        </QueryClientProvider>
-      </SnackBarProvider>
-    </CustomMuiThemeProvider>
+    <SnackBarProvider>
+      <QueryClientProvider client={queryClient}>
+        <hooks.ProvideAuth>
+          <hooks.ProvideOrders>{children}</hooks.ProvideOrders>
+        </hooks.ProvideAuth>
+      </QueryClientProvider>
+    </SnackBarProvider>
   );
 };
 

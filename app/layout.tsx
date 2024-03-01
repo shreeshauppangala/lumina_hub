@@ -1,6 +1,8 @@
 import { ReactNode, StrictMode } from 'react';
 import { Roboto } from 'next/font/google';
 import { Box } from '@mui/material';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import * as muiCustomTheme from '@/app/theme/theme';
 import Footer from './Components/Layout/Footer';
 import Header from './Components/Layout/Header';
 import ContextContainer from './context';
@@ -11,18 +13,25 @@ const roboto = Roboto({
   weight: ['100', '300', '400', '500', '700', '900'],
 });
 
-const RootLayout = ({ children }: { children: ReactNode }) => (
-  <html lang='en'>
-    <body className={roboto.className}>
-      <StrictMode>
-        <ContextContainer>
-          <Header />
-          <Box mt={42}>{children}</Box>
-          <Footer />
-        </ContextContainer>
-      </StrictMode>
-    </body>
-  </html>
-);
+const RootLayout = ({ children }: { children: ReactNode }) => {
+  const { CustomMuiThemeProvider } = muiCustomTheme;
+  return (
+    <html lang='en'>
+      <body className={roboto.className}>
+        <StrictMode>
+          <CustomMuiThemeProvider>
+            <ContextContainer>
+              <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET!}>
+                <Header />
+                <Box mt={42}>{children}</Box>
+                <Footer />
+              </GoogleOAuthProvider>
+            </ContextContainer>
+          </CustomMuiThemeProvider>
+        </StrictMode>
+      </body>
+    </html>
+  );
+};
 
 export default RootLayout;
