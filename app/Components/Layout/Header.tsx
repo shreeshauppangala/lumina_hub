@@ -38,7 +38,6 @@ const CustomToolbar = styled(Toolbar)(() => ({
 const ProfileMenu = styled(Menu)(({ theme }) => ({
   '.MuiPaper-root': {
     padding: theme.spacing(8),
-    width: theme.spacing(98),
   },
   '.name': {
     ...theme.typography.body2,

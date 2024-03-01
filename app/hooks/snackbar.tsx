@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode, useMemo } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useMemo, useCallback } from 'react';
 import { Snackbar, Alert, styled, AlertColor } from '@mui/material';
 
 type SnackBarContextActions = {
@@ -38,41 +38,41 @@ const SnackBarProvider = ({ children }: SnackBarContextProviderProps) => {
    * @param {string} text - the text to show in the snackbar.
    * @returns None
    */
-  const ShowSuccessSnackBar = (text: string) => {
+  const ShowSuccessSnackBar = useCallback((text: string) => {
     showSnackBar(text, 'success');
-  };
+  }, []);
   /**
    * Shows a snackbar with the given text.
    * @param {string} text - the text to show in the snackbar.
    * @returns None
    */
-  const ShowErrorSnackBar = (text: string) => {
+  const ShowErrorSnackBar = useCallback((text: string) => {
     showSnackBar(text, 'error');
-  };
+  }, []);
   /**
    * Shows a snackbar with the given text.
    * @param {string} text - the text to show in the snackbar.
    * @returns None
    */
-  const ShowInfoSnackBar = (text: string) => {
+  const ShowInfoSnackBar = useCallback((text: string) => {
     showSnackBar(text, 'info');
-  };
+  }, []);
 
   /**
    * Shows a snackbar with the given text.
    * @param {string} text - the text to show in the snackbar.
    * @returns None
    */
-  const ShowCautionSnackBar = (text: string) => {
+  const ShowCautionSnackBar = useCallback((text: string) => {
     showSnackBar(text, 'warning');
-  };
+  }, []);
 
   /**
    * Displays an error message in a snackbar based on the given error object.
    * @param err - The error object to display.
    * @returns None
    */
-  const ShowApiErrorSnackBar = (err: any) => {
+  const ShowApiErrorSnackBar = useCallback((err: any) => {
     const result: any = {};
     /**
      * Iterates through the keys of the error response data object and adds any non-empty
@@ -91,18 +91,21 @@ const SnackBarProvider = ({ children }: SnackBarContextProviderProps) => {
         : err.response.data.meta.message;
 
     showSnackBar(error, 'error');
-  };
+  }, []);
 
   /**
    * Shows a snackbar with the given message.
    * @param {string} err - the message to show in the snackbar.
    * @returns None
    */
-  const ShowApiInfoSnackBar = (err: any) => {
-    if (err.response.data) {
-      ShowInfoSnackBar(err.response.data.message);
-    } else ShowInfoSnackBar("Something went wrong. We're looking to see what happened!");
-  };
+  const ShowApiInfoSnackBar = useCallback(
+    (err: any) => {
+      if (err.response.data) {
+        ShowInfoSnackBar(err.response.data.message);
+      } else ShowInfoSnackBar("Something went wrong. We're looking to see what happened!");
+    },
+    [ShowInfoSnackBar],
+  );
 
   /**
    * A styled component that can be used to style the alert component.
@@ -118,7 +121,7 @@ const SnackBarProvider = ({ children }: SnackBarContextProviderProps) => {
     };
     const backgroundColor = severityToPalette[severity!];
     return {
-      ...theme.typography.h5,
+      ...theme.typography.caption,
       backgroundColor,
       color: theme.palette.common.white,
       '.MuiSvgIcon-root': {
@@ -140,7 +143,14 @@ const SnackBarProvider = ({ children }: SnackBarContextProviderProps) => {
       ShowApiInfoSnackBar,
       ShowInfoSnackBar,
     }),
-    [],
+    [
+      ShowApiErrorSnackBar,
+      ShowApiInfoSnackBar,
+      ShowCautionSnackBar,
+      ShowErrorSnackBar,
+      ShowInfoSnackBar,
+      ShowSuccessSnackBar,
+    ],
   );
   return (
     <SnackBarContext.Provider value={value}>
