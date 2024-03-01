@@ -1,29 +1,10 @@
-'use client';
-
 import React from 'react';
-import { Box, Typography, styled } from '@mui/material';
-import Link from 'next/link';
-
-const FooterContainer = styled(Box)(({ theme }) => ({
-  backgroundColor: theme.palette.common.white,
-  borderTop: `${theme.spacing(0.5)} solid ${theme.palette.grey[200]}`,
-  padding: theme.spacing(10, 60),
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-}));
-
-const ConnectLink = styled(Link)(({ theme }) => ({
-  ...theme.typography.body2,
-  color: theme.palette.common.black,
-  textDecoration: 'none',
-}));
+import { Box, Typography } from '@mui/material';
+import { ConnectLink, FooterContainer } from './styles';
 
 const Footer = () => (
   <FooterContainer>
-    <Typography variant='h1' maxWidth='50%'>
-      LUMINA HUB ELECTRONICS
-    </Typography>
+    <Typography variant='h1'>LUMINA HUB</Typography>
     <Box>
       <Typography variant='h5' mb={6}>
         connect

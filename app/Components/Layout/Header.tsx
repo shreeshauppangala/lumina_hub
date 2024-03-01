@@ -1,18 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import {
-  AppBar,
-  Avatar,
-  Box,
-  Button,
-  Divider,
-  Menu,
-  MenuItem,
-  Toolbar,
-  Typography,
-  styled,
-} from '@mui/material';
+import { Avatar, Box, Button, Divider, MenuItem, Typography } from '@mui/material';
 import { hooks } from '@/app/hooks';
 import { SignIn, SignUp, ForgotPassword, SignOut } from '@/app/Auth';
 import {
@@ -22,38 +11,7 @@ import {
   MediumPrimaryUserIcon,
 } from '@/app/Assets/Icons';
 import { useRouter } from 'next/navigation';
-
-const CustomAppBar = styled(AppBar)(({ theme }) => ({
-  backgroundColor: theme.palette.common.white,
-  boxShadow: 'none',
-  borderBottom: `${theme.spacing(0.5)} solid ${theme.palette.grey[200]}`,
-  padding: theme.spacing(5),
-}));
-
-const CustomToolbar = styled(Toolbar)(() => ({
-  display: 'flex',
-  justifyContent: 'end',
-}));
-
-const ProfileMenu = styled(Menu)(({ theme }) => ({
-  '.MuiPaper-root': {
-    padding: theme.spacing(8),
-  },
-  '.name': {
-    ...theme.typography.body2,
-    color: theme.palette.grey[700],
-  },
-  '.email': {
-    ...theme.typography.caption,
-    color: theme.palette.grey[500],
-  },
-  li: {
-    padding: theme.spacing(5),
-    ':not(:last-of-type)': {
-      borderBottom: `${theme.spacing(0.5)} solid ${theme.palette.grey[300]}`,
-    },
-  },
-}));
+import { CustomAppBar, CustomToolbar, ProfileMenu } from './styles';
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = useState<(EventTarget & HTMLDivElement) | null>(null);
