@@ -55,7 +55,7 @@
   },
   "overrides": [
     {
-      "files": ["./app/api/**", "./app/utils/API_utils.tsx", "middleware.ts"],
+      "files": ["./app/api/**", "./app/utils/API_utils.tsx"],
       "rules": {
         "no-underscore-dangle": "off",
         "@typescript-eslint/naming-convention": "off"
