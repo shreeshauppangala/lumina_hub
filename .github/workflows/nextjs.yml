@@ -70,6 +70,11 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
+        env:
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          MONGO_URL: ${{ secrets.MONGO_URL }}
+          NEXT_PUBLIC_BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL }}
+          NEXT_PUBLIC_GOOGLE_CLIENT_SECRET: ${{ secrets.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET }}
 
   # Deployment job
   deploy:
