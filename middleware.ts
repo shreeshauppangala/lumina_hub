@@ -3,7 +3,11 @@ import type { NextRequest } from 'next/server';
 
 // This function can be marked `async` if using `await` inside
 export const middleware = (request: NextRequest) => {
-  const isPublic = ['/signin', '/signup', '/verify_email'].includes(request.nextUrl.pathname);
+  const pathName = request.nextUrl.pathname;
+
+  const isPublic = ['/signin', '/signup', '/verify_email'].includes(pathName);
+
+  // const adminRoute = ['/add_product'].includes(pathName);
 
   const token = request.cookies.get('token')?.value;
 
@@ -14,5 +18,5 @@ export const middleware = (request: NextRequest) => {
 };
 
 export const config = {
-  matcher: ['/signin', '/signout', '/signup', '/verify_email', '/profile'],
+  matcher: ['/signin', '/signout', '/signup', '/verify_email', '/profile', '/add_product'],
 };

@@ -55,11 +55,16 @@
   },
   "overrides": [
     {
-      "files": ["./app/api/**", "dbconfig.ts","./app/utils/API_utils.tsx"],
+      "files": ["./app/api/**", "./app/utils/API_utils.tsx", "middleware.ts"],
       "rules": {
-        "no-console": "off",
         "no-underscore-dangle": "off",
         "@typescript-eslint/naming-convention": "off"
+      }
+    },
+    {
+      "files": ["dbconfig.ts"],
+      "rules": {
+        "no-console": "off"
       }
     }
   ]
