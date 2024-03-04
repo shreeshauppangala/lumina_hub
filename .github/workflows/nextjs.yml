@@ -76,7 +76,8 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: exported-site
-          path: ./out
+          path: .next
+          if-no-files-found: error
 
   # Deployment job
   deploy:
