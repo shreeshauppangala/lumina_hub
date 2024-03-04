@@ -16,7 +16,7 @@ const Profile = () => {
 
   const formData = {
     ...data!,
-    confirm_password: '' as string & { length: { gte: 8 } },
+    confirm_password: undefined as unknown as string & { length: { gte: 8 } },
     termsAgreement: true,
   };
 

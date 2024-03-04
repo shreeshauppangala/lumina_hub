@@ -7,6 +7,7 @@ import { SignUpFormDataI } from '../constants/interfaces';
 import { DropZone, InputField } from '../Components';
 import { pattern } from '../constants';
 import { GreyCrossEye, GreyEye } from '../Assets/Icons';
+import { hooks } from '../hooks';
 
 interface PropsI {
   formData: SignUpFormDataI | undefined;
@@ -16,7 +17,10 @@ const ProfileForm = ({ formData }: PropsI) => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [image, setImage] = useState<File[] | string[]>([]);
 
+  const { isProfileUpdating, onUpdateProfile } = hooks.useAuth();
+
   const router = useRouter();
+
   const { control, handleSubmit, reset, getValues } = useForm<SignUpFormDataI>({
     mode: 'all',
     defaultValues: formData,
@@ -28,7 +32,7 @@ const ProfileForm = ({ formData }: PropsI) => {
   }, [formData]);
 
   const onSubmit = (data: SignUpFormDataI) => {
-    JSON.stringify(data);
+    onUpdateProfile(data);
   };
 
   return (
@@ -66,6 +70,7 @@ const ProfileForm = ({ formData }: PropsI) => {
             }}
             render={({ field, fieldState: { error } }) => (
               <InputField
+                disabled
                 required
                 type='email'
                 {...field}
@@ -82,7 +87,6 @@ const ProfileForm = ({ formData }: PropsI) => {
             name='password'
             control={control}
             rules={{
-              required: 'Password Is Required',
               pattern: {
                 value: pattern.strongPassword,
                 message: `Password minimum length should be 8 and should include one lowercase,
@@ -92,7 +96,6 @@ const ProfileForm = ({ formData }: PropsI) => {
             render={({ field, fieldState: { error } }) => (
               <InputField
                 type={showPassword ? 'text' : 'password'}
-                required
                 {...field}
                 label='Password'
                 error={!!error}
@@ -112,14 +115,12 @@ const ProfileForm = ({ formData }: PropsI) => {
             name='confirm_password'
             control={control}
             rules={{
-              required: 'Password Is Required',
               validate: (value) =>
                 value !== getValues('password') ? 'Password did not match' : undefined,
             }}
             render={({ field, fieldState: { error } }) => (
               <InputField
                 type={showConfirmPassword ? 'text' : 'password'}
-                required
                 {...field}
                 label='Confirm Password'
                 error={!!error}
@@ -253,7 +254,7 @@ const ProfileForm = ({ formData }: PropsI) => {
         </Box>
         <Box display='flex' justifyContent='end' gap={10}>
           <LoadingButton
-            // loading={isSignUpLoading}
+            loading={isProfileUpdating}
             variant='contained'
             color='primary'
             type='submit'

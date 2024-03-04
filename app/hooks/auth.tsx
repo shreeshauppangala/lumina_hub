@@ -2,8 +2,9 @@ import { ReactNode, createContext, useContext, useState } from 'react';
 import { CredentialResponse } from '@react-oauth/google';
 import { AxiosResponse } from 'axios';
 import { UseQueryResult, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 import { LoginFormDataI, SignUpFormDataI, SignedInUserI, UserI } from '../constants/interfaces';
-import { getProfileData, signIn, signOut, signUp } from './controllers/auth';
+import { getProfileData, signIn, signOut, signUp, updateProfile } from './controllers/auth';
 import LocalStorageService from './localStorage';
 import { useSnackBar } from './snackbar';
 
@@ -32,6 +33,8 @@ interface AuthI {
   openForgotPassword: boolean;
   setOpenForgotPassword: (openForgotPassword: boolean) => void;
 
+  isProfileUpdating: boolean;
+  onUpdateProfile: (data: SignUpFormDataI) => void;
   UseGetProfileData: () => UseQueryResult<UserI, Error>;
 }
 
@@ -51,8 +54,10 @@ const useAuthFunc = () => {
   const [logoutModalOpen, setLogoutModalOpen] = useState(false);
   const [openForgotPassword, setOpenForgotPassword] = useState(false);
 
+  const router = useRouter();
+
   const queryClient = useQueryClient();
-  const { ShowApiErrorSnackBar } = useSnackBar();
+  const { ShowApiErrorSnackBar, ShowSuccessSnackBar } = useSnackBar();
 
   const { mutate: mutateSignUp, isPending: isSignUpLoading } = useMutation({
     mutationFn: signUp,
@@ -147,6 +152,22 @@ const useAuthFunc = () => {
       select: ({ data }) => data,
     });
 
+  const { mutate: mutateUpdateProfile, isPending: isProfileUpdating } = useMutation({
+    mutationFn: updateProfile,
+    onSuccess: ({ data }) => {
+      queryClient.refetchQueries({ queryKey: ['profile'] });
+      router.back();
+      ShowSuccessSnackBar(data.message);
+    },
+    onError: (error) => {
+      ShowApiErrorSnackBar(error);
+    },
+  });
+
+  const onUpdateProfile = (data: SignUpFormDataI) => {
+    mutateUpdateProfile(data);
+  };
+
   return {
     onSignIn,
     isSigningIn,
@@ -159,6 +180,8 @@ const useAuthFunc = () => {
     isSigningOut,
     onSignOut,
 
+    isProfileUpdating,
+    onUpdateProfile,
     UseGetProfileData,
 
     user,
