@@ -1,8 +1,8 @@
 import { ReactNode, createContext, useContext, useState } from 'react';
 import { CredentialResponse } from '@react-oauth/google';
 import { AxiosResponse } from 'axios';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { LoginFormDataI, SignUpFormDataI, SignedInUserI } from '../constants/interfaces';
+import { UseQueryResult, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { LoginFormDataI, SignUpFormDataI, SignedInUserI, UserI } from '../constants/interfaces';
 import { getProfileData, signIn, signOut, signUp } from './controllers/auth';
 import LocalStorageService from './localStorage';
 import { useSnackBar } from './snackbar';
@@ -31,6 +31,8 @@ interface AuthI {
 
   openForgotPassword: boolean;
   setOpenForgotPassword: (openForgotPassword: boolean) => void;
+
+  UseGetProfileData: () => UseQueryResult<UserI, Error>;
 }
 
 const AuthContext = createContext<any>(null);
@@ -143,7 +145,6 @@ const useAuthFunc = () => {
       queryKey: ['profile'],
       queryFn: () => getProfileData(),
       select: ({ data }) => data,
-      // enabled: !!LocalStorage.getAccessToken() && !!LocalStorage.getRefreshToken(),
     });
 
   return {
