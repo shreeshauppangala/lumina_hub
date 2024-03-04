@@ -71,7 +71,7 @@ jobs:
           NEXT_PUBLIC_GOOGLE_CLIENT_SECRET: ${{ secrets.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET }}
       - name: Static HTML export with Next.js
         run: |
-          echo 'module.exports = { target: "experimental-serverless-trace", basePath: "/your-base-path", exportPathMap: async function () { return { "/": { page: "/" }, /* Add other routes as needed */ }; }, };' > next.config.js
+          echo 'module.exports = { target: "experimental-serverless-trace", basePath: "/app", exportPathMap: async function () { return { "/": { page: "/" }, /* Add other routes as needed */ }; }, };' > next.config.js
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
