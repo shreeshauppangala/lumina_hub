@@ -30,9 +30,10 @@ export const CustomAppBar = styled(AppBar)(({ theme }) => ({
   padding: theme.spacing(5),
 }));
 
-export const CustomToolbar = styled(Toolbar)(() => ({
+export const CustomToolbar = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'end',
+  gap: theme.spacing(5),
 }));
 
 export const ProfileMenu = styled(Menu)(({ theme }) => ({
