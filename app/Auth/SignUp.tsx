@@ -25,24 +25,31 @@ const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [image, setImage] = useState<File[] | string[]>([]);
-  const { openSignUp, setOpenSignUp, setOpenSignIn, onSignUp, isSignUpLoading } = hooks.useAuth();
+  const {
+    openSignUp,
+    setOpenSignUp,
+    setOpenSignIn,
+    onSignUp,
+    isSignUpLoading,
+  } = hooks.useAuth();
 
-  const { control, handleSubmit, getValues, reset, setValue } = useForm<SignUpFormDataI>({
-    mode: 'all',
-    defaultValues: {
-      full_name: '',
-      email: '',
-      password: '',
-      confirm_password: '',
-      house_name: '',
-      village: '',
-      city: '',
-      state: '',
-      pin_code: undefined,
-      mobile_number: undefined,
-      termsAgreement: false,
-    },
-  });
+  const { control, handleSubmit, getValues, reset, setValue } =
+    useForm<SignUpFormDataI>({
+      mode: 'all',
+      defaultValues: {
+        full_name: '',
+        email: '',
+        password: '',
+        confirm_password: '',
+        house_name: '',
+        village: '',
+        city: '',
+        state: '',
+        pin_code: undefined,
+        mobile_number: undefined,
+        termsAgreement: false,
+      },
+    });
 
   const onSubmit = (data: SignUpFormDataI) => {
     onSignUp({ ...data, picture: image[0] });
@@ -62,7 +69,11 @@ const SignUp = () => {
       <DialogTitle variant='h1' textAlign='center' mb={4}>
         Sign Up
       </DialogTitle>
-      <DialogContentText variant='caption' textAlign='center' id='alert-dialog-description'>
+      <DialogContentText
+        variant='caption'
+        textAlign='center'
+        id='alert-dialog-description'
+      >
         Sign up to proceed
       </DialogContentText>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -133,7 +144,9 @@ const SignUp = () => {
                   placeholder='password'
                   InputProps={{
                     endAdornment: (
-                      <IconButton onClick={() => setShowPassword(!showPassword)}>
+                      <IconButton
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
                         {showPassword ? <GreyEye /> : <GreyCrossEye />}
                       </IconButton>
                     ),
@@ -147,7 +160,9 @@ const SignUp = () => {
               rules={{
                 required: 'Password Is Required',
                 validate: (value) =>
-                  value !== getValues('password') ? 'Password did not match' : undefined,
+                  value !== getValues('password')
+                    ? 'Password did not match'
+                    : undefined,
               }}
               render={({ field, fieldState: { error } }) => (
                 <InputField
@@ -160,7 +175,11 @@ const SignUp = () => {
                   placeholder='password'
                   InputProps={{
                     endAdornment: (
-                      <IconButton onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+                      <IconButton
+                        onClick={() =>
+                          setShowConfirmPassword(!showConfirmPassword)
+                        }
+                      >
                         {showConfirmPassword ? <GreyEye /> : <GreyCrossEye />}
                       </IconButton>
                     ),
@@ -174,7 +193,8 @@ const SignUp = () => {
               name='house_name'
               control={control}
               rules={{
-                required: 'Flat, House no., Building, Company, Apartment Is Required',
+                required:
+                  'Flat, House no., Building, Company, Apartment Is Required',
               }}
               render={({ field, fieldState: { error } }) => (
                 <InputField
@@ -247,7 +267,10 @@ const SignUp = () => {
               control={control}
               rules={{
                 required: 'Pin Code Is Required',
-                pattern: { value: pattern.pinCode, message: 'Invalid Pin code' },
+                pattern: {
+                  value: pattern.pinCode,
+                  message: 'Invalid Pin code',
+                },
               }}
               render={({ field, fieldState: { error } }) => (
                 <InputField
@@ -266,7 +289,10 @@ const SignUp = () => {
               control={control}
               rules={{
                 required: 'Mobile Number Is Required',
-                pattern: { value: pattern.mobile, message: 'Invalid Mobile Number' },
+                pattern: {
+                  value: pattern.mobile,
+                  message: 'Invalid Mobile Number',
+                },
               }}
               render={({ field, fieldState: { error } }) => (
                 <InputField
@@ -293,7 +319,13 @@ const SignUp = () => {
             render={({ field }) => (
               <FormControlLabel
                 sx={(theme) => ({ span: { ...theme.typography.subtitle2 } })}
-                control={<Checkbox {...field} checked={field.value} name='termsAgreement' />}
+                control={
+                  <Checkbox
+                    {...field}
+                    checked={field.value}
+                    name='termsAgreement'
+                  />
+                }
                 label='By signing up, you agree to our Terms and Privacy Policy.'
               />
             )}
@@ -329,7 +361,9 @@ const SignUp = () => {
         />
       </Box>
       <Box display='flex' justifyContent='center'>
-        <DialogContentText variant='caption'>Already have an account?</DialogContentText>
+        <DialogContentText variant='caption'>
+          Already have an account?
+        </DialogContentText>
         <DialogContentText
           sx={{ cursor: 'pointer' }}
           variant='caption'

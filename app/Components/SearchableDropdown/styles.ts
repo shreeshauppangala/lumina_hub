@@ -58,7 +58,9 @@ export const customStyles: CustomStyleConfig = {
     ...base,
     fontWeight: 400,
     fontSize: theme.spacing(9),
-    color: state.isDisabled ? (theme.palette.grey as unknown as string) : '#b7b7b8',
+    color: state.isDisabled
+      ? (theme.palette.grey as unknown as string)
+      : '#b7b7b8',
     fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
   }),
   /**
@@ -136,7 +138,9 @@ export const customStyles: CustomStyleConfig = {
   dropdownIndicator: (base, state) => ({
     ...base,
     paddingRight: theme.spacing(10),
-    transform: state.selectProps.menuIsOpen ? 'rotate(180deg) translate(10px, 0)' : 'none',
+    transform: state.selectProps.menuIsOpen
+      ? 'rotate(180deg) translate(10px, 0)'
+      : 'none',
   }),
 };
 

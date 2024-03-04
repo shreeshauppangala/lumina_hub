@@ -15,4 +15,5 @@ export const signOut = () => getApi(`${API.signOut}`);
 
 export const getProfileData = () => getApi(`${API.profile}`);
 
-export const updateProfile = (data: SignUpFormDataI) => patchApi(`${API.profile}`, data);
+export const updateProfile = (data: SignUpFormDataI) =>
+  patchApi(`${API.profile}`, data);

@@ -15,8 +15,12 @@ import { InputField } from '../Components';
 import { DialogContainer } from './styles';
 
 const ForgotPassword = () => {
-  const { openForgotPassword, setOpenForgotPassword, setOpenSignUp, setOpenSignIn } =
-    hooks.useAuth();
+  const {
+    openForgotPassword,
+    setOpenForgotPassword,
+    setOpenSignUp,
+    setOpenSignIn,
+  } = hooks.useAuth();
 
   const { control, handleSubmit, reset } = useForm<{ email: string }>({
     mode: 'all',
@@ -42,7 +46,11 @@ const ForgotPassword = () => {
       <DialogTitle variant='h1' textAlign='center'>
         Reset Password
       </DialogTitle>
-      <DialogContentText textAlign='center' variant='caption' id='alert-dialog-description'>
+      <DialogContentText
+        textAlign='center'
+        variant='caption'
+        id='alert-dialog-description'
+      >
         Enter your email to reset password
       </DialogContentText>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -83,7 +91,12 @@ const ForgotPassword = () => {
           </Box>
         </DialogContent>
         <DialogActions>
-          <LoadingButton variant='contained' color='primary' fullWidth type='submit'>
+          <LoadingButton
+            variant='contained'
+            color='primary'
+            fullWidth
+            type='submit'
+          >
             Reset Password
           </LoadingButton>
         </DialogActions>

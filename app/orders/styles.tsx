@@ -1,4 +1,10 @@
-import { Box, TooltipProps, styled, tooltipClasses, Tooltip } from '@mui/material';
+import {
+  Box,
+  TooltipProps,
+  styled,
+  tooltipClasses,
+  Tooltip,
+} from '@mui/material';
 
 export const OrdersContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(15, 10),
@@ -43,9 +49,11 @@ export const OrdersContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const AddressTooltip = styled(({ className, ...props }: TooltipProps) => (
-  <Tooltip {...props} classes={{ popper: className }} />
-))(({ theme }) => ({
+export const AddressTooltip = styled(
+  ({ className, ...props }: TooltipProps) => (
+    <Tooltip {...props} classes={{ popper: className }} />
+  ),
+)(({ theme }) => ({
   [`& .${tooltipClasses.tooltip}`]: {
     backgroundColor: theme.palette.common.white,
     color: theme.palette.common.black,

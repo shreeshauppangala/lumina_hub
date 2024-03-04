@@ -1,4 +1,11 @@
-import { Avatar, Box, Dialog, IconButton, Typography, styled } from '@mui/material';
+import {
+  Avatar,
+  Box,
+  Dialog,
+  IconButton,
+  Typography,
+  styled,
+} from '@mui/material';
 
 export const DetailsContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(5, 10),

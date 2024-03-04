@@ -24,7 +24,10 @@ export const PATCH = async (request: NextRequest) => {
 
     const user = await User.findOne({ email });
     if (!user) {
-      return NextResponse.json({ message: 'User does not exist' }, { status: 404 });
+      return NextResponse.json(
+        { message: 'User does not exist' },
+        { status: 404 },
+      );
     }
 
     const updateFields: Partial<SignUpFormDataI> = body;
@@ -38,15 +41,18 @@ export const PATCH = async (request: NextRequest) => {
       };
     }
 
-    const updatedUser = await User.findByIdAndUpdate(user._id, updateFields, { new: true }).select(
-      '-password',
-    );
+    const updatedUser = await User.findByIdAndUpdate(user._id, updateFields, {
+      new: true,
+    }).select('-password');
 
     return NextResponse.json({
       message: 'User Updated',
       data: updatedUser,
     });
   } catch (error) {
-    return NextResponse.json({ message: 'Failed to update user', error }, { status: 500 });
+    return NextResponse.json(
+      { message: 'Failed to update user', error },
+      { status: 500 },
+    );
   }
 };

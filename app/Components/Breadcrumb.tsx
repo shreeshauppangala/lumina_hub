@@ -32,7 +32,10 @@ const Breadcrumb = (props: BreadCrumbsPropsI) => {
           key={`breadCrumbs-${index + 1}`}
           sx={(theme) => ({
             cursor: data.link || data.onClick ? 'pointer' : 'default',
-            color: data.link || data.onClick ? theme.palette.primary.main : theme.palette.grey[500],
+            color:
+              data.link || data.onClick
+                ? theme.palette.primary.main
+                : theme.palette.grey[500],
           })}
           variant='caption'
           onClick={data.onClick || (() => handleNavigation(data.link))}

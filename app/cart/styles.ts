@@ -48,6 +48,8 @@ export const quantityDropdown: StylesConfig = {
   dropdownIndicator: (base, state) => ({
     ...base,
     padding: theme.spacing(2),
-    transform: state.selectProps.menuIsOpen ? 'rotate(180deg) translate(0, 0)' : 'none',
+    transform: state.selectProps.menuIsOpen
+      ? 'rotate(180deg) translate(0, 0)'
+      : 'none',
   }),
 };

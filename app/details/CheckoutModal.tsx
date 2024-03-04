@@ -1,5 +1,11 @@
 import React from 'react';
-import { Avatar, Box, DialogContent, DialogTitle, Typography } from '@mui/material';
+import {
+  Avatar,
+  Box,
+  DialogContent,
+  DialogTitle,
+  Typography,
+} from '@mui/material';
 import { hooks } from '../hooks';
 import { CheckoutDialogContainer } from './styles';
 import { SearchableDropdown, Stripe } from '../Components';

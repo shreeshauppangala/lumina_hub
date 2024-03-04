@@ -14,7 +14,13 @@ const Orders = () => {
   const router = useRouter();
   const { setOpenCheckoutModal } = hooks.useOrders();
 
-  const HeaderDetails = ({ header, detail }: { header: string; detail: string }) => (
+  const HeaderDetails = ({
+    header,
+    detail,
+  }: {
+    header: string;
+    detail: string;
+  }) => (
     <Box>
       <Typography className='heading'>{header}</Typography>
       <Typography className='detail'>{detail}</Typography>
@@ -70,7 +76,10 @@ const Orders = () => {
                     header='Order Placed'
                     detail={formatDate(order.order_date, 'DD MMMM YYYY')!}
                   />
-                  <HeaderDetails header='Total' detail={getAmountWithCommas(order.total_amount)} />
+                  <HeaderDetails
+                    header='Total'
+                    detail={getAmountWithCommas(order.total_amount)}
+                  />
                   <Box display='flex'>
                     <HeaderDetails header='Ship To' detail='Company' />
                     <AddressTooltip
@@ -78,8 +87,12 @@ const Orders = () => {
                         <Box display='grid' gap={2}>
                           <Typography variant='body2'>Company </Typography>
                           <Typography variant='body2'>Village </Typography>
-                          <Typography variant='body2'>City, State - Pincode</Typography>
-                          <Typography variant='body2'>+91 9633301322</Typography>
+                          <Typography variant='body2'>
+                            City, State - Pincode
+                          </Typography>
+                          <Typography variant='body2'>
+                            +91 9633301322
+                          </Typography>
                         </Box>
                       }
                     >
@@ -107,7 +120,8 @@ const Orders = () => {
                             : 'default'
                       }
                     >
-                      {order.current_status} {formatDate(order.order_date, 'DD-MMM-YYYY')}
+                      {order.current_status}{' '}
+                      {formatDate(order.order_date, 'DD-MMM-YYYY')}
                     </Typography>
                     <Box display='flex' gap={5} flexWrap='wrap' mt={15}>
                       <Avatar

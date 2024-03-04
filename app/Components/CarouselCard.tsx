@@ -50,7 +50,10 @@ const CarouselCard = (props: PropsI) => {
   const router = useRouter();
 
   const ProductCard = ({ image, name, price }: ProductCardI) => (
-    <Box onClick={() => router.push(`details/${name}`)} sx={{ cursor: 'pointer' }}>
+    <Box
+      onClick={() => router.push(`details/${name}`)}
+      sx={{ cursor: 'pointer' }}
+    >
       <ProductImage variant='square' src={image} alt={name} />
       <Typography variant='body2' mt={6}>
         {name}

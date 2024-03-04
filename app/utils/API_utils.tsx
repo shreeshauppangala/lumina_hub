@@ -9,16 +9,20 @@ export const getDataFromToken = (request: NextRequest) => {
   try {
     const token = request.cookies.get('token')?.value || '';
 
-    const data = jwt.verify(token, process.env.JWT_SECRET!, (err, decodedData: any) => {
-      if (err) {
-        if (err.name === 'TokenExpiredError') {
-          throw new Error('Token expired');
+    const data = jwt.verify(
+      token,
+      process.env.JWT_SECRET!,
+      (err, decodedData: any) => {
+        if (err) {
+          if (err.name === 'TokenExpiredError') {
+            throw new Error('Token expired');
+          }
+          throw new Error('Invalid token');
+        } else {
+          return decodedData?._doc?._id;
         }
-        throw new Error('Invalid token');
-      } else {
-        return decodedData?._doc?._id;
-      }
-    });
+      },
+    );
     return data;
   } catch (error: any) {
     throw new Error(error.message);

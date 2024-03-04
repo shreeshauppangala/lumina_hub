@@ -30,7 +30,8 @@ const pattern = {
   // Requires at least one digit.
   // Requires at least one special character
   // Matches a minimum of 8 characters from the specified character classes.
-  strongPassword: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+  strongPassword:
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
 };
 
 const bulbTypes = [

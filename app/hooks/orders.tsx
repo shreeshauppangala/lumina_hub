@@ -24,5 +24,9 @@ const useOrdersFunc = () => {
 export const ProvideOrders = ({ children }: ProvideOrdersI) => {
   const OrdersValue = useOrdersFunc();
 
-  return <OrdersContext.Provider value={OrdersValue}>{children}</OrdersContext.Provider>;
+  return (
+    <OrdersContext.Provider value={OrdersValue}>
+      {children}
+    </OrdersContext.Provider>
+  );
 };

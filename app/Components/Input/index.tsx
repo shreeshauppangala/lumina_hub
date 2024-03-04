@@ -11,14 +11,23 @@ const InputField = forwardRef((props: TextFieldProps, ref) => {
       {label && (
         <InputLabelComponent
           sx={(theme) => ({
-            color: error ? theme.palette.error.main : theme.palette.common.black,
+            color: error
+              ? theme.palette.error.main
+              : theme.palette.common.black,
           })}
           className='labelBody'
         >
           {label} {required && <span className='required'>*</span>}
         </InputLabelComponent>
       )}
-      <TextField {...props} label='' fullWidth error={error} required={required} inputRef={ref} />
+      <TextField
+        {...props}
+        label=''
+        fullWidth
+        error={error}
+        required={required}
+        inputRef={ref}
+      />
     </TextFieldComponent>
   );
 });

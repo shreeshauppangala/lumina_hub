@@ -2,7 +2,13 @@
 import React from 'react';
 
 export const GreyCrossEye = () => (
-  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' width='16' height='16' fill='none'>
+  <svg
+    xmlns='http://www.w3.org/2000/svg'
+    viewBox='0 0 16 16'
+    width='16'
+    height='16'
+    fill='none'
+  >
     <svg
       xmlns='http://www.w3.org/2000/svg'
       viewBox='0 0 640 512'
@@ -31,16 +37,33 @@ export const GreyCrossEye = () => (
         <feOffset dx='0' dy='0' />
         <feGaussianBlur stdDeviation='0' />
         <feComposite in2='alpha' operator='out' />
-        <feColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.08 0' />
-        <feBlend mode='normal' in2='bg-fix' result='bg-fix-filter_dshadow_0_0_0_00000014' />
-        <feBlend in='SourceGraphic' in2='bg-fix-filter_dshadow_0_0_0_00000014' result='shape' />
+        <feColorMatrix
+          type='matrix'
+          values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.08 0'
+        />
+        <feBlend
+          mode='normal'
+          in2='bg-fix'
+          result='bg-fix-filter_dshadow_0_0_0_00000014'
+        />
+        <feBlend
+          in='SourceGraphic'
+          in2='bg-fix-filter_dshadow_0_0_0_00000014'
+          result='shape'
+        />
       </filter>
     </defs>
   </svg>
 );
 
 export const GreyEye = () => (
-  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' width='16' height='16' fill='none'>
+  <svg
+    xmlns='http://www.w3.org/2000/svg'
+    viewBox='0 0 16 16'
+    width='16'
+    height='16'
+    fill='none'
+  >
     <svg
       xmlns='http://www.w3.org/2000/svg'
       height='16'
@@ -70,9 +93,20 @@ export const GreyEye = () => (
         <feOffset dx='0' dy='2' />
         <feGaussianBlur stdDeviation='5' />
         <feComposite in2='alpha' operator='out' />
-        <feColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0' />
-        <feBlend mode='normal' in2='bg-fix' result='bg-fix-filter_dshadow_10_0_2_0000001a' />
-        <feBlend in='SourceGraphic' in2='bg-fix-filter_dshadow_10_0_2_0000001a' result='shape' />
+        <feColorMatrix
+          type='matrix'
+          values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0'
+        />
+        <feBlend
+          mode='normal'
+          in2='bg-fix'
+          result='bg-fix-filter_dshadow_10_0_2_0000001a'
+        />
+        <feBlend
+          in='SourceGraphic'
+          in2='bg-fix-filter_dshadow_10_0_2_0000001a'
+          result='shape'
+        />
       </filter>
     </defs>
   </svg>

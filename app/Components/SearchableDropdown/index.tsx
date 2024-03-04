@@ -45,8 +45,17 @@ interface SearchableDropDownI extends Props {
 }
 
 const SearchableDropdown = forwardRef((props: SearchableDropDownI, ref) => {
-  const { label, error, helperText, type, width, className, styles, required, dropdownInnerText } =
-    props;
+  const {
+    label,
+    error,
+    helperText,
+    type,
+    width,
+    className,
+    styles,
+    required,
+    dropdownInnerText,
+  } = props;
 
   const CreatableAsyncPaginate = withAsyncPaginate(CreatableSelect);
 
@@ -72,7 +81,9 @@ const SearchableDropdown = forwardRef((props: SearchableDropDownI, ref) => {
    * @param {DropdownIndicatorProps} dropdownIndicatorProps - The props for the dropdown indicator.
    * @returns A dropdown indicator component.
    */
-  const DropdownIndicator = (dropdownIndicatorProps: DropdownIndicatorProps) => (
+  const DropdownIndicator = (
+    dropdownIndicatorProps: DropdownIndicatorProps,
+  ) => (
     <components.DropdownIndicator {...dropdownIndicatorProps}>
       <BlackDownArrow />
     </components.DropdownIndicator>
@@ -105,7 +116,11 @@ const SearchableDropdown = forwardRef((props: SearchableDropDownI, ref) => {
     <BoxContainer width={width} className={className}>
       {label && (
         <InputLabel
-          sx={(theme) => ({ color: error ? theme.palette.error.main : theme.palette.common.black })}
+          sx={(theme) => ({
+            color: error
+              ? theme.palette.error.main
+              : theme.palette.common.black,
+          })}
           className='select-label'
         >
           {label} {required && <span className='required'>*</span>}

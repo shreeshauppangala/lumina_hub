@@ -21,7 +21,9 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
         <StrictMode>
           <CustomMuiThemeProvider>
             <ContextContainer>
-              <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET!}>
+              <GoogleOAuthProvider
+                clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET!}
+              >
                 <Header />
                 <Box mt={42}>{children}</Box>
                 <Footer />

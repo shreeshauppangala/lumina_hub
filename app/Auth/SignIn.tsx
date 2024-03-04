@@ -21,8 +21,14 @@ import { DialogContainer } from './styles';
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { openSignIn, setOpenSignIn, setOpenSignUp, setOpenForgotPassword, onSignIn, isSigningIn } =
-    hooks.useAuth();
+  const {
+    openSignIn,
+    setOpenSignIn,
+    setOpenSignUp,
+    setOpenForgotPassword,
+    onSignIn,
+    isSigningIn,
+  } = hooks.useAuth();
   const { control, handleSubmit, reset } = useForm<LoginFormDataI>({
     mode: 'all',
     defaultValues: {
@@ -89,7 +95,9 @@ const SignIn = () => {
                   placeholder='password'
                   InputProps={{
                     endAdornment: (
-                      <IconButton onClick={() => setShowPassword(!showPassword)}>
+                      <IconButton
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
                         {showPassword ? <GreyEye /> : <GreyCrossEye />}
                       </IconButton>
                     ),
@@ -138,7 +146,9 @@ const SignIn = () => {
         />
       </Box>
       <Box display='flex' justifyContent='center'>
-        <DialogContentText variant='caption'>Don&apos;t have an account?</DialogContentText>
+        <DialogContentText variant='caption'>
+          Don&apos;t have an account?
+        </DialogContentText>
         <Typography
           sx={{ cursor: 'pointer' }}
           variant='caption'

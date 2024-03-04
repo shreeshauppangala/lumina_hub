@@ -1,14 +1,25 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Avatar, Box, Button, Checkbox, Divider, IconButton, Typography } from '@mui/material';
+import {
+  Avatar,
+  Box,
+  Button,
+  Checkbox,
+  Divider,
+  IconButton,
+  Typography,
+} from '@mui/material';
 import { Breadcrumb, SearchableDropdown, Stripe } from '../Components';
 import { RedLargeDeleteIcon } from '../Assets/Icons';
 import { CartContainer, quantityDropdown } from './styles';
 import { getAmountWithCommas, getQuantityOptions } from '../utils';
 
 const Cart = () => {
-  const [quantity, setQuantity] = useState<null | { quantity: number; id: string }>(null);
+  const [quantity, setQuantity] = useState<null | {
+    quantity: number;
+    id: string;
+  }>(null);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
   useEffect(() => {}, [quantity]);
@@ -71,7 +82,9 @@ const Cart = () => {
                 <Button
                   className='select_all_button'
                   color='inherit'
-                  onClick={() => setSelectedItems(data.map((product) => product.id))}
+                  onClick={() =>
+                    setSelectedItems(data.map((product) => product.id))
+                  }
                 >
                   Select all items
                 </Button>
@@ -89,14 +102,23 @@ const Cart = () => {
           <Box display='grid' gap={10} mt={12} maxHeight='50vh' overflow='auto'>
             {data.map((item) => (
               <>
-                <Box key={item.name} display='flex' justifyContent='space-between' flexWrap='wrap'>
+                <Box
+                  key={item.name}
+                  display='flex'
+                  justifyContent='space-between'
+                  flexWrap='wrap'
+                >
                   <Box display='flex' gap={10} flexWrap='wrap'>
                     <Box display='flex' gap={5} alignItems='center'>
                       <Checkbox
                         checked={selectedItems.includes(item.id)}
                         onChange={() => handleCheckboxChange(item.id)}
                       />
-                      <Avatar src={item.image} className='product_image' variant='square' />
+                      <Avatar
+                        src={item.image}
+                        className='product_image'
+                        variant='square'
+                      />
                     </Box>
                     <Box mt={5}>
                       <Typography>{item.name}</Typography>
@@ -104,7 +126,9 @@ const Cart = () => {
                         <SearchableDropdown
                           value={{ label: item.quantity, value: item.quantity }}
                           options={getQuantityOptions()}
-                          onChange={(value) => setQuantity({ quantity: value, id: item.id })}
+                          onChange={(value) =>
+                            setQuantity({ quantity: value, id: item.id })
+                          }
                           styles={quantityDropdown}
                           dropdownInnerText='Qty:'
                           type='creatable'
@@ -115,7 +139,9 @@ const Cart = () => {
                       </Box>
                     </Box>
                   </Box>
-                  <Typography variant='body2'>{getAmountWithCommas(item.price)}</Typography>
+                  <Typography variant='body2'>
+                    {getAmountWithCommas(item.price)}
+                  </Typography>
                 </Box>
                 <Divider />
               </>
@@ -124,7 +150,9 @@ const Cart = () => {
           {selectedItems.length ? (
             <Box display='flex' justifyContent='end' mt={12}>
               <Box display='flex' gap={30} justifyContent='space-between'>
-                <Typography variant='h3'>Subtotal ({selectedItems.length} items)</Typography>
+                <Typography variant='h3'>
+                  Subtotal ({selectedItems.length} items)
+                </Typography>
                 <Typography variant='h3'>{getAmountWithCommas(100)}</Typography>
               </Box>
             </Box>

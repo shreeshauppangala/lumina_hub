@@ -31,7 +31,10 @@ export const truncateString = (
   lastPart?: string,
 ): string => {
   const extension = string.slice(string.lastIndexOf(lastPart || ''));
-  const filenameWithoutExt = string.slice(0, string.lastIndexOf(lastPart || ''));
+  const filenameWithoutExt = string.slice(
+    0,
+    string.lastIndexOf(lastPart || ''),
+  );
   const truncatedFilename = `${filenameWithoutExt.slice(0, visibleStringLength)}.....${extension}`;
 
   return string.length > visibleStringLength ? truncatedFilename : string;
@@ -43,7 +46,11 @@ export const truncateString = (
  * @param {number} [spaces=0] - the number of spaces to indent the code
  * @returns None
  */
-export const getQueryParams = (queryKey: string, objKey: string, array: any[] | null) => {
+export const getQueryParams = (
+  queryKey: string,
+  objKey: string,
+  array: any[] | null,
+) => {
   let result = '';
 
   array?.forEach((item) => {
@@ -58,7 +65,10 @@ export const getQueryParams = (queryKey: string, objKey: string, array: any[] | 
  * @param {string|number} num - the number to format
  * @returns {string} - the formatted number
  */
-export const getNumberWithCommas = (number?: string | number, showZero?: boolean) => {
+export const getNumberWithCommas = (
+  number?: string | number,
+  showZero?: boolean,
+) => {
   if (!number) {
     return showZero ? '0' : '-';
   }
@@ -71,7 +81,10 @@ export const getNumberWithCommas = (number?: string | number, showZero?: boolean
  * @param {'symbol' | 'word'} [symbolType='symbol'] - the type of symbol to use
  * @returns {string} the formatted number
  */
-export const getAmountWithCommas = (number?: string | number, showZero?: string) => {
+export const getAmountWithCommas = (
+  number?: string | number,
+  showZero?: string,
+) => {
   if (!number) {
     return showZero ? '₹ 0' : '-';
   }
@@ -83,10 +96,14 @@ export const getQuantityOptions = () => {
   const generatedArray = [];
 
   for (let i = 0; i <= 10; i += 1) {
-    generatedArray.push({ label: i === 0 ? `${i.toString()} (delete)` : i.toString(), value: i });
+    generatedArray.push({
+      label: i === 0 ? `${i.toString()} (delete)` : i.toString(),
+      value: i,
+    });
   }
 
   return generatedArray;
 };
 
-export const getDecodedJWT = (token: string | undefined) => jwt.decode(token!) as GoogleDataI;
+export const getDecodedJWT = (token: string | undefined) =>
+  jwt.decode(token!) as GoogleDataI;

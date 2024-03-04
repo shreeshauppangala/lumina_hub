@@ -16,18 +16,26 @@ export const POST = async (request: NextRequest) => {
     const user = await User.findOne({ email: email || decodedJWT.email });
 
     if (!user) {
-      return NextResponse.json({ message: 'User does not exists' }, { status: 404 });
+      return NextResponse.json(
+        { message: 'User does not exists' },
+        { status: 404 },
+      );
     }
 
     if (password && !googleSigninToken) {
       const validPassword = await bcryptjs.compare(password, user.password);
 
       if (!validPassword) {
-        return NextResponse.json({ message: 'Invalid Password' }, { status: 400 });
+        return NextResponse.json(
+          { message: 'Invalid Password' },
+          { status: 400 },
+        );
       }
     }
 
-    const token = jwt.sign({ ...user }, process.env.JWT_SECRET!, { expiresIn: '1d' });
+    const token = jwt.sign({ ...user }, process.env.JWT_SECRET!, {
+      expiresIn: '1d',
+    });
 
     const response = NextResponse.json({
       message: 'User logged in successfully',

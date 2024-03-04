@@ -7,7 +7,9 @@ import { createTheme, ThemeProvider } from '@mui/material';
  * Changes the padding values based on the size of the owner state.
  * @returns {string} - the new padding values
  */
-const changePaddingValues = (size: 'small' | 'medium' | 'large' | undefined) => {
+const changePaddingValues = (
+  size: 'small' | 'medium' | 'large' | undefined,
+) => {
   if (size === 'small') {
     return '8px 12px';
   }
@@ -227,6 +229,8 @@ export const theme = createTheme({
  * @param {ReactNode} props - The props to pass to the theme provider.
  * @returns {ReactElement} - The custom theme provider.
  */
-export const CustomMuiThemeProvider = ({ children }: { children: ReactNode }): ReactElement => (
-  <ThemeProvider theme={theme}>{children}</ThemeProvider>
-);
+export const CustomMuiThemeProvider = ({
+  children,
+}: {
+  children: ReactNode;
+}): ReactElement => <ThemeProvider theme={theme}>{children}</ThemeProvider>;

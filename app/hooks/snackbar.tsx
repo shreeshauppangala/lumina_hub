@@ -1,4 +1,11 @@
-import React, { createContext, useContext, useState, ReactNode, useMemo, useCallback } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useMemo,
+  useCallback,
+} from 'react';
 import { Snackbar, Alert, styled, AlertColor } from '@mui/material';
 
 type SnackBarContextActions = {
@@ -102,7 +109,10 @@ const SnackBarProvider = ({ children }: SnackBarContextProviderProps) => {
     (err: any) => {
       if (err.response.data) {
         ShowInfoSnackBar(err.response.data.message);
-      } else ShowInfoSnackBar("Something went wrong. We're looking to see what happened!");
+      } else
+        ShowInfoSnackBar(
+          "Something went wrong. We're looking to see what happened!",
+        );
     },
     [ShowInfoSnackBar],
   );

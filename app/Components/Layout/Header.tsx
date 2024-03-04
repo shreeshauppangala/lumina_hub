@@ -1,7 +1,14 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Avatar, Box, Button, Divider, MenuItem, Typography } from '@mui/material';
+import {
+  Avatar,
+  Box,
+  Button,
+  Divider,
+  MenuItem,
+  Typography,
+} from '@mui/material';
 import { hooks } from '@/app/hooks';
 import { SignIn, SignUp, ForgotPassword, SignOut } from '@/app/Auth';
 import {
@@ -14,8 +21,11 @@ import { useRouter } from 'next/navigation';
 import { CustomAppBar, CustomToolbar, ProfileMenu } from './styles';
 
 const Header = () => {
-  const [anchorEl, setAnchorEl] = useState<(EventTarget & HTMLDivElement) | null>(null);
-  const { setOpenSignIn, setOpenSignUp, setLogoutModalOpen, user } = hooks.useAuth();
+  const [anchorEl, setAnchorEl] = useState<
+    (EventTarget & HTMLDivElement) | null
+  >(null);
+  const { setOpenSignIn, setOpenSignUp, setLogoutModalOpen, user } =
+    hooks.useAuth();
 
   const router = useRouter();
   return (
@@ -23,7 +33,10 @@ const Header = () => {
       <CustomToolbar>
         {user ? (
           <>
-            <Avatar src={user.picture} onClick={(event) => setAnchorEl(event.currentTarget)} />
+            <Avatar
+              src={user.picture}
+              onClick={(event) => setAnchorEl(event.currentTarget)}
+            />
             <ProfileMenu
               id='menu-app_bar'
               anchorEl={anchorEl}
@@ -93,10 +106,18 @@ const Header = () => {
           </>
         ) : (
           <Box display='flex' gap={12}>
-            <Button color='primary' variant='contained' onClick={() => setOpenSignUp(true)}>
+            <Button
+              color='primary'
+              variant='contained'
+              onClick={() => setOpenSignUp(true)}
+            >
               Sign Up
             </Button>
-            <Button variant='contained' color='secondary' onClick={() => setOpenSignIn(true)}>
+            <Button
+              variant='contained'
+              color='secondary'
+              onClick={() => setOpenSignIn(true)}
+            >
               Sign In
             </Button>
           </Box>

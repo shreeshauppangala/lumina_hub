@@ -1,10 +1,26 @@
 import { ReactNode, createContext, useContext, useState } from 'react';
 import { CredentialResponse } from '@react-oauth/google';
 import { AxiosResponse } from 'axios';
-import { UseQueryResult, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  UseQueryResult,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { LoginFormDataI, SignUpFormDataI, SignedInUserI, UserI } from '../constants/interfaces';
-import { getProfileData, signIn, signOut, signUp, updateProfile } from './controllers/auth';
+import {
+  LoginFormDataI,
+  SignUpFormDataI,
+  SignedInUserI,
+  UserI,
+} from '../constants/interfaces';
+import {
+  getProfileData,
+  signIn,
+  signOut,
+  signUp,
+  updateProfile,
+} from './controllers/auth';
 import LocalStorageService from './localStorage';
 import { useSnackBar } from './snackbar';
 
@@ -84,7 +100,10 @@ const useAuthFunc = () => {
    *   - isLoading: A boolean indicating whether the sign-in mutation is currently loading.
    */
   const { mutate: mutateSignIn, isPending: isSigningIn } = useMutation<
-    AxiosResponse<{ message: 'User logged in successfully'; data: SignedInUserI }, any>,
+    AxiosResponse<
+      { message: 'User logged in successfully'; data: SignedInUserI },
+      any
+    >,
     Error,
     LoginFormDataI,
     unknown
@@ -152,17 +171,18 @@ const useAuthFunc = () => {
       select: ({ data }) => data,
     });
 
-  const { mutate: mutateUpdateProfile, isPending: isProfileUpdating } = useMutation({
-    mutationFn: updateProfile,
-    onSuccess: ({ data }) => {
-      queryClient.refetchQueries({ queryKey: ['profile'] });
-      router.back();
-      ShowSuccessSnackBar(data.message);
-    },
-    onError: (error) => {
-      ShowApiErrorSnackBar(error);
-    },
-  });
+  const { mutate: mutateUpdateProfile, isPending: isProfileUpdating } =
+    useMutation({
+      mutationFn: updateProfile,
+      onSuccess: ({ data }) => {
+        queryClient.refetchQueries({ queryKey: ['profile'] });
+        router.back();
+        ShowSuccessSnackBar(data.message);
+      },
+      onError: (error) => {
+        ShowApiErrorSnackBar(error);
+      },
+    });
 
   const onUpdateProfile = (data: SignUpFormDataI) => {
     mutateUpdateProfile(data);
@@ -198,5 +218,7 @@ const useAuthFunc = () => {
 export const ProvideAuth = ({ children }: ProvideAuthI) => {
   const AuthValue = useAuthFunc();
 
-  return <AuthContext.Provider value={AuthValue}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={AuthValue}>{children}</AuthContext.Provider>
+  );
 };

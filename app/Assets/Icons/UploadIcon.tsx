@@ -2,7 +2,13 @@
 import React from 'react';
 
 export const LargeGreyUploadIcon = () => (
-  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24' fill='none'>
+  <svg
+    xmlns='http://www.w3.org/2000/svg'
+    viewBox='0 0 24 24'
+    width='24'
+    height='24'
+    fill='none'
+  >
     <svg
       xmlns='http://www.w3.org/2000/svg'
       viewBox='0 0 512 512'
@@ -31,9 +37,20 @@ export const LargeGreyUploadIcon = () => (
         <feOffset dx='0' dy='2' />
         <feGaussianBlur stdDeviation='5' />
         <feComposite in2='alpha' operator='out' />
-        <feColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0' />
-        <feBlend mode='normal' in2='bg-fix' result='bg-fix-filter_dshadow_10_0_2_0000001a' />
-        <feBlend in='SourceGraphic' in2='bg-fix-filter_dshadow_10_0_2_0000001a' result='shape' />
+        <feColorMatrix
+          type='matrix'
+          values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0'
+        />
+        <feBlend
+          mode='normal'
+          in2='bg-fix'
+          result='bg-fix-filter_dshadow_10_0_2_0000001a'
+        />
+        <feBlend
+          in='SourceGraphic'
+          in2='bg-fix-filter_dshadow_10_0_2_0000001a'
+          result='shape'
+        />
       </filter>
     </defs>
   </svg>

@@ -4,7 +4,12 @@ import React, { useState } from 'react';
 import { Box, Button, Typography, styled } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { Breadcrumb, DropZone, InputField, SearchableDropdown } from '../Components';
+import {
+  Breadcrumb,
+  DropZone,
+  InputField,
+  SearchableDropdown,
+} from '../Components';
 import { AddProductFormDataI } from '../constants/interfaces';
 import { bulbTypes, pattern } from '../constants';
 
@@ -25,7 +30,9 @@ const AddProduct = () => {
 
   return (
     <AddProductContainer>
-      <Breadcrumb item={[{ name: 'Home', link: '/' }, { name: 'Add Product' }]} />
+      <Breadcrumb
+        item={[{ name: 'Home', link: '/' }, { name: 'Add Product' }]}
+      />
       <Typography variant='h3' mt={10}>
         Add Product
       </Typography>
@@ -116,7 +123,10 @@ const AddProduct = () => {
               control={control}
               rules={{
                 required: 'Quantity Is Required',
-                pattern: { value: pattern.allowOnlyNumbers, message: 'Invalid Quantity' },
+                pattern: {
+                  value: pattern.allowOnlyNumbers,
+                  message: 'Invalid Quantity',
+                },
               }}
               render={({ field, fieldState: { error } }) => (
                 <InputField

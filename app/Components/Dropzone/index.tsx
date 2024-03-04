@@ -1,12 +1,23 @@
 import React, { Dispatch, SetStateAction, useEffect } from 'react';
-import { Box, FormHelperText, IconButton, SxProps, Theme, Typography } from '@mui/material';
+import {
+  Box,
+  FormHelperText,
+  IconButton,
+  SxProps,
+  Theme,
+  Typography,
+} from '@mui/material';
 import Dropzone, { Accept, useDropzone } from 'react-dropzone';
 import Docs from '@/app/Assets/Images/Docs.png';
 import PDF from '@/app/Assets/Images/PDF.png';
 import Excel from '@/app/Assets/Images/Excel.png';
 import PPT from '@/app/Assets/Images/PPT.png';
 import { truncateString } from '@/app/utils';
-import { LargeGreyCloseIcon, LargeGreyUploadIcon, RedLargeDeleteIcon } from '@/app/Assets/Icons';
+import {
+  LargeGreyCloseIcon,
+  LargeGreyUploadIcon,
+  RedLargeDeleteIcon,
+} from '@/app/Assets/Icons';
 import { CustomAvatar, DropZoneWrapper } from './styles';
 import { InputLabelComponent } from '../Input/styles';
 
@@ -31,11 +42,20 @@ const DropZone = ({
   label,
   multiple = false,
 }: PropsI) => {
-  const { fileRejections, acceptedFiles, getRootProps, getInputProps, isDragActive } = useDropzone({
+  const {
+    fileRejections,
+    acceptedFiles,
+    getRootProps,
+    getInputProps,
+    isDragActive,
+  } = useDropzone({
     accept,
   });
 
-  const acceptedFileExtensions = Object.values(accept).reduce((acc, val) => acc.concat(val), []);
+  const acceptedFileExtensions = Object.values(accept).reduce(
+    (acc, val) => acc.concat(val),
+    [],
+  );
 
   const processImageFile = (file: File): Promise<File> =>
     new Promise((resolve, reject) => {
@@ -83,12 +103,17 @@ const DropZone = ({
         file = Object.assign(file, {
           preview: Docs.src,
         });
-      } else if (file.type.includes('presentation') || file.type.includes('ms-powerpoint')) {
+      } else if (
+        file.type.includes('presentation') ||
+        file.type.includes('ms-powerpoint')
+      ) {
         file = Object.assign(file, {
           preview: PPT.src,
         });
       }
-      setFiles((prevValues) => (multiple ? ([...prevValues, file] as File[]) : ([file] as File[])));
+      setFiles((prevValues) =>
+        multiple ? ([...prevValues, file] as File[]) : ([file] as File[]),
+      );
     });
   }, [acceptedFiles, multiple, setFiles]);
 
@@ -107,19 +132,32 @@ const DropZone = ({
       <DropZoneWrapper>
         <Dropzone multiple={multiple}>
           {() => (
-            <Box display='flex' gap={8} alignItems='center' justifyContent='center'>
+            <Box
+              display='flex'
+              gap={8}
+              alignItems='center'
+              justifyContent='center'
+            >
               <Box className='dropzone' {...getRootProps()}>
                 <Box display='grid' gap={5}>
                   <Box display='flex' justifyContent='center'>
                     <LargeGreyUploadIcon />
                   </Box>
-                  <Typography textAlign='center'> Drag & drop file or Browse</Typography>
+                  <Typography textAlign='center'>
+                    {' '}
+                    Drag & drop file or Browse
+                  </Typography>
                   <FormHelperText className='file_name'>
-                    note: only {acceptedFileExtensions.map((extension) => extension).join(', ')}{' '}
+                    note: only{' '}
+                    {acceptedFileExtensions
+                      .map((extension) => extension)
+                      .join(', ')}{' '}
                     files are accepted
                   </FormHelperText>
                   <input {...getInputProps()} />
-                  {isDragActive && <Typography>Drop the files here ...</Typography>}
+                  {isDragActive && (
+                    <Typography>Drop the files here ...</Typography>
+                  )}
                 </Box>
               </Box>
             </Box>
@@ -148,7 +186,9 @@ const DropZone = ({
           {files.map((file) => {
             const fileName = typeof file === 'object' ? file.name : file;
             const preview =
-              typeof file === 'object' ? (file as File & { preview: string }).preview : file;
+              typeof file === 'object'
+                ? (file as File & { preview: string }).preview
+                : file;
             return onlyImages ? (
               <Box className='image_box'>
                 <Box>
@@ -159,12 +199,17 @@ const DropZone = ({
                     alt={fileName}
                     sx={sx}
                   />
-                  <Typography className='file_name'>{truncateString(fileName, 60, '.')}</Typography>
+                  <Typography className='file_name'>
+                    {truncateString(fileName, 60, '.')}
+                  </Typography>
                 </Box>
                 <IconButton
                   onClick={() => {
                     setFiles(
-                      (prevFiles) => prevFiles.filter((prevFile) => prevFile !== file) as File[],
+                      (prevFiles) =>
+                        prevFiles.filter(
+                          (prevFile) => prevFile !== file,
+                        ) as File[],
                     );
                   }}
                 >
@@ -174,13 +219,23 @@ const DropZone = ({
             ) : (
               <Box key={fileName} className='file'>
                 <Box display='flex' alignItems='center' gap={6}>
-                  <CustomAvatar variant='square' src={preview} alt={fileName} sx={sx} />
-                  <Typography className='file_name'>{truncateString(fileName, 60)}</Typography>
+                  <CustomAvatar
+                    variant='square'
+                    src={preview}
+                    alt={fileName}
+                    sx={sx}
+                  />
+                  <Typography className='file_name'>
+                    {truncateString(fileName, 60)}
+                  </Typography>
                 </Box>
                 <IconButton
                   onClick={() => {
                     setFiles(
-                      (prevFiles) => prevFiles.filter((prevFile) => prevFile !== file) as File[],
+                      (prevFiles) =>
+                        prevFiles.filter(
+                          (prevFile) => prevFile !== file,
+                        ) as File[],
                     );
                   }}
                 >

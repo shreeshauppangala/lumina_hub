@@ -116,7 +116,9 @@ const ProfileForm = ({ formData }: PropsI) => {
             control={control}
             rules={{
               validate: (value) =>
-                value !== getValues('password') ? 'Password did not match' : undefined,
+                value !== getValues('password')
+                  ? 'Password did not match'
+                  : undefined,
             }}
             render={({ field, fieldState: { error } }) => (
               <InputField
@@ -128,7 +130,11 @@ const ProfileForm = ({ formData }: PropsI) => {
                 placeholder='password'
                 InputProps={{
                   endAdornment: (
-                    <IconButton onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+                    <IconButton
+                      onClick={() =>
+                        setShowConfirmPassword(!showConfirmPassword)
+                      }
+                    >
                       {showConfirmPassword ? <GreyEye /> : <GreyCrossEye />}
                     </IconButton>
                   ),
@@ -142,7 +148,8 @@ const ProfileForm = ({ formData }: PropsI) => {
             name='house_name'
             control={control}
             rules={{
-              required: 'Flat, House no., Building, Company, Apartment Is Required',
+              required:
+                'Flat, House no., Building, Company, Apartment Is Required',
             }}
             render={({ field, fieldState: { error } }) => (
               <InputField
@@ -234,7 +241,10 @@ const ProfileForm = ({ formData }: PropsI) => {
             control={control}
             rules={{
               required: 'Mobile Number Is Required',
-              pattern: { value: pattern.mobile, message: 'Invalid Mobile Number' },
+              pattern: {
+                value: pattern.mobile,
+                message: 'Invalid Mobile Number',
+              },
             }}
             render={({ field, fieldState: { error } }) => (
               <InputField

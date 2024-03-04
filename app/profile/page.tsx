@@ -24,7 +24,11 @@ const Profile = () => {
   return (
     <ProfileContainer>
       <Breadcrumb item={[{ name: 'Home', link: '/' }, { name: 'Profile' }]} />
-      {isLoading ? <Typography>loading</Typography> : <ProfileForm formData={formData!} />}
+      {isLoading ? (
+        <Typography>loading</Typography>
+      ) : (
+        <ProfileForm formData={formData!} />
+      )}
     </ProfileContainer>
   );
 };

@@ -1,4 +1,9 @@
-import { BlackDownArrow, BlackLeftArrow, BlackRightArrow, BlackUpArrow } from './Arrows';
+import {
+  BlackDownArrow,
+  BlackLeftArrow,
+  BlackRightArrow,
+  BlackUpArrow,
+} from './Arrows';
 import { MediumGreyCartIcon, MediumPrimaryCartIcon } from './CartIcon';
 import { LargeGreyCloseIcon } from './CloseIcon';
 import { RedLargeDeleteIcon } from './DeleteIcon';

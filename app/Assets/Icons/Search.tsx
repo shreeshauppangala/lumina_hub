@@ -2,7 +2,13 @@
 import React from 'react';
 
 const SearchIcon = () => (
-  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none'>
+  <svg
+    xmlns='http://www.w3.org/2000/svg'
+    viewBox='0 0 32 32'
+    width='32'
+    height='32'
+    fill='none'
+  >
     <svg
       xmlns='http://www.w3.org/2000/svg'
       height='32'
@@ -32,9 +38,20 @@ const SearchIcon = () => (
         <feOffset dx='0' dy='2' />
         <feGaussianBlur stdDeviation='5' />
         <feComposite in2='alpha' operator='out' />
-        <feColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0' />
-        <feBlend mode='normal' in2='bg-fix' result='bg-fix-filter_dshadow_10_0_2_0000001a' />
-        <feBlend in='SourceGraphic' in2='bg-fix-filter_dshadow_10_0_2_0000001a' result='shape' />
+        <feColorMatrix
+          type='matrix'
+          values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0'
+        />
+        <feBlend
+          mode='normal'
+          in2='bg-fix'
+          result='bg-fix-filter_dshadow_10_0_2_0000001a'
+        />
+        <feBlend
+          in='SourceGraphic'
+          in2='bg-fix-filter_dshadow_10_0_2_0000001a'
+          result='shape'
+        />
       </filter>
     </defs>
   </svg>

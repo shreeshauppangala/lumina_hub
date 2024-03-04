@@ -15,7 +15,10 @@ export const POST = async (request: NextRequest) => {
     const isMobile = await User.findOne({ mobile_number });
 
     if (isEmail || isMobile) {
-      return NextResponse.json({ message: 'User already exists' }, { status: 400 });
+      return NextResponse.json(
+        { message: 'User already exists' },
+        { status: 400 },
+      );
     }
 
     const salt = await bcryptjs.genSalt(10);
@@ -28,7 +31,11 @@ export const POST = async (request: NextRequest) => {
     });
     await newUser.save();
 
-    await sendEmail({ _id: newUser._id, email: newUser.email, type: 'verifyEmail' });
+    await sendEmail({
+      _id: newUser._id,
+      email: newUser.email,
+      type: 'verifyEmail',
+    });
 
     return NextResponse.json({
       message: 'User created',

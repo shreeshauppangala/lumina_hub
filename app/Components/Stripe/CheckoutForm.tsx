@@ -56,7 +56,12 @@ const CheckoutForm = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <PaymentContainer>
         <CardElement />
-        <Button type='submit' disabled={!stripe} className='checkout_button' variant='contained'>
+        <Button
+          type='submit'
+          disabled={!stripe}
+          className='checkout_button'
+          variant='contained'
+        >
           Proceed to Buy
         </Button>
       </PaymentContainer>

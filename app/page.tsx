@@ -37,7 +37,8 @@ const HeaderImageBox = styled(Box)(({ theme }) => ({
 }));
 const data = [
   {
-    image: 'https://5.imimg.com/data5/AU/ZY/UK/SELLER-86701761/led-bulb-10-volt.jpg',
+    image:
+      'https://5.imimg.com/data5/AU/ZY/UK/SELLER-86701761/led-bulb-10-volt.jpg',
     name: 'Product A',
     price: 25,
   },

@@ -14,7 +14,10 @@ export const POST = async (request: NextRequest) => {
     });
 
     if (!user) {
-      return NextResponse.json({ error: 'Invalid or expired token' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Invalid or expired token' },
+        { status: 400 },
+      );
     }
 
     user.isEmailVerified = true;

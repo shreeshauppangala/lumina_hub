@@ -6,7 +6,13 @@ import { hooks } from '@/app/hooks';
 import { MediumGreyCartIcon } from '@/app/Assets/Icons';
 import { getAmountWithCommas } from '@/app/utils';
 import { Breadcrumb } from '../../Components';
-import { DetailsContainer, ListedImages, PreviewImage, PriceText, AddToCart } from '../styles';
+import {
+  DetailsContainer,
+  ListedImages,
+  PreviewImage,
+  PriceText,
+  AddToCart,
+} from '../styles';
 import CheckoutModal from '../CheckoutModal';
 
 const Page = () => {
@@ -22,7 +28,9 @@ const Page = () => {
   ];
   return (
     <DetailsContainer>
-      <Breadcrumb item={[{ name: 'Home', link: '/' }, { name: 'Product Name' }]} />
+      <Breadcrumb
+        item={[{ name: 'Home', link: '/' }, { name: 'Product Name' }]}
+      />
       <Box display='flex' flexWrap='wrap' mt={8} gap={20}>
         <Box display='grid' gap={10} maxHeight='60vh' overflow='auto'>
           {images.map((image, index) => (

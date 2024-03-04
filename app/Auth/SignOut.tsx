@@ -5,7 +5,8 @@ import { hooks } from '../hooks';
 import { DialogContainer } from './styles';
 
 const SignOut = () => {
-  const { logoutModalOpen, setLogoutModalOpen, isSigningOut, onSignOut } = hooks.useAuth();
+  const { logoutModalOpen, setLogoutModalOpen, isSigningOut, onSignOut } =
+    hooks.useAuth();
   return (
     <DialogContainer
       sx={{ '.MuiPaper-root': { width: 300, display: 'grid', gap: 10 } }}
@@ -17,7 +18,10 @@ const SignOut = () => {
       }}
     >
       <DialogTitle variant='h2'>Sign Out</DialogTitle>
-      <DialogContentText variant='body1'> Are you sure you want to Sign out?</DialogContentText>
+      <DialogContentText variant='body1'>
+        {' '}
+        Are you sure you want to Sign out?
+      </DialogContentText>
       <DialogActions>
         <LoadingButton
           onClick={onSignOut}
