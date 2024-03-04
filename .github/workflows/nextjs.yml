@@ -61,7 +61,7 @@ jobs:
           # You may remove this line if you want to manage the configuration yourself.
           static_site_generator: next
       - name: Install dependencies
-        run:  npm i
+        run: npm i
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
         env:
@@ -70,16 +70,20 @@ jobs:
           NEXT_PUBLIC_BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL }}
           NEXT_PUBLIC_GOOGLE_CLIENT_SECRET: ${{ secrets.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET }}
       - name: Static HTML export with Next.js
+        run: |
+          echo 'module.exports = { target: "experimental-serverless-trace", basePath: "/your-base-path" };' > next.config.js
+      - name: Run Next.js export
         run: ${{ steps.detect-package-manager.outputs.runner }} next export
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
+          name: exported-site
           path: ./out
 
   # Deployment job
   deploy:
     environment:
-      name:  github-page_url
+      name:  GitHub Pages Deployment
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
