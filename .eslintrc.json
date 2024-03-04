@@ -55,7 +55,7 @@
   },
   "overrides": [
     {
-      "files": ["./app/api/**", "dbconfig.ts"],
+      "files": ["./app/api/**", "dbconfig.ts","./app/utils/API_utils.tsx"],
       "rules": {
         "no-console": "off",
         "no-underscore-dangle": "off",

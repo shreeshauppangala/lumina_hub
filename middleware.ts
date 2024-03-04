@@ -3,22 +3,16 @@ import type { NextRequest } from 'next/server';
 
 // This function can be marked `async` if using `await` inside
 export const middleware = (request: NextRequest) => {
-  const path = request.nextUrl.pathname;
+  const isPublic = ['/signin', '/signup', '/verify_email'].includes(request.nextUrl.pathname);
 
-  const isPublic = path === '/signin' || path === 'signup' || path === 'verify_email';
+  const token = request.cookies.get('token')?.value;
 
-  const token = request.cookies.get('token')?.value || '';
-
-  if (isPublic && token) {
-    return NextResponse.redirect('/');
-  }
-
-  if (!isPublic && !token) {
-    return NextResponse.redirect('/signin');
+  if ((isPublic && token) || (!isPublic && !token)) {
+    return NextResponse.redirect(new URL('/', request.nextUrl));
   }
   return null;
 };
 
 export const config = {
-  matcher: ['/signin', '/signout', '/signup', '/verify_email'],
+  matcher: ['/signin', '/signout', '/signup', '/verify_email', '/profile'],
 };
