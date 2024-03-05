@@ -2,7 +2,7 @@
 
 import { Box, Typography, styled } from '@mui/material';
 import Img from './Assets/Images/HomeHeaderBG.png';
-import { CarouselCard, SearchBar } from './Components';
+import { SearchBar, Swiper } from './Components';
 
 const Categories = styled(Box)(({ theme }) => ({
   padding: theme.spacing(5, 10),
@@ -155,10 +155,8 @@ const Home = () => (
         </Box>
       </HeaderImageBox>
       <Box m='32px 0'>
-        <Box mb={16}>
-          <CarouselCard heading='New Arrivals' productsData={data} />
-        </Box>
-        <CarouselCard heading='You might like' productsData={data} />
+        <Swiper heading='New Arrivals' productsData={data} />
+        <Swiper heading='You might like' productsData={data} />
       </Box>
     </Box>
   </Box>

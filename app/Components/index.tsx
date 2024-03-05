@@ -1,5 +1,5 @@
 import Breadcrumb from './Breadcrumb';
-import CarouselCard from './CarouselCard';
+import Swiper from './Swiper';
 import DropZone from './Dropzone';
 import InputField from './Input';
 import RazorPay from './RazorPay';
@@ -9,7 +9,7 @@ import Stripe from './Stripe';
 
 export {
   SearchBar,
-  CarouselCard,
+  Swiper,
   InputField,
   Breadcrumb,
   SearchableDropdown,
