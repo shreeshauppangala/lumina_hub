@@ -1,6 +1,6 @@
 import React from 'react';
 import { Swiper as SwiperJs, SwiperSlide } from 'swiper/react';
-import { FreeMode, Navigation, Pagination } from 'swiper/modules';
+import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Avatar, Box, Typography, styled } from '@mui/material';
@@ -42,40 +42,34 @@ const Swiper = ({ productsData, heading }: PropsI) => {
   );
 
   return (
-    <>
+    <Box mt={15}>
       <Typography variant='h4' mb={12}>
         {heading}
       </Typography>
       <SwiperJs
         allowTouchMove
         navigation
-        freeMode
-        pagination
         slidesPerView={4}
-        modules={[Navigation, FreeMode, Pagination]}
+        modules={[Navigation]}
         className='mySwiper'
-        // breakpoints={{
-        //   1500: {
-        //     slidesPerView: 5,
-        //     spaceBetween: 5,
-        //   },
-        //   1300: {
-        //     slidesPerView: 5,
-        //     spaceBetween: 5,
-        //   },
-        //   991: {
-        //     slidesPerView: pageWidth === PAGE_WIDTH.FLUID ? 4 : 3,
-        //     spaceBetween: 5,
-        //   },
-        //   600: {
-        //     slidesPerView: pageWidth === PAGE_WIDTH.FLUID ? 3 : 2,
-        //     spaceBetween: 5,
-        //   },
-        //   300: {
-        //     slidesPerView: 2,
-        //     spaceBetween: 5,
-        //   },
-        // }}
+        breakpoints={{
+          1200: {
+            slidesPerView: 4,
+            spaceBetween: 4,
+          },
+          850: {
+            slidesPerView: 3,
+            spaceBetween: 3,
+          },
+          550: {
+            slidesPerView: 2,
+            spaceBetween: 2,
+          },
+          1: {
+            slidesPerView: 1,
+            spaceBetween: 1,
+          },
+        }}
       >
         {productsData.map((product) => (
           <SwiperSlide key={product.image}>
@@ -87,7 +81,7 @@ const Swiper = ({ productsData, heading }: PropsI) => {
           </SwiperSlide>
         ))}
       </SwiperJs>
-    </>
+    </Box>
   );
 };
 
