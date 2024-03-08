@@ -66,7 +66,7 @@ export const sendEmail = async ({
       subject: type === 'forgotPassword' ? 'Reset Password' : 'Verify Email',
       html: `<p>Copy the link to your browser ${
         type === 'forgotPassword' ? 'reset your password' : 'verify your email'
-      }<br/> <i> http://localhost:3000/${type}/${hashedToken}</i></p>`,
+      }<br/> <i> http://localhost:3000/verify/?${type}=${hashedToken}</i></p>`,
     });
 
     return mailResponse;

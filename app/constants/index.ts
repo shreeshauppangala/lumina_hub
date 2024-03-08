@@ -8,6 +8,7 @@ const API = {
   signUp: 'signup',
   signOut: 'signout',
   profile: 'profile',
+  verifyEmail: 'verify_email',
 };
 
 const pattern = {

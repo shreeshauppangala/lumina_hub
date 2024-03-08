@@ -20,6 +20,7 @@ import {
   signOut,
   signUp,
   updateProfile,
+  verifyEmail,
 } from './controllers/auth';
 import LocalStorageService from './localStorage';
 import { useSnackBar } from './snackbar';
@@ -46,6 +47,10 @@ interface AuthI {
   isSigningOut: boolean;
   onSignOut: () => void;
 
+  isEmailVerified: boolean;
+  isVerifyingEmail: boolean;
+  onVerifyEmail: (data: { token: string }) => void;
+
   openForgotPassword: boolean;
   setOpenForgotPassword: (openForgotPassword: boolean) => void;
 
@@ -69,6 +74,7 @@ const useAuthFunc = () => {
   const [openSignUp, setOpenSignUp] = useState(false);
   const [logoutModalOpen, setLogoutModalOpen] = useState(false);
   const [openForgotPassword, setOpenForgotPassword] = useState(false);
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
 
   const router = useRouter();
 
@@ -179,6 +185,21 @@ const useAuthFunc = () => {
     },
   );
 
+  const { mutate: mutateVerifyEmail, isPending: isVerifyingEmail } =
+    useMutation({
+      mutationFn: verifyEmail,
+      onSuccess: () => {
+        setIsEmailVerified(true);
+      },
+      onError: (error) => {
+        ShowApiErrorSnackBar(error);
+      },
+    });
+
+  const onVerifyEmail = (data: { token: string }) => {
+    mutateVerifyEmail(data);
+  };
+
   /**
    * Custom hook that uses the `useQuery` hook from a query library to fetch profile data.
    * @returns An object containing the profile data.
@@ -222,6 +243,10 @@ const useAuthFunc = () => {
     isProfileUpdating,
     onUpdateProfile,
     UseGetProfileData,
+
+    isEmailVerified,
+    isVerifyingEmail,
+    onVerifyEmail,
 
     user,
 
