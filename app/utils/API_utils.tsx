@@ -14,13 +14,9 @@ export const getDataFromToken = (request: NextRequest) => {
       process.env.JWT_SECRET!,
       (err, decodedData: any) => {
         if (err) {
-          if (err.name === 'TokenExpiredError') {
-            throw new Error('Token expired');
-          }
-          throw new Error('Invalid token');
-        } else {
-          return decodedData?._doc?._id;
+          throw Error(err.name);
         }
+        return decodedData?._doc?._id;
       },
     );
     return data;

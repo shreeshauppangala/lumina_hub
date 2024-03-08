@@ -9,10 +9,13 @@ connect();
 
 export const GET = async (request: NextRequest) => {
   try {
-    const id = await getDataFromToken(request);
+    const id = getDataFromToken(request);
     const user = await User.findOne({ _id: id }).select('-password');
     return NextResponse.json(user);
-  } catch (error) {
+  } catch (error: any) {
+    if (error.message.includes('Token')) {
+      return NextResponse.json({ message: 'Token Expired' }, { status: 401 });
+    }
     return NextResponse.json({ error }, { status: 500 });
   }
 };

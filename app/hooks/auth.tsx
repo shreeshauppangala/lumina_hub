@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useContext, useState } from 'react';
 import { CredentialResponse } from '@react-oauth/google';
-import { AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import {
   UseQueryResult,
   useMutation,
@@ -73,7 +73,8 @@ const useAuthFunc = () => {
   const router = useRouter();
 
   const queryClient = useQueryClient();
-  const { ShowApiErrorSnackBar, ShowSuccessSnackBar } = useSnackBar();
+  const { ShowApiErrorSnackBar, ShowSuccessSnackBar, ShowErrorSnackBar } =
+    useSnackBar();
 
   const { mutate: mutateSignUp, isPending: isSignUpLoading } = useMutation({
     mutationFn: signUp,
@@ -159,6 +160,24 @@ const useAuthFunc = () => {
   const onSignOut = () => {
     mutateSignOut();
   };
+
+  /**
+   * Adds a response interceptor to the axios instance that will handle 401 responses.
+   * @returns None
+   */
+  axios.interceptors.response.use(
+    (response) => response,
+    async (error) => {
+      if (error.response) {
+        if (error.response.status === 401) {
+          onSignOut();
+          router.push('/');
+          ShowErrorSnackBar('Session Expired');
+        }
+      }
+      return Promise.reject(error);
+    },
+  );
 
   /**
    * Custom hook that uses the `useQuery` hook from a query library to fetch profile data.
