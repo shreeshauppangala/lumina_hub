@@ -1,4 +1,5 @@
 import { ReactNode, StrictMode } from 'react';
+import { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 import { Box } from '@mui/material';
 import { GoogleOAuthProvider } from '@react-oauth/google';
@@ -12,6 +13,11 @@ const roboto = Roboto({
   subsets: ['latin'],
   weight: ['100', '300', '400', '500', '700', '900'],
 });
+
+export const metadata: Metadata = {
+  title: 'Lumina Hub',
+  icons: './favicon.ico',
+};
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
   const { CustomMuiThemeProvider } = muiCustomTheme;
