@@ -8,13 +8,14 @@ import {
   FormLabel,
   Typography,
 } from '@mui/material';
+import { useSearchParams } from 'next/navigation';
 import { hooks } from '../hooks';
 
 const Verify = () => {
   const { isVerifyingEmail, onVerifyEmail, isEmailVerified } = hooks.useAuth();
 
-  const queryParams = new URLSearchParams(window.location.search);
-  const token = queryParams.get('verifyEmail');
+  const searchParams = useSearchParams();
+  const token = searchParams.get('verifyEmail');
 
   useEffect(() => {
     if (token) {
