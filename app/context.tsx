@@ -39,9 +39,11 @@ const ContextContainer = ({ children }: { children: ReactNode }) => {
   return (
     <SnackBarProvider>
       <QueryClientProvider client={queryClient}>
-        <hooks.ProvideAuth>
-          <hooks.ProvideOrders>{children}</hooks.ProvideOrders>
-        </hooks.ProvideAuth>
+        <hooks.ProvideMisc>
+          <hooks.ProvideAuth>
+            <hooks.ProvideOrders>{children}</hooks.ProvideOrders>
+          </hooks.ProvideAuth>
+        </hooks.ProvideMisc>
       </QueryClientProvider>
     </SnackBarProvider>
   );

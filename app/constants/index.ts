@@ -9,6 +9,7 @@ const API = {
   signOut: 'signout',
   profile: 'profile',
   verifyEmail: 'verify_email',
+  fileUpload: 'file_upload',
 };
 
 const pattern = {
