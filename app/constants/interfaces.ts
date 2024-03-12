@@ -24,7 +24,7 @@ export type MultiDropdownValue =
   | null;
 
 export interface UserI {
-  picture: string | File;
+  picture: string;
   full_name: string;
   email: string;
   password: string & { length: { gte: 8 } };
@@ -53,7 +53,9 @@ export interface SignUpFormDataI
     | 'verifyEmailTokenExpiry'
     | 'isAdmin'
     | 'isEmailVerified'
+    | 'picture'
   > {
+  picture: string | File;
   confirm_password: string & { length: { gte: 8 } };
   termsAgreement: boolean;
 }

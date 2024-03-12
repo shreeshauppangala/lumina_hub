@@ -24,6 +24,7 @@ import {
 } from './controllers/auth';
 import LocalStorageService from './localStorage';
 import { useSnackBar } from './snackbar';
+import { useMisc } from './misc';
 
 interface ProvideAuthI {
   children: ReactNode;
@@ -82,6 +83,8 @@ const useAuthFunc = () => {
   const { ShowApiErrorSnackBar, ShowSuccessSnackBar, ShowErrorSnackBar } =
     useSnackBar();
 
+  const { onFileUpload } = useMisc();
+
   const { mutate: mutateSignUp, isPending: isSignUpLoading } = useMutation({
     mutationFn: signUp,
     onSuccess: () => {
@@ -96,8 +99,13 @@ const useAuthFunc = () => {
   /**
    * A function that is called when the user signs up.
    */
-  const onSignUp = (data: SignUpFormDataI) => {
-    mutateSignUp(data);
+  const onSignUp = async (data: SignUpFormDataI) => {
+    if (typeof data.picture !== 'string') {
+      const url = await onFileUpload({ file: data.picture, folder: 'user' });
+      mutateSignUp({ ...data, picture: url });
+    } else {
+      mutateSignUp(data);
+    }
   };
 
   /**

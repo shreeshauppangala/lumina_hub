@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useContext } from 'react';
+import { ReactNode, createContext, useContext, useState } from 'react';
 import { useSnackBar } from './snackbar';
 import { fileUpload } from './controllers/misc';
 
@@ -7,7 +7,11 @@ interface ProvideMiscI {
 }
 
 interface MiscI {
-  onFileUpload: (file: File) => void;
+  isFileUploading: boolean;
+  onFileUpload: (formData: {
+    file: File;
+    folder: 'user' | 'product';
+  }) => Promise<string>;
 }
 
 const MiscContext = createContext<any>(null);
@@ -15,22 +19,26 @@ const MiscContext = createContext<any>(null);
 export const useMisc = (): MiscI => useContext(MiscContext);
 
 const useMiscFunc = () => {
+  const [isFileUploading, setIsFileUploading] = useState(false);
   const { ShowErrorSnackBar } = useSnackBar();
 
   const onFileUpload = async (formData: {
     file: File;
     folder: 'user' | 'product';
+    // eslint-disable-next-line consistent-return
   }) => {
     try {
       const { data } = await fileUpload(formData);
-
       return data.url;
     } catch (error: any) {
-      return ShowErrorSnackBar(error.message);
+      ShowErrorSnackBar(error.message);
+    } finally {
+      setIsFileUploading(false);
     }
   };
 
   return {
+    isFileUploading,
     onFileUpload,
   };
 };
