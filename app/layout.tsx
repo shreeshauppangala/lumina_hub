@@ -31,7 +31,9 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
                 clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET!}
               >
                 <Header />
-                <Box mt={42}>{children}</Box>
+                <Box mt={42} minHeight='65vh'>
+                  {children}
+                </Box>
                 <Footer />
               </GoogleOAuthProvider>
             </ContextContainer>

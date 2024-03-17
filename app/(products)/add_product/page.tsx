@@ -10,10 +10,10 @@ import {
   DropZone,
   InputField,
   SearchableDropdown,
-} from '../Components';
-import { AddProductFormDataI } from '../constants/interfaces';
-import { bulbTypes, pattern } from '../constants';
-import { hooks } from '../hooks';
+} from '../../Components';
+import { AddProductFormDataI } from '../../constants/interfaces';
+import { bulbTypes, pattern } from '../../constants';
+import { hooks } from '../../hooks';
 
 const AddProductContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(5, 10),
