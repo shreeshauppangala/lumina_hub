@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Box, Button, Typography, styled } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import { Controller, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import {
@@ -12,6 +13,7 @@ import {
 } from '../Components';
 import { AddProductFormDataI } from '../constants/interfaces';
 import { bulbTypes, pattern } from '../constants';
+import { hooks } from '../hooks';
 
 const AddProductContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(5, 10),
@@ -24,8 +26,15 @@ const AddProduct = () => {
     mode: 'all',
   });
 
+  const { isAddProductAdding, fileUploading, onAddProduct } =
+    hooks.useProducts();
+
   const onSubmit = (data: AddProductFormDataI) => {
-    JSON.stringify(data);
+    onAddProduct({
+      ...data,
+      type: data.type?.value!,
+      pictures: productImages as File[],
+    });
   };
 
   return (
@@ -119,7 +128,7 @@ const AddProduct = () => {
           </Box>
           <Box display='flex' gap={12}>
             <Controller
-              name='quantity'
+              name='quantity_available'
               control={control}
               rules={{
                 required: 'Quantity Is Required',
@@ -169,12 +178,18 @@ const AddProduct = () => {
               onlyImages
               label='Product Images'
               required
+              multiple
             />
           </Box>
           <Box display='flex' justifyContent='end' gap={5}>
-            <Button type='submit' variant='contained' color='primary'>
+            <LoadingButton
+              loading={isAddProductAdding || fileUploading}
+              type='submit'
+              variant='contained'
+              color='primary'
+            >
               Add Product
-            </Button>
+            </LoadingButton>
             <Button
               variant='contained'
               color='secondary'

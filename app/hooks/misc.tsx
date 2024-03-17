@@ -10,7 +10,7 @@ interface MiscI {
   isFileUploading: boolean;
   onFileUpload: (formData: {
     file: File;
-    folder: 'user' | 'product';
+    folder: 'user' | 'products';
   }) => Promise<string>;
 }
 
@@ -24,7 +24,7 @@ const useMiscFunc = () => {
 
   const onFileUpload = async (formData: {
     file: File;
-    folder: 'user' | 'product';
+    folder: 'user' | 'products';
     // eslint-disable-next-line consistent-return
   }) => {
     try {

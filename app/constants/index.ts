@@ -10,6 +10,8 @@ const API = {
   profile: 'profile',
   verifyEmail: 'verify_email',
   fileUpload: 'file_upload',
+
+  product: 'product',
 };
 
 const pattern = {

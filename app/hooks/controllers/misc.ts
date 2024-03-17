@@ -3,7 +3,7 @@ import { postApi } from '../config';
 
 export const fileUpload = (data: {
   file: File;
-  folder: 'user' | 'product';
+  folder: 'user' | 'products';
 }) => {
   const formData = new FormData();
 

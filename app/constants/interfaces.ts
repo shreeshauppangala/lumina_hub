@@ -7,7 +7,7 @@
  */
 export type DropdownValue = {
   label: string;
-  value: number;
+  value: string;
 } | null;
 
 /**
@@ -93,11 +93,12 @@ export interface SignedInUserI {
 }
 
 export interface AddProductFormDataI {
+  pictures: File[] | string[];
   name: string;
   price: number | null;
   type: DropdownValue;
   watt: number;
-  quantity: number;
+  quantity_available: number;
   description: string;
 }
 
