@@ -10,7 +10,7 @@ import { hooks } from '../hooks';
 
 interface PropsI {
   type: 'Add' | 'Update';
-  formData: AddEditProductFormDataI;
+  formData?: AddEditProductFormDataI;
 }
 
 const AddEditForm = ({ type, formData }: PropsI) => {
