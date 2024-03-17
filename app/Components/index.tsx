@@ -7,6 +7,7 @@ import SearchBar from './SearchBar';
 import SearchableDropdown from './SearchableDropdown';
 import Stripe from './Stripe';
 import Table from './Table';
+import DeleteModal from './DeleteModal';
 
 export {
   SearchBar,
@@ -18,4 +19,5 @@ export {
   DropZone,
   RazorPay,
   Table,
+  DeleteModal,
 };

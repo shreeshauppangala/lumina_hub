@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { AddProductFormDataI } from '../constants/interfaces';
 import {
   addProduct,
+  deleteProduct,
   getProductDetails,
   getProductsList,
 } from './controllers/products';
@@ -32,6 +33,11 @@ interface ProductsI {
 
   UseGetProductsList: () => UseQueryResult<any, Error>;
   UseGetProductDetails: (id: string) => UseQueryResult<any, Error>;
+
+  openProductDeleteModal: boolean;
+  setOpenProductDeleteModal: (openProductDeleteModal: boolean) => void;
+  isProductDeleting: boolean;
+  onDeleteProduct: (id: string) => void;
 }
 
 const ProductsContext = createContext<any>(null);
@@ -40,6 +46,7 @@ export const useProducts = (): ProductsI => useContext(ProductsContext);
 
 const useProductsFunc = () => {
   const [fileUploading, setFileUploading] = useState(false);
+  const [openProductDeleteModal, setOpenProductDeleteModal] = useState(false);
 
   const router = useRouter();
 
@@ -87,6 +94,23 @@ const useProductsFunc = () => {
       }
     });
 
+  const { mutate: mutateDeleteProduct, isPending: isProductDeleting } =
+    useMutation({
+      mutationFn: deleteProduct,
+      onSuccess: ({ data }) => {
+        ShowSuccessSnackBar(`${data.data.name} Deleted successfully`);
+        setOpenProductDeleteModal(false);
+        queryClient.refetchQueries({ queryKey: ['product_list'] });
+      },
+      onError: (error) => {
+        ShowApiErrorSnackBar(error);
+      },
+    });
+
+  const onDeleteProduct = async (id: string) => {
+    mutateDeleteProduct({ id });
+  };
+
   const UseGetProductsList = () =>
     useQuery({
       queryKey: ['product_list'],
@@ -109,6 +133,11 @@ const useProductsFunc = () => {
     isAddProductAdding,
     fileUploading,
     onAddProduct,
+
+    isProductDeleting,
+    onDeleteProduct,
+    openProductDeleteModal,
+    setOpenProductDeleteModal,
   };
 };
 

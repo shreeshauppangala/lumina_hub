@@ -111,7 +111,7 @@ export const theme = createTheme({
     MuiAvatar: {
       styleOverrides: {
         root: () => ({
-          backgroundColor: theme.palette.primary.light,
+          backgroundColor: 'transparent',
           borderRadius: theme.spacing(12),
           img: {
             objectFit: 'contain',

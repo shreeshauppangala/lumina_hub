@@ -50,7 +50,7 @@ export const PATCH = async (request: NextRequest) => {
 export const DELETE = async (request: NextRequest) => {
   try {
     const userId = getDataFromToken(request);
-    const id = request.url;
+    const id = request.url.split('/')[5];
     const user = await User.findOne({ _id: userId });
 
     if (!user?.isAdmin) {
