@@ -3,6 +3,7 @@
 import { Box, Typography, styled } from '@mui/material';
 import Img from './Assets/Images/HomeHeaderBG.png';
 import { SearchBar, Swiper } from './Components';
+import { hooks } from './hooks';
 
 const Categories = styled(Box)(({ theme }) => ({
   padding: theme.spacing(5, 10),
@@ -35,131 +36,36 @@ const HeaderImageBox = styled(Box)(({ theme }) => ({
     height: '100%',
   },
 }));
-const data = [
-  {
-    image:
-      'https://5.imimg.com/data5/AU/ZY/UK/SELLER-86701761/led-bulb-10-volt.jpg',
-    name: 'Product A',
-    price: 25,
-  },
-  {
-    image: 'https://climatekids.nasa.gov/light-bulbs/led.png',
-    name: 'Product B',
-    price: 30,
-  },
-  {
-    image: 'https://climatekids.nasa.gov/light-bulbs/halogen.png',
-    name: 'Product C',
-    price: 15,
-  },
-  {
-    image: 'https://climatekids.nasa.gov/light-bulbs/cfl.png',
-    name: 'Product D',
-    price: 40,
-  },
-  {
-    image: 'https://climatekids.nasa.gov/light-bulbs/incandescent.png',
-    name: 'Product E',
-    price: 20,
-  },
-  {
-    image: 'https://example.com/image6.jpg',
-    name: 'Product F',
-    price: 35,
-  },
-  {
-    image: 'https://example.com/image7.jpg',
-    name: 'Product G',
-    price: 28,
-  },
-  {
-    image: 'https://example.com/image8.jpg',
-    name: 'Product H',
-    price: 18,
-  },
-  {
-    image: 'https://example.com/image9.jpg',
-    name: 'Product I',
-    price: 22,
-  },
-  {
-    image: 'https://example.com/image10.jpg',
-    name: 'Product J',
-    price: 33,
-  },
-  {
-    image: 'https://example.com/image11.jpg',
-    name: 'Product K',
-    price: 27,
-  },
-  {
-    image: 'https://example.com/image12.jpg',
-    name: 'Product L',
-    price: 14,
-  },
-  {
-    image: 'https://example.com/image13.jpg',
-    name: 'Product M',
-    price: 38,
-  },
-  {
-    image: 'https://example.com/image14.jpg',
-    name: 'Product N',
-    price: 21,
-  },
-  {
-    image: 'https://example.com/image15.jpg',
-    name: 'Product O',
-    price: 32,
-  },
-  {
-    image: 'https://example.com/image16.jpg',
-    name: 'Product P',
-    price: 24,
-  },
-  {
-    image: 'https://example.com/image17.jpg',
-    name: 'Product Q',
-    price: 29,
-  },
-  {
-    image: 'https://example.com/image18.jpg',
-    name: 'Product R',
-    price: 36,
-  },
-  {
-    image: 'https://example.com/image19.jpg',
-    name: 'Product S',
-    price: 17,
-  },
-  {
-    image: 'https://example.com/image20.jpg',
-    name: 'Product T',
-    price: 31,
-  },
-];
 
-const Home = () => (
-  <Box>
-    <Categories>dc</Categories>
-    <Box padding='0 20px'>
-      <HeaderImageBox>
-        <Box className='bg_color' />
-        <Box className='content'>
-          <Box>
-            <Typography variant='h2' mb={20}>
-              Upgrade to LED Bulbs. Illuminate your space.
-            </Typography>
-            <SearchBar placeholder='What LED bulb are you looking for?' />
+const Home = () => {
+  const { UseGetProductsList } = hooks.useProducts();
+
+  const { data, isLoading } = UseGetProductsList();
+
+  return (
+    <Box>
+      <Categories>dc</Categories>
+      <Box padding='0 20px'>
+        <HeaderImageBox>
+          <Box className='bg_color' />
+          <Box className='content'>
+            <Box>
+              <Typography variant='h2' mb={20}>
+                Upgrade to LED Bulbs. Illuminate your space.
+              </Typography>
+              <SearchBar placeholder='What LED bulb are you looking for?' />
+            </Box>
           </Box>
-        </Box>
-      </HeaderImageBox>
-      <Box m='32px 0'>
-        <Swiper heading='New Arrivals' productsData={data} />
-        <Swiper heading='You might like' productsData={data} />
+        </HeaderImageBox>
+        {!isLoading && (
+          <Box m='32px 0'>
+            <Swiper heading='New Arrivals' productsData={data} />
+            <Swiper heading='You might like' productsData={data} />
+          </Box>
+        )}
       </Box>
     </Box>
-  </Box>
-);
+  );
+};
 
 export default Home;

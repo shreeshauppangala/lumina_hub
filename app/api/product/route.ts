@@ -47,9 +47,8 @@ export const POST = async (request: NextRequest) => {
 
 export const GET = async () => {
   try {
-    const data = Product.find({});
-
-    return NextResponse.json(data);
+    const productsList = await Product.find({});
+    return NextResponse.json(productsList);
   } catch (error) {
     return NextResponse.json({ error }, { status: 500 });
   }

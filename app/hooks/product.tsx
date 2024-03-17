@@ -1,7 +1,12 @@
 import { ReactNode, createContext, useContext, useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import {
+  UseQueryResult,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import { AddProductFormDataI } from '../constants/interfaces';
-import { addProduct } from './controllers/products';
+import { addProduct, getProductsList } from './controllers/products';
 import { useSnackBar } from './snackbar';
 import { useMisc } from './misc';
 
@@ -19,6 +24,8 @@ interface ProductsI {
   isAddProductAdding: boolean;
   fileUploading: boolean;
   onAddProduct: (data: AddProductDataI) => void;
+
+  UseGetProductsList: () => UseQueryResult<any, Error>;
 }
 
 const ProductsContext = createContext<any>(null);
@@ -29,6 +36,8 @@ const useProductsFunc = () => {
   const [fileUploading, setFileUploading] = useState(false);
   const { ShowApiErrorSnackBar, ShowSuccessSnackBar } = useSnackBar();
 
+  const queryClient = useQueryClient();
+
   const { onFileUpload } = useMisc();
 
   const { mutate: mutateAddProduct, isPending: isAddProductAdding } =
@@ -36,15 +45,13 @@ const useProductsFunc = () => {
       mutationFn: addProduct,
       onSuccess: ({ data }) => {
         ShowSuccessSnackBar(`${data.name} added successfully`);
+        queryClient.refetchQueries({ queryKey: ['product_list'] });
       },
       onError: (error) => {
         ShowApiErrorSnackBar(error);
       },
     });
 
-  /**
-   * A function that is called when the user signs up.
-   */
   const onAddProduct = async (data: AddProductDataI) =>
     // eslint-disable-next-line consistent-return, no-async-promise-executor
     new Promise(async (resolve) => {
@@ -69,7 +76,17 @@ const useProductsFunc = () => {
         }
       }
     });
+
+  const UseGetProductsList = () =>
+    useQuery({
+      queryKey: ['product_list'],
+      queryFn: () => getProductsList(),
+      select: ({ data }) => data,
+    });
+
   return {
+    UseGetProductsList,
+
     isAddProductAdding,
     fileUploading,
     onAddProduct,

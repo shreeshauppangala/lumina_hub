@@ -11,6 +11,7 @@ interface ProductCardI {
   image: string;
   name: string;
   price: number;
+  _id: string;
 }
 
 interface PropsI {
@@ -26,9 +27,9 @@ const ProductImage = styled(Avatar)(({ theme }) => ({
 const Swiper = ({ productsData, heading }: PropsI) => {
   const router = useRouter();
 
-  const ProductCard = ({ image, name, price }: ProductCardI) => (
+  const ProductCard = ({ image, name, price, _id }: ProductCardI) => (
     <Box
-      onClick={() => router.push(`details/${name}`)}
+      onClick={() => router.push(`details/${_id}`)}
       sx={{ cursor: 'pointer' }}
     >
       <ProductImage variant='square' src={image} alt={name} />
