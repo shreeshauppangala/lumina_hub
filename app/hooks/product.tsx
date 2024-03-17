@@ -6,7 +6,11 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import { AddProductFormDataI } from '../constants/interfaces';
-import { addProduct, getProductsList } from './controllers/products';
+import {
+  addProduct,
+  getProductDetails,
+  getProductsList,
+} from './controllers/products';
 import { useSnackBar } from './snackbar';
 import { useMisc } from './misc';
 
@@ -26,6 +30,7 @@ interface ProductsI {
   onAddProduct: (data: AddProductDataI) => void;
 
   UseGetProductsList: () => UseQueryResult<any, Error>;
+  UseGetProductDetails: (id: string) => UseQueryResult<any, Error>;
 }
 
 const ProductsContext = createContext<any>(null);
@@ -84,8 +89,17 @@ const useProductsFunc = () => {
       select: ({ data }) => data,
     });
 
+  const UseGetProductDetails = (id: string) =>
+    useQuery({
+      queryKey: ['product_details', id],
+      queryFn: () => getProductDetails(id),
+      select: ({ data }) => data,
+      enabled: !!id,
+    });
+
   return {
     UseGetProductsList,
+    UseGetProductDetails,
 
     isAddProductAdding,
     fileUploading,

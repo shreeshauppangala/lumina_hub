@@ -14,6 +14,11 @@ import { getAmountWithCommas, getQuantityOptions } from '../utils';
 
 const CheckoutModal = () => {
   const { openCheckoutModal, setOpenCheckoutModal } = hooks.useOrders();
+
+  const { UseGetProfileData } = hooks.useAuth();
+
+  const { data } = UseGetProfileData();
+
   return (
     <CheckoutDialogContainer
       open={openCheckoutModal}
@@ -50,10 +55,12 @@ const CheckoutModal = () => {
         </Box>
         <Box display='flex' justifyContent='end' mt={10}>
           <Box display='grid' gap={5}>
-            <Typography textAlign='right'>Company </Typography>
-            <Typography textAlign='right'>Village </Typography>
-            <Typography textAlign='right'>City, State - Pincode</Typography>
-            <Typography textAlign='right'>+91 9633301322</Typography>
+            <Typography textAlign='right'>{data?.house_name} </Typography>
+            <Typography textAlign='right'>{data?.village} </Typography>
+            <Typography textAlign='right'>
+              {data?.city}, {data?.state} - {data?.pin_code}
+            </Typography>
+            <Typography textAlign='right'>+91 {data?.mobile_number}</Typography>
           </Box>
         </Box>
         <Box mt={20}>

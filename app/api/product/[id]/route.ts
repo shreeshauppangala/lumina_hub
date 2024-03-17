@@ -5,10 +5,14 @@ import User from '@/models/user';
 
 export const GET = async (request: NextRequest) => {
   try {
-    const id = request.url;
+    const id = request.url.split('/')[5];
     const product = await Product.findOne({ _id: id });
 
-    return NextResponse.json(product);
+    if (product) {
+      return NextResponse.json(product);
+    }
+
+    return NextResponse.json({ message: 'No Product found' }, { status: 404 });
   } catch (error) {
     return NextResponse.json({ error }, { status: 500 });
   }

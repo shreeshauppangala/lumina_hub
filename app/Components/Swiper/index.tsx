@@ -78,6 +78,8 @@ const Swiper = ({ productsData, heading }: PropsI) => {
               image={product.image}
               name={product.name}
               price={product.price}
+              // eslint-disable-next-line no-underscore-dangle
+              _id={product._id}
             />
           </SwiperSlide>
         ))}
