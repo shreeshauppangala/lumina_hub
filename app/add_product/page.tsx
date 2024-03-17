@@ -32,7 +32,7 @@ const AddProduct = () => {
   const onSubmit = (data: AddProductFormDataI) => {
     onAddProduct({
       ...data,
-      type: data.type?.value!,
+      bulb_type: data.bulb_type?.value!,
       pictures: productImages as File[],
     });
   };
@@ -89,7 +89,7 @@ const AddProduct = () => {
           </Box>
           <Box display='flex' gap={12}>
             <Controller
-              name='type'
+              name='bulb_type'
               control={control}
               rules={{
                 required: 'Bulb Type Is Required',

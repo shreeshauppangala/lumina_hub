@@ -17,7 +17,7 @@ const productSchema = new Schema({
     type: Number,
     required: [true, 'Price is required'],
   },
-  type: {
+  bulb_type: {
     type: String,
     required: [true, 'type is required'],
   },

@@ -3,8 +3,8 @@ import { AddProductFormDataI } from '@/app/constants/interfaces';
 import { getApi, postApi } from '../config';
 
 interface AddProductDataI
-  extends Omit<AddProductFormDataI, 'type' | 'pictures'> {
-  type: string;
+  extends Omit<AddProductFormDataI, 'bulb_type' | 'pictures'> {
+  bulb_type: string;
   pictures: string[];
 }
 

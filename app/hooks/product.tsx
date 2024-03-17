@@ -10,8 +10,8 @@ interface ProvideProductsI {
 }
 
 interface AddProductDataI
-  extends Omit<AddProductFormDataI, 'type' | 'pictures'> {
-  type: string;
+  extends Omit<AddProductFormDataI, 'bulb_type' | 'pictures'> {
+  bulb_type: string;
   pictures: File[];
 }
 

@@ -96,7 +96,7 @@ export interface AddProductFormDataI {
   pictures: File[] | string[];
   name: string;
   price: number | null;
-  type: DropdownValue;
+  bulb_type: DropdownValue;
   watt: number;
   quantity_available: number;
   description: string;
