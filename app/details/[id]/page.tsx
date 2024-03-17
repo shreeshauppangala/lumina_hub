@@ -28,9 +28,7 @@ const Page = () => {
 
   return (
     <DetailsContainer>
-      <Breadcrumb
-        item={[{ name: 'Home', link: '/' }, { name: 'Product Name' }]}
-      />
+      <Breadcrumb item={[{ name: 'Home', link: '/' }, { name: data?.name }]} />
       {!isLoading && (
         <Box display='flex' flexWrap='wrap' mt={8} gap={20}>
           <Box display='grid' gap={10} maxHeight='60vh' overflow='auto'>

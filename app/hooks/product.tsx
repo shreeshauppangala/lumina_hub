@@ -12,6 +12,7 @@ import {
   deleteProduct,
   getProductDetails,
   getProductsList,
+  updateProduct,
 } from './controllers/products';
 import { useSnackBar } from './snackbar';
 import { useMisc } from './misc';
@@ -20,16 +21,19 @@ interface ProvideProductsI {
   children: ReactNode;
 }
 
-interface AddProductDataI
+interface AddEditProductDataI
   extends Omit<AddProductFormDataI, 'bulb_type' | 'pictures'> {
   bulb_type: string;
-  pictures: File[];
+  pictures: File[] | string[];
 }
 
 interface ProductsI {
   isAddProductAdding: boolean;
   fileUploading: boolean;
-  onAddProduct: (data: AddProductDataI) => void;
+  onAddProduct: (data: AddEditProductDataI) => void;
+
+  isProductUpdating: boolean;
+  onUpdateProduct: (data: AddEditProductDataI) => void;
 
   UseGetProductsList: () => UseQueryResult<any, Error>;
   UseGetProductDetails: (id: string) => UseQueryResult<any, Error>;
@@ -69,16 +73,13 @@ const useProductsFunc = () => {
       },
     });
 
-  const onAddProduct = async (data: AddProductDataI) =>
-    // eslint-disable-next-line consistent-return, no-async-promise-executor
-    new Promise(async (resolve) => {
-      const pictureUrls = [];
-      const files = data.pictures;
-
+  const fileUpload = async (files: File[]) => {
+    // eslint-disable-next-line no-async-promise-executor, consistent-return
+    const urls = new Promise<string[]>(async (resolve) => {
+      const pictureUrls: string[] = [];
       // eslint-disable-next-line no-plusplus
       for (let i = 0; i < files.length; i++) {
         setFileUploading(true);
-
         // eslint-disable-next-line no-await-in-loop
         const url = await onFileUpload({
           file: files[i],
@@ -86,13 +87,51 @@ const useProductsFunc = () => {
         });
         pictureUrls.push(url);
         if (i === files.length - 1) {
-          mutateAddProduct({ ...data, pictures: pictureUrls });
           setFileUploading(false);
+          resolve(pictureUrls);
           // eslint-disable-next-line no-promise-executor-return
-          return resolve(data);
+          return pictureUrls;
         }
       }
     });
+    return urls;
+  };
+
+  const onAddProduct = async (data: AddEditProductDataI) => {
+    if (data.pictures.every((item) => item instanceof File)) {
+      const pictureUrls = await fileUpload(data.pictures as File[]);
+      mutateAddProduct({ ...data, pictures: pictureUrls });
+    }
+  };
+
+  const { mutate: mutateUpdateProduct, isPending: isProductUpdating } =
+    useMutation({
+      mutationFn: updateProduct,
+      onSuccess: ({ data }) => {
+        ShowSuccessSnackBar(`${data.name} Updated successfully`);
+        router.push('/manage_products');
+        queryClient.refetchQueries({ queryKey: ['product_list'] });
+      },
+      onError: (error) => {
+        ShowApiErrorSnackBar(error);
+      },
+    });
+
+  const onUpdateProduct = async (data: AddEditProductDataI) => {
+    const filesOnly = data.pictures.filter(
+      (item) => item instanceof File,
+    ) as File[];
+
+    if (filesOnly.length) {
+      const pictureUrls = await fileUpload(data.pictures as File[]);
+      const urlsOnly = data.pictures.filter(
+        (item) => typeof item === 'string',
+      ) as string[];
+      mutateUpdateProduct({ ...data, pictures: [...urlsOnly, ...pictureUrls] });
+    } else {
+      mutateUpdateProduct({ ...data, pictures: data.pictures as string[] });
+    }
+  };
 
   const { mutate: mutateDeleteProduct, isPending: isProductDeleting } =
     useMutation({
@@ -133,6 +172,9 @@ const useProductsFunc = () => {
     isAddProductAdding,
     fileUploading,
     onAddProduct,
+
+    isProductUpdating,
+    onUpdateProduct,
 
     isProductDeleting,
     onDeleteProduct,

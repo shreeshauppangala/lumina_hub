@@ -45,6 +45,35 @@ export const POST = async (request: NextRequest) => {
   }
 };
 
+export const PATCH = async (request: NextRequest) => {
+  try {
+    const id = getDataFromToken(request);
+    const body = await request.json();
+    const user = await User.findOne({ _id: id });
+
+    if (!user?.isAdmin) {
+      return NextResponse.json(
+        { message: 'Only Admin can Update Product' },
+        { status: 400 },
+      );
+    }
+    const updatedProduct = await Product.findByIdAndUpdate(body._id, body, {
+      new: true,
+    });
+    return NextResponse.json({
+      message: `${updatedProduct?.name} Updated Successfully`,
+      data: {
+        ...updatedProduct,
+      },
+    });
+  } catch (error: any) {
+    if (error.message.includes('Token')) {
+      return NextResponse.json({ message: 'Token Expired' }, { status: 401 });
+    }
+    return NextResponse.json({ error }, { status: 500 });
+  }
+};
+
 export const GET = async () => {
   try {
     const productsList = await Product.find({});

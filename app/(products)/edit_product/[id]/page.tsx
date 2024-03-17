@@ -1,5 +1,36 @@
-import React from 'react';
+'use client';
 
-const EditProduct = () => <div>EditProduct</div>;
+import React from 'react';
+import { Typography } from '@mui/material';
+import { usePathname } from 'next/navigation';
+import { Breadcrumb } from '@/app/Components';
+import { hooks } from '@/app/hooks';
+import AddEditForm from '../../AddEditForm';
+import { AddEditProductContainer } from '../../styles';
+
+const EditProduct = () => {
+  const id = usePathname().split('/')[2];
+
+  const { UseGetProductDetails } = hooks.useProducts();
+
+  const { data, isLoading } = UseGetProductDetails(id);
+
+  const formData = {
+    ...data,
+    bulb_type: { label: data?.bulb_type, value: data?.bulb_type },
+  };
+
+  return (
+    <AddEditProductContainer>
+      <Breadcrumb
+        item={[{ name: 'Home', link: '/' }, { name: `Edit ${data?.name}` }]}
+      />
+      <Typography variant='h3' mt={10}>
+        Edit {data?.name}
+      </Typography>
+      {!isLoading && <AddEditForm type='Edit' formData={formData} />}
+    </AddEditProductContainer>
+  );
+};
 
 export default EditProduct;
