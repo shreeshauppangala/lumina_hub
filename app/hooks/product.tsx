@@ -6,7 +6,7 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { AddProductFormDataI } from '../constants/interfaces';
+import { AddEditProductFormDataI, ProductI } from '../constants/interfaces';
 import {
   addProduct,
   deleteProduct,
@@ -22,7 +22,7 @@ interface ProvideProductsI {
 }
 
 interface AddEditProductDataI
-  extends Omit<AddProductFormDataI, 'bulb_type' | 'pictures'> {
+  extends Omit<AddEditProductFormDataI, 'bulb_type' | 'pictures'> {
   bulb_type: string;
   pictures: File[] | string[];
 }
@@ -35,8 +35,8 @@ interface ProductsI {
   isProductUpdating: boolean;
   onUpdateProduct: (data: AddEditProductDataI) => void;
 
-  UseGetProductsList: () => UseQueryResult<any, Error>;
-  UseGetProductDetails: (id: string) => UseQueryResult<any, Error>;
+  UseGetProductsList: () => UseQueryResult<ProductI[], Error>;
+  UseGetProductDetails: (id: string) => UseQueryResult<ProductI, Error>;
 
   openProductDeleteModal: boolean;
   setOpenProductDeleteModal: (openProductDeleteModal: boolean) => void;

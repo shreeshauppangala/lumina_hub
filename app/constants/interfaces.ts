@@ -92,7 +92,19 @@ export interface SignedInUserI {
   isEmailVerified: boolean;
 }
 
-export interface AddProductFormDataI {
+export interface ProductI {
+  _id: string;
+  pictures: string[];
+  name: string;
+  description: string;
+  price: number;
+  bulb_type: string;
+  watt: number;
+  quantity_available: number;
+  __v: number;
+}
+
+export interface AddEditProductFormDataI {
   pictures: File[] | string[];
   name: string;
   price: number | null;

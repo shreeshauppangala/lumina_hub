@@ -32,7 +32,7 @@ const Page = () => {
       {!isLoading && (
         <Box display='flex' flexWrap='wrap' mt={8} gap={20}>
           <Box display='grid' gap={10} maxHeight='60vh' overflow='auto'>
-            {data.pictures.map((image, index) => (
+            {data?.pictures.map((image, index) => (
               <ListedImages
                 key={image}
                 variant='square'
@@ -45,21 +45,21 @@ const Page = () => {
           <Box display='flex' gap={24} flexWrap='wrap' flex={2}>
             <PreviewImage
               variant='square'
-              src={data.pictures[previewImageIndex]}
+              src={data?.pictures[previewImageIndex]}
             />
             <Box flex={2}>
               <Box display='flex' gap={24} alignItems='center'>
-                <Typography variant='h3'>{data.name}</Typography>
-                <PriceText>{getAmountWithCommas(data.price)}</PriceText>
+                <Typography variant='h3'>{data?.name}</Typography>
+                <PriceText>{getAmountWithCommas(data?.price)}</PriceText>
               </Box>
               <Typography variant='body2' mt={20}>
-                {data.description}
+                {data?.description}
               </Typography>
               <Typography variant='body2' mt={10}>
-                Type : {data.bulb_type}
+                Type : {data?.bulb_type}
               </Typography>
               <Typography variant='body2' mt={5}>
-                Watts : {data.watt}
+                Watts : {data?.watt}
               </Typography>
               <Box display='flex' gap={12} mt={10} alignItems='center'>
                 <Button

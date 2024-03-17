@@ -5,18 +5,18 @@ import { useForm, Controller } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { InputField, SearchableDropdown, DropZone } from '../Components';
 import { bulbTypes, pattern } from '../constants';
-import { AddProductFormDataI } from '../constants/interfaces';
+import { AddEditProductFormDataI } from '../constants/interfaces';
 import { hooks } from '../hooks';
 
 interface PropsI {
   type: 'Add' | 'Edit';
-  formData: AddProductFormDataI;
+  formData: AddEditProductFormDataI;
 }
 
 const AddEditForm = ({ type, formData }: PropsI) => {
   const [productImages, setProductImages] = useState<File[] | string[]>([]);
   const router = useRouter();
-  const { control, handleSubmit, reset } = useForm<AddProductFormDataI>({
+  const { control, handleSubmit, reset } = useForm<AddEditProductFormDataI>({
     mode: 'all',
     defaultValues: type === 'Edit' ? formData : undefined,
   });
@@ -29,7 +29,7 @@ const AddEditForm = ({ type, formData }: PropsI) => {
     onUpdateProduct,
   } = hooks.useProducts();
 
-  const onSubmit = (data: AddProductFormDataI) => {
+  const onSubmit = (data: AddEditProductFormDataI) => {
     const submittedData = {
       ...data,
       bulb_type: data.bulb_type?.value!,

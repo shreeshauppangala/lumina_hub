@@ -1,9 +1,9 @@
 import { API } from '@/app/constants';
-import { AddProductFormDataI } from '@/app/constants/interfaces';
+import { AddEditProductFormDataI } from '@/app/constants/interfaces';
 import { deleteApi, getApi, patchApi, postApi } from '../config';
 
 interface AddProductDataI
-  extends Omit<AddProductFormDataI, 'bulb_type' | 'pictures'> {
+  extends Omit<AddEditProductFormDataI, 'bulb_type' | 'pictures'> {
   bulb_type: string;
   pictures: string[];
 }

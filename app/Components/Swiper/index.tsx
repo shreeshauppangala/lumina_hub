@@ -6,17 +6,11 @@ import 'swiper/css/navigation';
 import { Avatar, Box, Typography, styled } from '@mui/material';
 import { getAmountWithCommas } from '@/app/utils';
 import { useRouter } from 'next/navigation';
-
-interface ProductCardI {
-  image: string;
-  name: string;
-  price: number;
-  _id: string;
-}
+import { ProductI } from '@/app/constants/interfaces';
 
 interface PropsI {
   heading: string;
-  productsData: ProductCardI[];
+  productsData: ProductI[];
 }
 
 const ProductImage = styled(Avatar)(({ theme }) => ({
@@ -27,12 +21,12 @@ const ProductImage = styled(Avatar)(({ theme }) => ({
 const Swiper = ({ productsData, heading }: PropsI) => {
   const router = useRouter();
 
-  const ProductCard = ({ image, name, price, _id }: ProductCardI) => (
+  const ProductCard = ({ pictures, name, price, _id }: ProductI) => (
     <Box
       onClick={() => router.push(`details/${_id}`)}
       sx={{ cursor: 'pointer' }}
     >
-      <ProductImage variant='square' src={image} alt={name} />
+      <ProductImage variant='square' src={pictures[0]} alt={name} />
       <Typography variant='body2' mt={6}>
         {name}
       </Typography>
@@ -73,12 +67,11 @@ const Swiper = ({ productsData, heading }: PropsI) => {
         }}
       >
         {productsData.map((product) => (
-          <SwiperSlide key={product.image}>
+          <SwiperSlide key={product._id}>
             <ProductCard
-              image={product.image}
+              pictures={product.pictures}
               name={product.name}
               price={product.price}
-              // eslint-disable-next-line no-underscore-dangle
               _id={product._id}
             />
           </SwiperSlide>

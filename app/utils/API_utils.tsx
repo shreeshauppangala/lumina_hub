@@ -9,7 +9,7 @@ export const getDataFromToken = (request: NextRequest) => {
   try {
     const token = request.cookies.get('token')?.value || '';
 
-    const data = jwt.verify(
+    const data: Types.ObjectId = jwt.verify(
       token,
       process.env.JWT_SECRET!,
       (err, decodedData: any) => {

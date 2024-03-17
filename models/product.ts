@@ -1,6 +1,11 @@
-import { Schema, model, models } from 'mongoose';
+import { Model, Schema, model, models } from 'mongoose';
+import { ProductI } from '@/app/constants/interfaces';
 
-const productSchema = new Schema({
+
+type ProductDocument = ProductI & Document;
+type ProductModel = Model<ProductDocument>;
+
+const productSchema = new Schema<ProductDocument>({
   pictures: {
     type: [String],
     required: [true, 'Pictures are required'],
@@ -31,6 +36,6 @@ const productSchema = new Schema({
   },
 });
 
-const Product = models.product || model('product', productSchema);
+const Product: ProductModel = models.product || model('product', productSchema);
 
 export default Product;
