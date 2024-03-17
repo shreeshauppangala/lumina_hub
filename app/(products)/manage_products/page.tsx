@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Box, Button, IconButton } from '@mui/material';
 import { TableColumn } from 'react-data-table-component';
 import { useRouter } from 'next/navigation';
+import { ProductI } from '@/app/constants/interfaces';
 import { Breadcrumb, DeleteModal, Table } from '../../Components';
 import { ManageProductsContainer } from './styles';
 import { hooks } from '../../hooks';
@@ -11,7 +12,7 @@ import { getAmountWithCommas } from '../../utils';
 import { PencilIcon, RedLargeDeleteIcon } from '../../Assets/Icons';
 
 const ManageProducts = () => {
-  const [product, setProduct] = useState(null);
+  const [product, setProduct] = useState<ProductI | null>(null);
   const router = useRouter();
 
   const {
@@ -24,7 +25,7 @@ const ManageProducts = () => {
 
   const { data, isLoading } = UseGetProductsList();
 
-  const columns: TableColumn<any>[] = [
+  const columns: TableColumn<ProductI>[] = [
     {
       name: 'name',
       cell: (row) => row.name,
@@ -75,7 +76,7 @@ const ManageProducts = () => {
       <DeleteModal
         open={openProductDeleteModal}
         setOpen={setOpenProductDeleteModal}
-        handleDelete={() => onDeleteProduct(product?._id)}
+        handleDelete={() => onDeleteProduct(product?._id!)}
         isDeleting={isProductDeleting}
       />
     </ManageProductsContainer>

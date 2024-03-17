@@ -2,7 +2,7 @@
 
 import { Box, Typography, styled } from '@mui/material';
 import Img from './Assets/Images/HomeHeaderBG.png';
-import { SearchBar, Swiper } from './Components';
+import { Loader, SearchBar, Swiper } from './Components';
 import { hooks } from './hooks';
 
 const Categories = styled(Box)(({ theme }) => ({
@@ -57,7 +57,9 @@ const Home = () => {
             </Box>
           </Box>
         </HeaderImageBox>
-        {!isLoading && (
+        {isLoading ? (
+          <Loader type='section' />
+        ) : (
           <Box m='32px 0'>
             <Swiper heading='New Arrivals' productsData={data} />
             <Swiper heading='You might like' productsData={data} />

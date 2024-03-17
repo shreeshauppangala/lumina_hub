@@ -9,7 +9,7 @@ import { AddEditProductFormDataI } from '../constants/interfaces';
 import { hooks } from '../hooks';
 
 interface PropsI {
-  type: 'Add' | 'Edit';
+  type: 'Add' | 'Update';
   formData: AddEditProductFormDataI;
 }
 
@@ -18,7 +18,7 @@ const AddEditForm = ({ type, formData }: PropsI) => {
   const router = useRouter();
   const { control, handleSubmit, reset } = useForm<AddEditProductFormDataI>({
     mode: 'all',
-    defaultValues: type === 'Edit' ? formData : undefined,
+    defaultValues: type === 'Update' ? formData : undefined,
   });
 
   const {
@@ -37,16 +37,16 @@ const AddEditForm = ({ type, formData }: PropsI) => {
     };
     if (type === 'Add') {
       onAddProduct(submittedData);
-    } else if (type === 'Edit') {
+    } else if (type === 'Update') {
       onUpdateProduct(submittedData);
     }
   };
 
   useEffect(() => {
-    if (type === 'Edit') {
+    if (type === 'Update') {
       setProductImages(formData.pictures);
     }
-  }, [formData.pictures, type]);
+  }, [formData?.pictures, type]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -192,7 +192,7 @@ const AddEditForm = ({ type, formData }: PropsI) => {
             variant='contained'
             color='primary'
           >
-            Add Product
+            {type} Product
           </LoadingButton>
           <Button
             variant='contained'

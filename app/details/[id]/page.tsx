@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { hooks } from '@/app/hooks';
 import { MediumGreyCartIcon } from '@/app/Assets/Icons';
 import { getAmountWithCommas } from '@/app/utils';
-import { Breadcrumb } from '../../Components';
+import { Breadcrumb, Loader } from '../../Components';
 import {
   DetailsContainer,
   ListedImages,
@@ -29,7 +29,9 @@ const Page = () => {
   return (
     <DetailsContainer>
       <Breadcrumb item={[{ name: 'Home', link: '/' }, { name: data?.name }]} />
-      {!isLoading && (
+      {isLoading ? (
+        <Loader />
+      ) : (
         <Box display='flex' flexWrap='wrap' mt={8} gap={20}>
           <Box display='grid' gap={10} maxHeight='60vh' overflow='auto'>
             {data?.pictures.map((image, index) => (
