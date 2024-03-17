@@ -5,6 +5,7 @@ import {
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 import { AddProductFormDataI } from '../constants/interfaces';
 import {
   addProduct,
@@ -39,6 +40,9 @@ export const useProducts = (): ProductsI => useContext(ProductsContext);
 
 const useProductsFunc = () => {
   const [fileUploading, setFileUploading] = useState(false);
+
+  const router = useRouter();
+
   const { ShowApiErrorSnackBar, ShowSuccessSnackBar } = useSnackBar();
 
   const queryClient = useQueryClient();
@@ -50,6 +54,7 @@ const useProductsFunc = () => {
       mutationFn: addProduct,
       onSuccess: ({ data }) => {
         ShowSuccessSnackBar(`${data.name} added successfully`);
+        router.push('/manage_products');
         queryClient.refetchQueries({ queryKey: ['product_list'] });
       },
       onError: (error) => {

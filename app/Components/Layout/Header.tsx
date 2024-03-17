@@ -69,6 +69,19 @@ const Header = () => {
                   <Typography>Profile</Typography>
                 </Box>
               </MenuItem>
+              {user?.isAdmin ? (
+                <MenuItem
+                  onClick={() => {
+                    router.push('/manage_products');
+                    setAnchorEl(null);
+                  }}
+                >
+                  <Box display='flex' gap={4} alignItems='center'>
+                    <MediumPrimaryOrdersIcon />
+                    <Typography>Manage Products</Typography>
+                  </Box>
+                </MenuItem>
+              ) : null}
               <MenuItem
                 onClick={() => {
                   router.push('/cart');

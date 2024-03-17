@@ -38,6 +38,7 @@
     "prefer-arrow-callback": "error",
     "react/jsx-closing-tag-location": "error",
     "prefer-arrow/prefer-arrow-functions": "error",
+    "no-underscore-dangle": "off",
     "react/function-component-definition": [
       "error",
       {
@@ -57,7 +58,6 @@
     {
       "files": ["./app/api/**", "./app/utils/API_utils.tsx"],
       "rules": {
-        "no-underscore-dangle": "off",
         "@typescript-eslint/naming-convention": "off"
       }
     },

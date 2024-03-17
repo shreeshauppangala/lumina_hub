@@ -7,7 +7,7 @@ export const middleware = (request: NextRequest) => {
 
   const isPublic = ['/signin', '/signup', '/verify_email'].includes(pathName);
 
-  // const adminRoute = ['/add_product'].includes(pathName);
+  // const adminRoute = ['/add_product','/manage_products].includes(pathName);
 
   const token = request.cookies.get('token')?.value;
 
@@ -18,5 +18,13 @@ export const middleware = (request: NextRequest) => {
 };
 
 export const config = {
-  matcher: ['/signin', '/signout', '/signup', '/verify_email', '/profile', '/add_product'],
+  matcher: [
+    '/signin',
+    '/signout',
+    '/signup',
+    '/verify_email',
+    '/profile',
+    '/add_product',
+    '/manage_products',
+  ],
 };

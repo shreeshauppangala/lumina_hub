@@ -6,6 +6,7 @@ import RazorPay from './RazorPay';
 import SearchBar from './SearchBar';
 import SearchableDropdown from './SearchableDropdown';
 import Stripe from './Stripe';
+import Table from './Table';
 
 export {
   SearchBar,
@@ -16,4 +17,5 @@ export {
   Stripe,
   DropZone,
   RazorPay,
+  Table,
 };

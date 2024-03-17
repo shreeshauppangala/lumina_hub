@@ -11,6 +11,7 @@ import { GreyCrossEye, GreyEye } from './Eye';
 import { GreyLargeInfoIcon } from './InfoIcon';
 import { MediumPrimaryLogoutIcon } from './LogoutIcon';
 import { MediumPrimaryOrdersIcon } from './OrdersIcon';
+import PencilIcon from './PencilIcon';
 import SearchIcon from './Search';
 import { LargeGreyUploadIcon } from './UploadIcon';
 import { MediumPrimaryUserIcon } from './UserIcon';
@@ -32,4 +33,5 @@ export {
   GreyLargeInfoIcon,
   LargeGreyUploadIcon,
   LargeGreyCloseIcon,
+  PencilIcon,
 };
