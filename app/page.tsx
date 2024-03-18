@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { Box, Typography, styled } from '@mui/material';
 import Img from './Assets/Images/HomeHeaderBG.png';
 import { Loader, SearchBar, Swiper } from './Components';
@@ -38,9 +39,13 @@ const HeaderImageBox = styled(Box)(({ theme }) => ({
 }));
 
 const Home = () => {
+  const [productSearch, setProductSearch] = useState('');
   const { UseGetProductsList } = hooks.useProducts();
 
   const { data, isLoading } = UseGetProductsList();
+
+  const { data: SearchedData, isLoading: isSearching } =
+    UseGetProductsList(productSearch);
 
   return (
     <Box>
@@ -53,7 +58,10 @@ const Home = () => {
               <Typography variant='h2' mb={20}>
                 Upgrade to LED Bulbs. Illuminate your space.
               </Typography>
-              <SearchBar placeholder='What LED bulb are you looking for?' />
+              <SearchBar
+                placeholder='What LED bulb are you looking for?'
+                onChange={(e) => setProductSearch(e.target.value)}
+              />
             </Box>
           </Box>
         </HeaderImageBox>
@@ -61,8 +69,18 @@ const Home = () => {
           <Loader type='section' />
         ) : (
           <Box m='32px 0'>
-            <Swiper heading='New Arrivals' productsData={data} />
-            <Swiper heading='You might like' productsData={data} />
+            {productSearch.length ? (
+              isSearching ? (
+                <Loader type='section' />
+              ) : (
+                <Swiper
+                  heading='Searched Products'
+                  productsData={SearchedData}
+                />
+              )
+            ) : null}
+            <Swiper heading='Products' productsData={data} />
+            {/* <Swiper heading='You might like' productsData={data} /> */}
           </Box>
         )}
       </Box>

@@ -74,9 +74,17 @@ export const PATCH = async (request: NextRequest) => {
   }
 };
 
-export const GET = async () => {
+export const GET = async (request: NextRequest) => {
   try {
-    const productsList = await Product.find({});
+    const searchParam = request.nextUrl.searchParams;
+    const searchText = searchParam.get('search');
+    const searchRegex = new RegExp(`^${searchText}`, 'i');
+    const findObj = searchText?.length
+      ? {
+          name: { $regex: searchRegex },
+        }
+      : {};
+    const productsList = await Product.find(findObj);
     return NextResponse.json(productsList);
   } catch (error) {
     return NextResponse.json({ error }, { status: 500 });

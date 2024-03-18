@@ -35,7 +35,9 @@ interface ProductsI {
   isProductUpdating: boolean;
   onUpdateProduct: (data: AddEditProductDataI) => void;
 
-  UseGetProductsList: () => UseQueryResult<ProductI[], Error>;
+  UseGetProductsList: (
+    productSearch?: string,
+  ) => UseQueryResult<ProductI[], Error>;
   UseGetProductDetails: (id: string) => UseQueryResult<ProductI, Error>;
 
   openProductDeleteModal: boolean;
@@ -150,10 +152,10 @@ const useProductsFunc = () => {
     mutateDeleteProduct({ id });
   };
 
-  const UseGetProductsList = () =>
+  const UseGetProductsList = (productSearch?: string) =>
     useQuery({
-      queryKey: ['product_list'],
-      queryFn: () => getProductsList(),
+      queryKey: ['product_list', productSearch],
+      queryFn: () => getProductsList(productSearch),
       select: ({ data }) => data,
     });
 

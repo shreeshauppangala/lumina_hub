@@ -41,37 +41,43 @@ const Swiper = ({ productsData, heading }: PropsI) => {
       <Typography variant='h4' mb={12}>
         {heading}
       </Typography>
-      <SwiperJs
-        allowTouchMove
-        navigation
-        slidesPerView={4}
-        modules={[Navigation]}
-        className='mySwiper'
-        breakpoints={{
-          1200: {
-            slidesPerView: 4,
-            spaceBetween: 4,
-          },
-          850: {
-            slidesPerView: 3,
-            spaceBetween: 3,
-          },
-          550: {
-            slidesPerView: 2,
-            spaceBetween: 2,
-          },
-          1: {
-            slidesPerView: 1,
-            spaceBetween: 1,
-          },
-        }}
-      >
-        {productsData?.map((product) => (
-          <SwiperSlide key={product._id}>
-            <ProductCard data={product} />
-          </SwiperSlide>
-        ))}
-      </SwiperJs>
+      {!productsData?.length ? (
+        <Typography variant='h2' textAlign='center'>
+          No Data Found
+        </Typography>
+      ) : (
+        <SwiperJs
+          allowTouchMove
+          navigation
+          slidesPerView={4}
+          modules={[Navigation]}
+          className='mySwiper'
+          breakpoints={{
+            1200: {
+              slidesPerView: 4,
+              spaceBetween: 4,
+            },
+            850: {
+              slidesPerView: 3,
+              spaceBetween: 3,
+            },
+            550: {
+              slidesPerView: 2,
+              spaceBetween: 2,
+            },
+            1: {
+              slidesPerView: 1,
+              spaceBetween: 1,
+            },
+          }}
+        >
+          {productsData?.map((product) => (
+            <SwiperSlide key={product._id}>
+              <ProductCard data={product} />
+            </SwiperSlide>
+          ))}
+        </SwiperJs>
+      )}
     </Box>
   );
 };

@@ -8,7 +8,8 @@ interface AddProductDataI
   pictures: string[];
 }
 
-export const getProductsList = () => getApi(API.product);
+export const getProductsList = (search?: string) =>
+  getApi(`${API.product}${search ? `?search=${search}` : ''}`);
 
 export const getProductDetails = (id: string) => getApi(`${API.product}/${id}`);
 
