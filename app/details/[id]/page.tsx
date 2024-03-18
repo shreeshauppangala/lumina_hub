@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import { usePathname } from 'next/navigation';
+import { ProductI } from '@/app/constants/interfaces';
 import { hooks } from '@/app/hooks';
 import { MediumGreyCartIcon } from '@/app/Assets/Icons';
 import { getAmountWithCommas } from '@/app/utils';
@@ -18,6 +19,7 @@ import CheckoutModal from '../CheckoutModal';
 
 const Page = () => {
   const [previewImageIndex, setPreviewImageIndex] = useState(0);
+  const [product, setProduct] = useState<ProductI | null>(null);
 
   const id = usePathname().split('/')[2];
   const { setOpenCheckoutModal } = hooks.useOrders();
@@ -67,7 +69,10 @@ const Page = () => {
                 <Button
                   color='primary'
                   variant='contained'
-                  onClick={() => setOpenCheckoutModal(true)}
+                  onClick={() => {
+                    setProduct(data!);
+                    setOpenCheckoutModal(true);
+                  }}
                 >
                   Buy Now
                 </Button>
@@ -79,7 +84,7 @@ const Page = () => {
           </Box>
         </Box>
       )}
-      <CheckoutModal />
+      <CheckoutModal productInfo={product} />
     </DetailsContainer>
   );
 };

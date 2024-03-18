@@ -114,15 +114,8 @@ export interface AddEditProductFormDataI {
   description: string;
 }
 
-export interface ProductDetailsI {
-  name: string;
-  image: string;
-  price: number;
-  quantity: number;
-}
-
 export interface CartDataI {
-  products: ProductDetailsI[];
+  products: ProductI[];
   total: number;
 }
 

@@ -11,13 +11,23 @@ import { CheckoutDialogContainer } from './styles';
 import { SearchableDropdown, Stripe } from '../Components';
 import { quantityDropdown } from '../cart/styles';
 import { getAmountWithCommas, getQuantityOptions } from '../utils';
+import { ProductI } from '../constants/interfaces';
 
-const CheckoutModal = () => {
-  const { openCheckoutModal, setOpenCheckoutModal } = hooks.useOrders();
+interface PropsI {
+  productInfo: ProductI | null;
+}
+
+const CheckoutModal = ({ productInfo }: PropsI) => {
+  const {
+    openCheckoutModal,
+    setOpenCheckoutModal,
+    selectedQuantity,
+    setSelectedQuantity,
+  } = hooks.useOrders();
 
   const { UseGetProfileData } = hooks.useAuth();
 
-  const { data } = UseGetProfileData();
+  const { data: userData } = UseGetProfileData();
 
   return (
     <CheckoutDialogContainer
@@ -33,34 +43,39 @@ const CheckoutModal = () => {
         <Box display='flex' justifyContent='space-between' flexWrap='wrap'>
           <Box display='flex' gap={10} flexWrap='wrap'>
             <Avatar
-              src='https://5.imimg.com/data5/AU/ZY/UK/SELLER-86701761/led-bulb-10-volt.jpg'
+              src={productInfo?.pictures[0]}
               className='product_image'
               variant='square'
             />
             <Box>
               <Typography mb={5} variant='h4'>
-                gb
+                {productInfo?.name}
               </Typography>
               <SearchableDropdown
-                value={{ label: 'jk', value: 24 }}
-                options={getQuantityOptions()}
-                onChange={() => {}}
+                value={selectedQuantity}
+                options={getQuantityOptions(productInfo?.quantity_available!)}
+                onChange={(value) => setSelectedQuantity(value)}
                 styles={quantityDropdown}
                 dropdownInnerText='Qty:'
-                type='creatable'
               />
             </Box>
           </Box>
-          <Typography variant='h4'>{getAmountWithCommas(452745)}</Typography>
+          <Typography variant='h4'>
+            {getAmountWithCommas(
+              Math.imul(Number(selectedQuantity?.value), productInfo?.price!),
+            )}
+          </Typography>
         </Box>
         <Box display='flex' justifyContent='end' mt={10}>
           <Box display='grid' gap={5}>
-            <Typography textAlign='right'>{data?.house_name} </Typography>
-            <Typography textAlign='right'>{data?.village} </Typography>
+            <Typography textAlign='right'>{userData?.house_name} </Typography>
+            <Typography textAlign='right'>{userData?.village} </Typography>
             <Typography textAlign='right'>
-              {data?.city}, {data?.state} - {data?.pin_code}
+              {userData?.city}, {userData?.state} - {userData?.pin_code}
             </Typography>
-            <Typography textAlign='right'>+91 {data?.mobile_number}</Typography>
+            <Typography textAlign='right'>
+              +91 {userData?.mobile_number}
+            </Typography>
           </Box>
         </Box>
         <Box mt={20}>

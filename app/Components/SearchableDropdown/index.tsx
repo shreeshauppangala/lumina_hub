@@ -100,7 +100,9 @@ const SearchableDropdown = forwardRef((props: SearchableDropDownI, ref) => {
       <components.ValueContainer {...valueContainerProps}>
         {dropdownInnerText ? (
           <Box display='flex' alignItems='center' minWidth={260}>
-            <Typography variant='body2'>{dropdownInnerText} </Typography>{' '}
+            <Typography variant='body2' color='black'>
+              {dropdownInnerText}{' '}
+            </Typography>{' '}
             <Box display='flex' alignItems='center'>
               {children}
             </Box>

@@ -92,10 +92,13 @@ export const getAmountWithCommas = (
   return `₹ ${number.toLocaleString('en-IN')}`;
 };
 
-export const getQuantityOptions = () => {
+export const getQuantityOptions = (
+  available_quantity: number,
+  includeDelete?: boolean,
+) => {
   const generatedArray = [];
 
-  for (let i = 0; i <= 10; i += 1) {
+  for (let i = includeDelete ? 0 : 1; i <= available_quantity; i += 1) {
     generatedArray.push({
       label: i === 0 ? `${i.toString()} (delete)` : i.toString(),
       value: i,
