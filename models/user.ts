@@ -71,22 +71,25 @@ const userSchema = new Schema<UserDocument>({
   },
   cart: {
     type: [
-      // name: string;
-      // image: string;
-      // price: number;
-      // total: number;
       {
-        item: {
-          type: Schema.Types.ObjectId, // Example: Reference to another collection
-          ref: 'Item', // Example: Reference to an 'Item' collection
-        },
-        quantity: {
-          type: Number,
-          default: 0,
+        items: {
+          type: Schema.Types.ObjectId,
+          ref: 'Product',
         },
       },
     ],
-    default: [],
+    default: [], // Default value set to an empty array
+  },
+  orders: {
+    type: [
+      {
+        items: {
+          type: Schema.Types.ObjectId,
+          ref: 'Product',
+        },
+      },
+    ],
+    default: [], // Default value set to an empty array
   },
   forgotPasswordToken: String,
   forgotPasswordTokenExpiry: Date,

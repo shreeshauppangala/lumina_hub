@@ -36,7 +36,8 @@ export interface UserI {
   mobile_number: (number & { length: 10 }) | undefined;
   isEmailVerified: boolean;
   isAdmin: boolean;
-  cart: [];
+  cart: ProductI[];
+  orders: ProductI[];
   forgotPasswordToken: string | null;
   forgotPasswordTokenExpiry: Date | null;
   verifyEmailToken: string | null;
@@ -47,6 +48,7 @@ export interface SignUpFormDataI
   extends Omit<
     UserI,
     | 'cart'
+    | 'orders'
     | 'forgotPasswordToken'
     | 'forgotPasswordTokenExpiry'
     | 'verifyEmailToken'

@@ -14,13 +14,16 @@ import { Breadcrumb, SearchableDropdown, Stripe } from '../Components';
 import { RedLargeDeleteIcon } from '../Assets/Icons';
 import { CartContainer, quantityDropdown } from './styles';
 import { getAmountWithCommas, getQuantityOptions } from '../utils';
+import { hooks } from '../hooks';
+import { DropdownValue } from '../constants/interfaces';
 
 const Cart = () => {
-  const [quantity, setQuantity] = useState<null | {
-    quantity: number;
-    id: string;
-  }>(null);
+  const [quantity, setQuantity] = useState<null | DropdownValue>(null);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
+
+  const { UseGetProfileData } = hooks.useAuth();
+
+  const { data: userData } = UseGetProfileData();
 
   useEffect(() => {}, [quantity]);
   const data = [
@@ -126,9 +129,7 @@ const Cart = () => {
                         <SearchableDropdown
                           value={{ label: item.quantity, value: item.quantity }}
                           options={getQuantityOptions()}
-                          onChange={(value) =>
-                            setQuantity({ quantity: value, id: item.id })
-                          }
+                          onChange={(value) => setQuantity(value)}
                           styles={quantityDropdown}
                           dropdownInnerText='Qty:'
                           type='creatable'
@@ -141,6 +142,11 @@ const Cart = () => {
                   </Box>
                   <Typography variant='body2'>
                     {getAmountWithCommas(item.price)}
+                  </Typography>
+                  <Typography variant='body2'>
+                    {getAmountWithCommas(
+                      Math.imul(Number(quantity?.value), item.price!),
+                    )}
                   </Typography>
                 </Box>
                 <Divider />
@@ -162,24 +168,22 @@ const Cart = () => {
           <Typography variant='h3'>Order Info</Typography>
           <Box display='grid' gap={10} mt={20}>
             <Box display='flex' justifyContent='space-between'>
-              <Typography>Subtotal</Typography>
-              <Typography>{getAmountWithCommas(100)}</Typography>
-            </Box>
-            <Box display='flex' justifyContent='space-between'>
-              <Typography>Shipping cost</Typography>
-              <Typography>{getAmountWithCommas(100)}</Typography>
-            </Box>
-            <Box display='flex' justifyContent='space-between'>
               <Typography variant='h4'>Total</Typography>
               <Typography variant='h4'>{getAmountWithCommas(100)}</Typography>
             </Box>
             <Box display='flex' justifyContent='space-between' mt={20}>
               <Typography>Address</Typography>
               <Box display='grid' gap={5}>
-                <Typography textAlign='right'>Company </Typography>
-                <Typography textAlign='right'>Village </Typography>
-                <Typography textAlign='right'>City, State - Pincode</Typography>
-                <Typography textAlign='right'>+91 9633301322</Typography>
+                <Typography textAlign='right'>
+                  {userData?.house_name}
+                </Typography>
+                <Typography textAlign='right'>{userData?.village}</Typography>
+                <Typography textAlign='right'>
+                  {userData?.city}, {userData?.state} - {userData?.pin_code}
+                </Typography>
+                <Typography textAlign='right'>
+                  +91 {userData?.mobile_number}
+                </Typography>
               </Box>
             </Box>
 
