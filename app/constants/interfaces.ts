@@ -107,7 +107,7 @@ export interface ProductI {
 export interface AddEditProductFormDataI {
   pictures: File[] | string[];
   name: string;
-  price: number | null;
+  price: number;
   bulb_type: DropdownValue;
   watt: number;
   quantity_available: number;

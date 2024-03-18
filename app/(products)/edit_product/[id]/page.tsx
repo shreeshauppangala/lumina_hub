@@ -17,7 +17,13 @@ const EditProduct = () => {
 
   const formData = {
     ...data,
-    bulb_type: { label: data?.bulb_type, value: data?.bulb_type },
+    bulb_type: { label: data?.bulb_type!, value: data?.bulb_type! },
+    pictures: data?.pictures!,
+    name: data?.name!,
+    price: data?.price!,
+    watt: data?.watt!,
+    quantity_available: data?.quantity_available!,
+    description: data?.description!,
   };
 
   if (isLoading) {

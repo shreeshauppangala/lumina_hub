@@ -10,7 +10,7 @@ import { ProductI } from '@/app/constants/interfaces';
 
 interface PropsI {
   heading: string;
-  productsData: ProductI[];
+  productsData: ProductI[] | undefined;
 }
 
 const ProductImage = styled(Avatar)(({ theme }) => ({
@@ -21,17 +21,17 @@ const ProductImage = styled(Avatar)(({ theme }) => ({
 const Swiper = ({ productsData, heading }: PropsI) => {
   const router = useRouter();
 
-  const ProductCard = ({ pictures, name, price, _id }: ProductI) => (
+  const ProductCard = ({ data }: { data: ProductI }) => (
     <Box
-      onClick={() => router.push(`details/${_id}`)}
+      onClick={() => router.push(`details/${data?._id}`)}
       sx={{ cursor: 'pointer' }}
     >
-      <ProductImage variant='square' src={pictures[0]} alt={name} />
+      <ProductImage variant='square' src={data?.pictures[0]} alt={data?.name} />
       <Typography variant='body2' mt={6}>
-        {name}
+        {data?.name}
       </Typography>
       <Typography variant='h4' mt={2}>
-        {getAmountWithCommas(price)}
+        {getAmountWithCommas(data?.price)}
       </Typography>
     </Box>
   );
@@ -66,14 +66,9 @@ const Swiper = ({ productsData, heading }: PropsI) => {
           },
         }}
       >
-        {productsData.map((product) => (
+        {productsData?.map((product) => (
           <SwiperSlide key={product._id}>
-            <ProductCard
-              pictures={product.pictures}
-              name={product.name}
-              price={product.price}
-              _id={product._id}
-            />
+            <ProductCard data={product} />
           </SwiperSlide>
         ))}
       </SwiperJs>

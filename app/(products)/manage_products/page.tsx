@@ -72,7 +72,7 @@ const ManageProducts = () => {
         <Button onClick={() => router.push('/add_product')}>Add Product</Button>
       </Box>
 
-      <Table columns={columns} data={data} progressPending={isLoading} />
+      <Table columns={columns} data={data!} progressPending={isLoading} />
       <DeleteModal
         open={openProductDeleteModal}
         setOpen={setOpenProductDeleteModal}
