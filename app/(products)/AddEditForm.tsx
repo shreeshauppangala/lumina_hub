@@ -44,7 +44,7 @@ const AddEditForm = ({ type, formData }: PropsI) => {
 
   useEffect(() => {
     if (type === 'Update') {
-      setProductImages(formData.pictures);
+      setProductImages(formData?.pictures!);
     }
   }, [formData?.pictures, type]);
 
