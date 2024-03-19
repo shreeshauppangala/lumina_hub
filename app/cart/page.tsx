@@ -23,7 +23,7 @@ const Cart = () => {
 
   const { UseGetProfileData } = hooks.useAuth();
 
-  const { UseGetCartData } = hooks.useCart();
+  const { UseGetCartData, onDeleteProductInCart } = hooks.useCart();
 
   const { data, isLoading } = UseGetCartData();
 
@@ -78,13 +78,7 @@ const Cart = () => {
               Cart Is Empty
             </Typography>
           ) : (
-            <Box
-              display='grid'
-              gap={10}
-              mt={12}
-              maxHeight='50vh'
-              overflow='auto'
-            >
+            <Box mt={12} maxHeight='50vh' minHeight='50vh' overflow='auto'>
               {data?.map((item) => (
                 <>
                   <Box
@@ -92,6 +86,7 @@ const Cart = () => {
                     display='flex'
                     justifyContent='space-between'
                     flexWrap='wrap'
+                    p='20px 0'
                   >
                     <Box display='flex' gap={10} flexWrap='wrap'>
                       <Box display='flex' gap={5} alignItems='center'>
@@ -109,10 +104,7 @@ const Cart = () => {
                         <Typography>{item.product.name}</Typography>
                         <Box mt={5} display='flex' alignItems='center'>
                           <SearchableDropdown
-                            value={{
-                              label: item.selected_quantity,
-                              value: item.selected_quantity,
-                            }}
+                            value={quantity}
                             options={getQuantityOptions(
                               item.product.quantity_available,
                             )}
@@ -121,7 +113,9 @@ const Cart = () => {
                             dropdownInnerText='Qty:'
                             type='creatable'
                           />
-                          <IconButton>
+                          <IconButton
+                            onClick={() => onDeleteProductInCart(item._id)}
+                          >
                             <RedLargeDeleteIcon />
                           </IconButton>
                         </Box>
@@ -132,7 +126,7 @@ const Cart = () => {
                     </Typography>
                     <Typography variant='body2'>
                       {getAmountWithCommas(
-                        Math.imul(Number(quantity?.value), item.product.price!),
+                        Math.imul(Number(quantity?.value), item.product.price),
                       )}
                     </Typography>
                   </Box>

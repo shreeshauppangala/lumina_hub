@@ -28,7 +28,7 @@ interface CartI {
   onUpdateQuantityOfProduct: (data: ProductI) => void;
 
   iDeletingProductInCart: boolean;
-  onDeleteProductInCart: (data: { ids: string[] }) => void;
+  onDeleteProductInCart: (id: string) => void;
 }
 
 const CartContext = createContext<any>(null);
@@ -94,8 +94,8 @@ const useCartFunc = () => {
     },
   });
 
-  const onDeleteProductInCart = (data: { ids: string[] }) => {
-    mutateDeleteProductInCart(data);
+  const onDeleteProductInCart = (id: string) => {
+    mutateDeleteProductInCart(id);
   };
 
   return {
