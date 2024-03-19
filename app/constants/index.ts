@@ -12,6 +12,7 @@ const API = {
   fileUpload: 'file_upload',
 
   product: 'product',
+  cart: 'cart',
 };
 
 const pattern = {

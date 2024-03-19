@@ -41,9 +41,11 @@ const ContextContainer = ({ children }: { children: ReactNode }) => {
       <QueryClientProvider client={queryClient}>
         <hooks.ProvideMisc>
           <hooks.ProvideAuth>
-            <hooks.ProvideProducts>
-              <hooks.ProvideOrders>{children}</hooks.ProvideOrders>
-            </hooks.ProvideProducts>
+            <hooks.ProvideCart>
+              <hooks.ProvideProducts>
+                <hooks.ProvideOrders>{children}</hooks.ProvideOrders>
+              </hooks.ProvideProducts>
+            </hooks.ProvideCart>
           </hooks.ProvideAuth>
         </hooks.ProvideMisc>
       </QueryClientProvider>

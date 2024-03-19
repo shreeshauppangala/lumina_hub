@@ -10,7 +10,7 @@ import {
   IconButton,
   Typography,
 } from '@mui/material';
-import { Breadcrumb, SearchableDropdown, Stripe } from '../Components';
+import { Breadcrumb, Loader, SearchableDropdown, Stripe } from '../Components';
 import { RedLargeDeleteIcon } from '../Assets/Icons';
 import { CartContainer, quantityDropdown } from './styles';
 import { getAmountWithCommas, getQuantityOptions } from '../utils';
@@ -23,46 +23,13 @@ const Cart = () => {
 
   const { UseGetProfileData } = hooks.useAuth();
 
+  const { UseGetCartData } = hooks.useCart();
+
+  const { data, isLoading } = UseGetCartData();
+
   const { data: userData } = UseGetProfileData();
 
   useEffect(() => {}, [quantity]);
-  const data = [
-    {
-      id: '1',
-      image: 'efd',
-      name: 'sdcf',
-      price: 10,
-      quantity: 5,
-    },
-    {
-      id: 'fg',
-      image: 'efd',
-      name: 'sdcf',
-      price: 52,
-      quantity: 4,
-    },
-    {
-      id: 'ascdas',
-      image: 'efd',
-      name: 'sdcf',
-      price: 578,
-      quantity: 425,
-    },
-    {
-      id: 'asd',
-      image: 'efd',
-      name: 'sdcf',
-      price: 33,
-      quantity: 542,
-    },
-    {
-      id: 'as',
-      image: 'efd',
-      name: 'sdcf',
-      price: 878,
-      quantity: 45,
-    },
-  ];
 
   const handleCheckboxChange = (id: string) => {
     if (selectedItems.includes(id)) {
@@ -79,14 +46,14 @@ const Cart = () => {
         <Box className='products_card'>
           <Typography variant='h3'>Shopping Cart</Typography>
           <Box mt={5} display='flex' alignItems='center'>
-            {data.length !== selectedItems.length ? (
+            {data?.length !== selectedItems.length ? (
               <>
                 <Typography>{selectedItems.length} items selected</Typography>
                 <Button
                   className='select_all_button'
                   color='inherit'
                   onClick={() =>
-                    setSelectedItems(data.map((product) => product.id))
+                    setSelectedItems(data?.map((product) => product._id)!)
                   }
                 >
                   Select all items
@@ -102,57 +69,76 @@ const Cart = () => {
               </Button>
             )}
           </Box>
-          <Box display='grid' gap={10} mt={12} maxHeight='50vh' overflow='auto'>
-            {data.map((item) => (
-              <>
-                <Box
-                  key={item.name}
-                  display='flex'
-                  justifyContent='space-between'
-                  flexWrap='wrap'
-                >
-                  <Box display='flex' gap={10} flexWrap='wrap'>
-                    <Box display='flex' gap={5} alignItems='center'>
-                      <Checkbox
-                        checked={selectedItems.includes(item.id)}
-                        onChange={() => handleCheckboxChange(item.id)}
-                      />
-                      <Avatar
-                        src={item.image}
-                        className='product_image'
-                        variant='square'
-                      />
-                    </Box>
-                    <Box mt={5}>
-                      <Typography>{item.name}</Typography>
-                      <Box mt={5} display='flex' alignItems='center'>
-                        <SearchableDropdown
-                          value={{ label: item.quantity, value: item.quantity }}
-                          options={getQuantityOptions()}
-                          onChange={(value) => setQuantity(value)}
-                          styles={quantityDropdown}
-                          dropdownInnerText='Qty:'
-                          type='creatable'
+          {isLoading ? (
+            <Loader type='table' />
+          ) : !data?.length ? (
+            <Typography variant='h3' textAlign='center'>
+              Cart Is Empty
+            </Typography>
+          ) : (
+            <Box
+              display='grid'
+              gap={10}
+              mt={12}
+              maxHeight='50vh'
+              overflow='auto'
+            >
+              {data?.map((item) => (
+                <>
+                  <Box
+                    key={item.name}
+                    display='flex'
+                    justifyContent='space-between'
+                    flexWrap='wrap'
+                  >
+                    <Box display='flex' gap={10} flexWrap='wrap'>
+                      <Box display='flex' gap={5} alignItems='center'>
+                        <Checkbox
+                          checked={selectedItems.includes(item._id)}
+                          onChange={() => handleCheckboxChange(item._id)}
                         />
-                        <IconButton>
-                          <RedLargeDeleteIcon />
-                        </IconButton>
+                        <Avatar
+                          src={item?.pictures[0]}
+                          className='product_image'
+                          variant='square'
+                        />
+                      </Box>
+                      <Box mt={5}>
+                        <Typography>{item.name}</Typography>
+                        <Box mt={5} display='flex' alignItems='center'>
+                          <SearchableDropdown
+                            value={{
+                              label: item.quantity_available,
+                              value: item.quantity_available,
+                            }}
+                            options={getQuantityOptions(
+                              item.quantity_available,
+                            )}
+                            onChange={(value) => setQuantity(value)}
+                            styles={quantityDropdown}
+                            dropdownInnerText='Qty:'
+                            type='creatable'
+                          />
+                          <IconButton>
+                            <RedLargeDeleteIcon />
+                          </IconButton>
+                        </Box>
                       </Box>
                     </Box>
+                    <Typography variant='body2'>
+                      {getAmountWithCommas(item.price)}
+                    </Typography>
+                    <Typography variant='body2'>
+                      {getAmountWithCommas(
+                        Math.imul(Number(quantity?.value), item.price!),
+                      )}
+                    </Typography>
                   </Box>
-                  <Typography variant='body2'>
-                    {getAmountWithCommas(item.price)}
-                  </Typography>
-                  <Typography variant='body2'>
-                    {getAmountWithCommas(
-                      Math.imul(Number(quantity?.value), item.price!),
-                    )}
-                  </Typography>
-                </Box>
-                <Divider />
-              </>
-            ))}
-          </Box>
+                  <Divider />
+                </>
+              ))}
+            </Box>
+          )}
           {selectedItems.length ? (
             <Box display='flex' justifyContent='end' mt={12}>
               <Box display='flex' gap={30} justifyContent='space-between'>
