@@ -69,17 +69,12 @@ const userSchema = new Schema<UserDocument>({
     type: Boolean,
     default: false,
   },
-  cart: {
-    type: [
-      {
-        items: {
-          type: Schema.Types.ObjectId,
-          ref: 'Product',
-        },
-      },
-    ],
-    default: [], // Default value set to an empty array
-  },
+  cart: [
+    {
+      product: Object,
+      selected_quantity: Number,
+    },
+  ],
   orders: {
     type: [
       {

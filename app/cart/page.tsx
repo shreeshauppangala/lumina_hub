@@ -50,6 +50,7 @@ const Cart = () => {
               <>
                 <Typography>{selectedItems.length} items selected</Typography>
                 <Button
+                  disabled={!data?.length}
                   className='select_all_button'
                   color='inherit'
                   onClick={() =>
@@ -61,6 +62,7 @@ const Cart = () => {
               </>
             ) : (
               <Button
+                disabled={!data?.length}
                 color='inherit'
                 className='select_all_button'
                 onClick={() => setSelectedItems([])}
@@ -86,7 +88,7 @@ const Cart = () => {
               {data?.map((item) => (
                 <>
                   <Box
-                    key={item.name}
+                    key={item.product.name}
                     display='flex'
                     justifyContent='space-between'
                     flexWrap='wrap'
@@ -98,21 +100,21 @@ const Cart = () => {
                           onChange={() => handleCheckboxChange(item._id)}
                         />
                         <Avatar
-                          src={item?.pictures[0]}
+                          src={item.product.pictures[0]}
                           className='product_image'
                           variant='square'
                         />
                       </Box>
                       <Box mt={5}>
-                        <Typography>{item.name}</Typography>
+                        <Typography>{item.product.name}</Typography>
                         <Box mt={5} display='flex' alignItems='center'>
                           <SearchableDropdown
                             value={{
-                              label: item.quantity_available,
-                              value: item.quantity_available,
+                              label: item.selected_quantity,
+                              value: item.selected_quantity,
                             }}
                             options={getQuantityOptions(
-                              item.quantity_available,
+                              item.product.quantity_available,
                             )}
                             onChange={(value) => setQuantity(value)}
                             styles={quantityDropdown}
@@ -126,11 +128,11 @@ const Cart = () => {
                       </Box>
                     </Box>
                     <Typography variant='body2'>
-                      {getAmountWithCommas(item.price)}
+                      {getAmountWithCommas(item.product.price)}
                     </Typography>
                     <Typography variant='body2'>
                       {getAmountWithCommas(
-                        Math.imul(Number(quantity?.value), item.price!),
+                        Math.imul(Number(quantity?.value), item.product.price!),
                       )}
                     </Typography>
                   </Box>

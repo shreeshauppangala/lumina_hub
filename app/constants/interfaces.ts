@@ -117,8 +117,9 @@ export interface AddEditProductFormDataI {
 }
 
 export interface CartDataI {
-  products: ProductI[];
-  total: number;
+  product: ProductI;
+  selected_quantity: number;
+  _id: string;
 }
 
 export interface StripeTokenI {

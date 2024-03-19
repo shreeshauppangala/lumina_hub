@@ -28,6 +28,8 @@ const Page = () => {
 
   const { data, isLoading } = UseGetProductDetails(id);
 
+  const { isAddingToCart, onAddItemsToCart } = hooks.useCart();
+
   return (
     <DetailsContainer>
       <Breadcrumb item={[{ name: 'Home', link: '/' }, { name: data?.name }]} />
@@ -76,7 +78,13 @@ const Page = () => {
                 >
                   Buy Now
                 </Button>
-                <AddToCart>
+                <AddToCart
+                  color='secondary'
+                  loading={isAddingToCart}
+                  onClick={() => {
+                    onAddItemsToCart(data?._id!);
+                  }}
+                >
                   <MediumGreyCartIcon /> Add To Cart
                 </AddToCart>
               </Box>

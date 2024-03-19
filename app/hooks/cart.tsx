@@ -12,17 +12,17 @@ import {
   updateProductQuantityInCart,
 } from './controllers/cart';
 import { useSnackBar } from './snackbar';
-import { ProductI } from '../constants/interfaces';
+import { CartDataI, ProductI } from '../constants/interfaces';
 
 interface ProvideCartI {
   children: ReactNode;
 }
 
 interface CartI {
-  UseGetCartData: () => UseQueryResult<ProductI[], Error>;
+  UseGetCartData: () => UseQueryResult<CartDataI[], Error>;
 
   isAddingToCart: boolean;
-  onAddItemsToCart: (data: ProductI) => void;
+  onAddItemsToCart: (id: string) => void;
 
   isUpdatingQuantityInCart: boolean;
   onUpdateQuantityOfProduct: (data: ProductI) => void;
@@ -58,8 +58,8 @@ const useCartFunc = () => {
       },
     });
 
-  const onAddItemsToCart = (data: ProductI) => {
-    mutateAddItemsToCart(data);
+  const onAddItemsToCart = (id: string) => {
+    mutateAddItemsToCart(id);
   };
 
   const {

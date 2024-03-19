@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getDataFromToken } from '@/app/utils/API_utils';
 import { connect } from '@/dbconfig';
 import User from '@/models/user';
+import Product from '@/models/product';
 
 connect();
 
@@ -10,13 +11,19 @@ export const POST = async (request: NextRequest) => {
     const id = getDataFromToken(request);
     const body = await request.json();
     const user = await User.findOne({ _id: id });
+    const product = await Product.findById(body._id);
+    const updatedCart = await User.findByIdAndUpdate(
+      user?._id,
+      {
+        $push: { cart: { product: { ...product }, selected_quantity: 1 } },
+      },
+      {
+        new: true,
+      },
+    );
 
-    const cartData = user ? [...user.cart, body] : [body];
-    const updatedCart = await User.findByIdAndUpdate(user?._id, cartData, {
-      new: true,
-    });
     return NextResponse.json({
-      message: `${body?.name} Added to Cart Successfully`,
+      message: `${product?.name} Added to Cart Successfully`,
       data: {
         ...updatedCart,
       },
@@ -28,7 +35,6 @@ export const POST = async (request: NextRequest) => {
     return NextResponse.json({ error }, { status: 500 });
   }
 };
-
 export const PATCH = async (request: NextRequest) => {
   try {
     const id = getDataFromToken(request);
