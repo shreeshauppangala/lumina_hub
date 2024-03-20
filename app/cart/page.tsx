@@ -15,9 +15,10 @@ import { RedLargeDeleteIcon } from '../Assets/Icons';
 import { CartContainer, quantityDropdown } from './styles';
 import { getAmountWithCommas, getQuantityOptions } from '../utils';
 import { hooks } from '../hooks';
+import { CartDataI } from '../constants/interfaces';
 
 const Cart = () => {
-  const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [selectedItems, setSelectedItems] = useState<CartDataI[]>([]);
 
   const { UseGetProfileData } = hooks.useAuth();
 
@@ -32,13 +33,20 @@ const Cart = () => {
 
   const { data: userData } = UseGetProfileData();
 
-  const handleCheckboxChange = (id: string) => {
-    if (selectedItems.includes(id)) {
-      setSelectedItems(selectedItems.filter((item) => item !== id));
+  const handleCheckboxChange = (product: CartDataI) => {
+    if (selectedItems.includes(product)) {
+      setSelectedItems(
+        selectedItems.filter((item) => item._id !== product._id),
+      );
     } else {
-      setSelectedItems([...selectedItems, id]);
+      setSelectedItems([...selectedItems, product]);
     }
   };
+
+  const totalPrices = selectedItems.reduce((total, item) => {
+    const totalPriceForItem = item.selected_quantity * item.product.price;
+    return total + totalPriceForItem;
+  }, 0);
 
   return (
     <CartContainer>
@@ -55,7 +63,7 @@ const Cart = () => {
                   className='select_all_button'
                   color='inherit'
                   onClick={() =>
-                    setSelectedItems(data?.map((product) => product._id)!)
+                    setSelectedItems(data?.map((product) => product)!)
                   }
                 >
                   Select all items
@@ -92,8 +100,8 @@ const Cart = () => {
                     <Box display='flex' gap={10} flexWrap='wrap'>
                       <Box display='flex' gap={5} alignItems='center'>
                         <Checkbox
-                          checked={selectedItems.includes(item._id)}
-                          onChange={() => handleCheckboxChange(item._id)}
+                          checked={selectedItems.includes(item)}
+                          onChange={() => handleCheckboxChange(item)}
                         />
                         <Avatar
                           src={item.product.pictures[0]}
@@ -151,7 +159,9 @@ const Cart = () => {
                 <Typography variant='h3'>
                   Subtotal ({selectedItems.length} items)
                 </Typography>
-                <Typography variant='h3'>{getAmountWithCommas(100)}</Typography>
+                <Typography variant='h3'>
+                  {getAmountWithCommas(totalPrices)}
+                </Typography>
               </Box>
             </Box>
           ) : null}
@@ -161,7 +171,9 @@ const Cart = () => {
           <Box display='grid' gap={10} mt={20}>
             <Box display='flex' justifyContent='space-between'>
               <Typography variant='h4'>Total</Typography>
-              <Typography variant='h4'>{getAmountWithCommas(100)}</Typography>
+              <Typography variant='h4'>
+                {getAmountWithCommas(totalPrices)}
+              </Typography>
             </Box>
             <Box display='flex' justifyContent='space-between' mt={20}>
               <Typography>Address</Typography>
