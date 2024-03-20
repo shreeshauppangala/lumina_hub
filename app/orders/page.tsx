@@ -14,6 +14,9 @@ const Orders = () => {
   const router = useRouter();
   const { setOpenCheckoutModal } = hooks.useOrders();
 
+  const { UseGetProfileData } = hooks.useAuth();
+  const { data: userData } = UseGetProfileData();
+
   const HeaderDetails = ({
     header,
     detail,
@@ -85,13 +88,18 @@ const Orders = () => {
                     <AddressTooltip
                       title={
                         <Box display='grid' gap={2}>
-                          <Typography variant='body2'>Company </Typography>
-                          <Typography variant='body2'>Village </Typography>
                           <Typography variant='body2'>
-                            City, State - Pincode
+                            {userData?.house_name}
                           </Typography>
                           <Typography variant='body2'>
-                            +91 9633301322
+                            {userData?.village}
+                          </Typography>
+                          <Typography variant='body2'>
+                            {userData?.city}, {userData?.state} -{' '}
+                            {userData?.pin_code}
+                          </Typography>
+                          <Typography variant='body2'>
+                            +91 {userData?.mobile_number}
                           </Typography>
                         </Box>
                       }

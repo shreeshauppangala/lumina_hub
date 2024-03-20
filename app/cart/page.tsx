@@ -21,6 +21,7 @@ const Cart = () => {
   const [selectedItems, setSelectedItems] = useState<CartDataI[]>([]);
 
   const { UseGetProfileData } = hooks.useAuth();
+  const { data: userData } = UseGetProfileData();
 
   const {
     UseGetCartData,
@@ -30,8 +31,6 @@ const Cart = () => {
   } = hooks.useCart();
 
   const { data, isLoading } = UseGetCartData();
-
-  const { data: userData } = UseGetProfileData();
 
   const handleCheckboxChange = (product: CartDataI) => {
     if (selectedItems.includes(product)) {
