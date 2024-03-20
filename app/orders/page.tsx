@@ -1,21 +1,17 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Avatar, Box, Button, Divider, Typography } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { Breadcrumb } from '../Components';
 import { formatDate, getAmountWithCommas } from '../utils';
 import { hooks } from '../hooks';
-import CheckoutModal from '../details/CheckoutModal';
 import { AddressTooltip, OrdersContainer } from './styles';
 import { GreyLargeInfoIcon } from '../Assets/Icons';
-import { ProductI } from '../constants/interfaces';
 
 const Orders = () => {
-  const [product, setProduct] = useState<ProductI | null>(null);
   const router = useRouter();
-  const { setOpenCheckoutModal, UseGetOrders, isOrderUpdating, onUpdateOrder } =
-    hooks.useOrders();
+  const { UseGetOrders, isOrderUpdating, onUpdateOrder } = hooks.useOrders();
 
   const { UseGetProfileData } = hooks.useAuth();
   const { data: userData } = UseGetProfileData();
@@ -115,7 +111,9 @@ const Orders = () => {
                       <Box display='grid' gap={10} mt={5}>
                         <Typography
                           className='product_name'
-                          onClick={() => router.push(`details/vfs`)}
+                          onClick={() =>
+                            router.push(`/details/${order.product.item._id}`)
+                          }
                         >
                           {order.product.item.name}
                         </Typography>
@@ -124,8 +122,7 @@ const Orders = () => {
                           color='primary'
                           size='small'
                           onClick={() => {
-                            setProduct(order.product.item);
-                            setOpenCheckoutModal(true);
+                            router.push(`/details/${order.product.item._id}`);
                           }}
                         >
                           Buy it again
@@ -158,7 +155,6 @@ const Orders = () => {
           ))}
         </Box>
       </Box>
-      <CheckoutModal productInfo={product} />
     </OrdersContainer>
   );
 };

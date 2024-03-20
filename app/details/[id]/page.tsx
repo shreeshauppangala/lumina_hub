@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, FormHelperText, Typography } from '@mui/material';
 import { usePathname } from 'next/navigation';
 import { ProductI } from '@/app/constants/interfaces';
 import { hooks } from '@/app/hooks';
@@ -58,6 +58,9 @@ const Page = () => {
                 <Typography variant='h3'>{data?.name}</Typography>
                 <PriceText>{getAmountWithCommas(data?.price)}</PriceText>
               </Box>
+              {data?.quantity_available! <= 0 && (
+                <FormHelperText error>Out of stock</FormHelperText>
+              )}
               <Typography variant='body2' mt={20}>
                 {data?.description}
               </Typography>
@@ -69,6 +72,7 @@ const Page = () => {
               </Typography>
               <Box display='flex' gap={12} mt={10} alignItems='center'>
                 <Button
+                  disabled={data?.quantity_available! <= 0}
                   color='primary'
                   variant='contained'
                   onClick={() => {

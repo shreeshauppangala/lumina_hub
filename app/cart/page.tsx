@@ -7,6 +7,7 @@ import {
   Button,
   Checkbox,
   Divider,
+  FormHelperText,
   IconButton,
   Typography,
 } from '@mui/material';
@@ -65,7 +66,11 @@ const Cart = () => {
                   className='select_all_button'
                   color='inherit'
                   onClick={() =>
-                    setSelectedItems(data?.map((product) => product)!)
+                    setSelectedItems(
+                      data?.filter(
+                        (item) => item.product.quantity_available > 0,
+                      )!,
+                    )
                   }
                 >
                   Select all items
@@ -102,6 +107,7 @@ const Cart = () => {
                     <Box display='flex' gap={10} flexWrap='wrap'>
                       <Box display='flex' gap={5} alignItems='center'>
                         <Checkbox
+                          disabled={item.product.quantity_available! <= 0}
                           checked={selectedItems.includes(item)}
                           onChange={() => handleCheckboxChange(item)}
                         />
@@ -139,6 +145,9 @@ const Cart = () => {
                             <RedLargeDeleteIcon />
                           </IconButton>
                         </Box>
+                        {item.product.quantity_available! <= 0 && (
+                          <FormHelperText error>Out of stock</FormHelperText>
+                        )}
                       </Box>
                     </Box>
                     <Typography variant='body2'>
