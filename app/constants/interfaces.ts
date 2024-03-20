@@ -36,7 +36,7 @@ export interface UserI {
   mobile_number: (number & { length: 10 }) | undefined;
   isEmailVerified: boolean;
   isAdmin: boolean;
-  cart: ProductI[];
+  cart: CartDataI[];
   orders: ProductI[];
   forgotPasswordToken: string | null;
   forgotPasswordTokenExpiry: Date | null;

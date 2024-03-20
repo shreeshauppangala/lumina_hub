@@ -12,15 +12,31 @@ export const POST = async (request: NextRequest) => {
     const body = await request.json();
     const user = await User.findOne({ _id: id });
     const product = await Product.findById(body._id);
-    const updatedCart = await User.findByIdAndUpdate(
-      user?._id,
-      {
-        $push: { cart: { product: { ...product }, selected_quantity: 1 } },
-      },
-      {
-        new: true,
-      },
+    const existingCartItem = user?.cart.find(
+      (item) => item.product._id.toString() === body._id,
     );
+    const updatedCart = existingCartItem
+      ? await User.findOneAndUpdate(
+          { _id: id, 'cart._id': existingCartItem._id },
+          {
+            $set: {
+              'cart.$.selected_quantity':
+                existingCartItem.selected_quantity + 1,
+            },
+          },
+          { new: true },
+        )
+      : await User.findByIdAndUpdate(
+          user?._id,
+          {
+            $addToSet: {
+              cart: { product: { ...product }, selected_quantity: 1 },
+            },
+          },
+          {
+            new: true,
+          },
+        );
 
     return NextResponse.json({
       message: `${product?.name} Added to Cart Successfully`,
