@@ -3,8 +3,9 @@ import { getApi, patchApi, postApi } from '../config';
 
 export const getOrders = () => getApi(API.orders);
 
-export const placeOrder = (data: { _id: string; selected_quantity: number }) =>
-  postApi(API.orders, data);
+export const placeOrder = (
+  data: { _id: string; selected_quantity: number; cart_id?: string }[],
+) => postApi(API.orders, data);
 
-export const updateStatus = (data: { _id: string; status: string }) =>
+export const updateOrder = (data: { _id: string; status: string }) =>
   patchApi(API.orders, data);

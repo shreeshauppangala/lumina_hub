@@ -6,6 +6,7 @@ import {
   DialogTitle,
   Typography,
 } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import { hooks } from '../hooks';
 import { CheckoutDialogContainer } from './styles';
 import { SearchableDropdown } from '../Components';
@@ -23,7 +24,12 @@ const CheckoutModal = ({ productInfo }: PropsI) => {
     value: 1,
   });
 
-  const { openCheckoutModal, setOpenCheckoutModal } = hooks.useOrders();
+  const {
+    openCheckoutModal,
+    setOpenCheckoutModal,
+    isPlacingOrder,
+    onPlaceOrder,
+  } = hooks.useOrders();
 
   const { UseGetProfileData } = hooks.useAuth();
 
@@ -66,7 +72,7 @@ const CheckoutModal = ({ productInfo }: PropsI) => {
             )}
           </Typography>
         </Box>
-        <Box display='flex' justifyContent='end' mt={10}>
+        <Box display='flex' justifyContent='end' mt={10} mb={10}>
           <Box display='grid' gap={5}>
             <Typography textAlign='right'>{userData?.house_name} </Typography>
             <Typography textAlign='right'>{userData?.village} </Typography>
@@ -78,6 +84,22 @@ const CheckoutModal = ({ productInfo }: PropsI) => {
             </Typography>
           </Box>
         </Box>
+        <LoadingButton
+          color='secondary'
+          fullWidth
+          variant='contained'
+          loading={isPlacingOrder}
+          onClick={() =>
+            onPlaceOrder([
+              {
+                _id: productInfo?._id!,
+                selected_quantity: selectedQuantity.value,
+              },
+            ])
+          }
+        >
+          Place Order
+        </LoadingButton>
       </DialogContent>
     </CheckoutDialogContainer>
   );

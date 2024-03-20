@@ -82,7 +82,6 @@ const userSchema = new Schema<UserDocument>({
       delivery_date: Date,
       cancelled_date: Date,
       total_amount: Number,
-      order_id: String,
       current_status: String,
       product: {
         item: Object,

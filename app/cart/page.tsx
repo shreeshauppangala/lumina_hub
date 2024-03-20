@@ -10,6 +10,7 @@ import {
   IconButton,
   Typography,
 } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import { Breadcrumb, Loader, SearchableDropdown } from '../Components';
 import { RedLargeDeleteIcon } from '../Assets/Icons';
 import { CartContainer, quantityDropdown } from './styles';
@@ -29,6 +30,8 @@ const Cart = () => {
     isUpdatingQuantityInCart,
     onUpdateQuantityOfProduct,
   } = hooks.useCart();
+
+  const { isPlacingOrder, onPlaceOrder } = hooks.useOrders();
 
   const { data, isLoading } = UseGetCartData();
 
@@ -189,6 +192,24 @@ const Cart = () => {
                 </Typography>
               </Box>
             </Box>
+            <LoadingButton
+              disabled={!selectedItems.length}
+              color='secondary'
+              fullWidth
+              variant='contained'
+              loading={isPlacingOrder}
+              onClick={() =>
+                onPlaceOrder(
+                  selectedItems.map((item) => ({
+                    _id: item.product._id,
+                    selected_quantity: item.selected_quantity,
+                    cart_id: item._id,
+                  })),
+                )
+              }
+            >
+              Place Order
+            </LoadingButton>
           </Box>
         </Box>
       </Box>

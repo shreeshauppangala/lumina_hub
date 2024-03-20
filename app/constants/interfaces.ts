@@ -129,7 +129,6 @@ export interface OrdersI {
   delivered_date: string;
   cancelled_date: string;
   total_amount: number;
-  order_id: string;
   current_status: 'Order Placed' | 'shipped' | 'cancelled' | 'delivered';
   product: {
     item: ProductI;

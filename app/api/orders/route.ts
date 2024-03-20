@@ -13,7 +13,7 @@ export const POST = async (request: NextRequest) => {
     const body = await request.json();
 
     for (let i = 0; i < body.length; i++) {
-      const product = await Product.findOne({ name: body[i]._id });
+      const product = await Product.findOne({ _id: body[i]._id });
       await User.findByIdAndUpdate(
         user?._id,
         {
@@ -33,6 +33,22 @@ export const POST = async (request: NextRequest) => {
           new: true,
         },
       );
+
+      await Product.findByIdAndUpdate(product, {
+        quantity_available:
+          product!.quantity_available! - body[i].selected_quantity,
+      });
+      if (body[i].cart_id) {
+        await User.findByIdAndUpdate(
+          user?._id,
+          {
+            $pull: { cart: { _id: body[i].cart_id } },
+          },
+          {
+            new: true,
+          },
+        );
+      }
     }
 
     return NextResponse.json({ message: 'Order Placed' });
@@ -58,8 +74,8 @@ export const PATCH = async (request: NextRequest) => {
       { _id: id, 'orders._id': existingOrderedItem?._id },
       {
         $set: {
-          'cart.$.status': body.status,
-          [`cart.$.${body.status}_date`]: Date.now(),
+          'orders.$.current_status': body.status,
+          [`orders.$.${body.status}_date`]: Date.now(),
         },
       },
       { new: true },

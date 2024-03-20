@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Avatar, Box, Button, Divider, Typography } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { Breadcrumb } from '../Components';
@@ -9,13 +9,18 @@ import { hooks } from '../hooks';
 import CheckoutModal from '../details/CheckoutModal';
 import { AddressTooltip, OrdersContainer } from './styles';
 import { GreyLargeInfoIcon } from '../Assets/Icons';
+import { ProductI } from '../constants/interfaces';
 
 const Orders = () => {
+  const [product, setProduct] = useState<ProductI | null>(null);
   const router = useRouter();
-  const { setOpenCheckoutModal } = hooks.useOrders();
+  const { setOpenCheckoutModal, UseGetOrders, isOrderUpdating, onUpdateOrder } =
+    hooks.useOrders();
 
   const { UseGetProfileData } = hooks.useAuth();
   const { data: userData } = UseGetProfileData();
+
+  const { data } = UseGetOrders();
 
   const HeaderDetails = ({
     header,
@@ -30,43 +35,13 @@ const Orders = () => {
     </Box>
   );
 
-  const data = [
-    {
-      order_date: '2024-02-07',
-      total_amount: 50.99,
-      address: '123 Main St, City, Country',
-      order_id: 'ABC123',
-      current_status: 'Shipped',
-      product_image: 'image_url1.jpg',
-      product_name: 'Product 1',
-    },
-    {
-      order_date: '2024-02-06',
-      total_amount: 35.75,
-      address: '456 Elm St, City, Country',
-      order_id: 'DEF456',
-      current_status: 'Delivered',
-      product_image: 'image_url2.jpg',
-      product_name: 'Product 2',
-    },
-    {
-      order_date: '2024-02-05',
-      total_amount: 70.5,
-      address: '789 Oak St, City, Country',
-      order_id: 'GHI789',
-      current_status: 'Pending',
-      product_image: 'image_url3.jpg',
-      product_name: 'Product 3',
-    },
-  ];
-
   return (
     <OrdersContainer>
-      <Breadcrumb item={[{ name: 'Home', link: '/' }, { name: 'Cart' }]} />
+      <Breadcrumb item={[{ name: 'Home', link: '/' }, { name: 'Orders' }]} />
       <Box display='flex' justifyContent='center' width='100%'>
         <Box className='orders_container'>
-          {data.map((order) => (
-            <Box key={order.order_id} className='order_wrapper'>
+          {data?.map((order) => (
+            <Box key={order._id} className='order_wrapper'>
               <Box
                 className='header'
                 display='flex'
@@ -121,9 +96,9 @@ const Orders = () => {
                     <Typography
                       variant='h4'
                       color={
-                        order.current_status === 'Delivered'
+                        order.current_status === 'delivered'
                           ? 'success'
-                          : order.current_status === 'Cancelled'
+                          : order.current_status === 'cancelled'
                             ? 'error'
                             : 'default'
                       }
@@ -133,7 +108,7 @@ const Orders = () => {
                     </Typography>
                     <Box display='flex' gap={5} flexWrap='wrap' mt={15}>
                       <Avatar
-                        src={order.product_image}
+                        src={order.product.item.pictures[0]}
                         className='product_image'
                         variant='square'
                       />
@@ -142,43 +117,48 @@ const Orders = () => {
                           className='product_name'
                           onClick={() => router.push(`details/vfs`)}
                         >
-                          {order.product_name}
+                          {order.product.item.name}
                         </Typography>
                         <Button
                           variant='contained'
                           color='primary'
                           size='small'
-                          onClick={() => setOpenCheckoutModal(true)}
+                          onClick={() => {
+                            setProduct(order.product.item);
+                            setOpenCheckoutModal(true);
+                          }}
                         >
                           Buy it again
                         </Button>
                       </Box>
                     </Box>
                   </Box>
-                  <Box>
-                    <Button variant='outlined' color='error'>
-                      Cancel Product
-                    </Button>
-                  </Box>
+                  {!['cancelled', 'delivered'].includes(
+                    order.current_status,
+                  ) && (
+                    <Box>
+                      <Button
+                        onClick={() =>
+                          onUpdateOrder({
+                            _id: order._id,
+                            status: 'cancelled',
+                          })
+                        }
+                        disabled={isOrderUpdating}
+                        variant='outlined'
+                        color='error'
+                      >
+                        Cancel Product
+                      </Button>
+                    </Box>
+                  )}
                 </Box>
               </Box>
             </Box>
           ))}
         </Box>
       </Box>
-      <CheckoutModal
-        productInfo={{
-          _id: '',
-          pictures: ['string'],
-          name: '',
-          description: '',
-          price: 421,
-          bulb_type: '',
-          watt: 421,
-          quantity_available: 421,
-          __v: 421,
-        }}
-      />
+      <CheckoutModal productInfo={product} />
     </OrdersContainer>
   );
 };
