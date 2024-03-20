@@ -47,6 +47,7 @@ const useCartFunc = () => {
       queryKey: ['cart'],
       queryFn: () => getProductsOfCart(),
       select: ({ data }) => data,
+      gcTime: 0,
     });
 
   const { mutate: mutateAddItemsToCart, isPending: isAddingToCart } =

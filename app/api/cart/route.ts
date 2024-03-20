@@ -30,7 +30,7 @@ export const POST = async (request: NextRequest) => {
           user?._id,
           {
             $addToSet: {
-              cart: { product: { ...product }, selected_quantity: 1 },
+              cart: { product: product?._id, selected_quantity: 1 },
             },
           },
           {
@@ -88,6 +88,15 @@ export const GET = async (request: NextRequest) => {
   try {
     const id = getDataFromToken(request);
     const user = await User.findOne({ _id: id });
+    for (let i = 0; i < user!.cart.length; i++) {
+      const productId = user?.cart[i].product;
+      const productDetails = await Product.findById(productId);
+      if (productDetails) {
+        user!.cart[i].product = productDetails;
+      } else {
+        user?.cart.splice(i, 1);
+      }
+    }
     return NextResponse.json(user?.cart);
   } catch (error: any) {
     if (error.message.includes('Token')) {

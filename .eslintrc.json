@@ -58,7 +58,9 @@
     {
       "files": ["./app/api/**", "./app/utils/API_utils.tsx"],
       "rules": {
-        "@typescript-eslint/naming-convention": "off"
+        "@typescript-eslint/naming-convention": "off",
+        "no-plusplus":"off",
+        "no-await-in-loop":"off"
       }
     },
     {
