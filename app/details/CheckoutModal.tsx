@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Avatar,
   Box,
@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import { hooks } from '../hooks';
 import { CheckoutDialogContainer } from './styles';
-import { SearchableDropdown, Stripe } from '../Components';
+import { SearchableDropdown } from '../Components';
 import { quantityDropdown } from '../cart/styles';
 import { getAmountWithCommas, getQuantityOptions } from '../utils';
 import { ProductI } from '../constants/interfaces';
@@ -18,12 +18,12 @@ interface PropsI {
 }
 
 const CheckoutModal = ({ productInfo }: PropsI) => {
-  const {
-    openCheckoutModal,
-    setOpenCheckoutModal,
-    selectedQuantity,
-    setSelectedQuantity,
-  } = hooks.useOrders();
+  const [selectedQuantity, setSelectedQuantity] = useState({
+    label: '1',
+    value: 1,
+  });
+
+  const { openCheckoutModal, setOpenCheckoutModal } = hooks.useOrders();
 
   const { UseGetProfileData } = hooks.useAuth();
 
@@ -77,9 +77,6 @@ const CheckoutModal = ({ productInfo }: PropsI) => {
               +91 {userData?.mobile_number}
             </Typography>
           </Box>
-        </Box>
-        <Box mt={20}>
-          <Stripe />
         </Box>
       </DialogContent>
     </CheckoutDialogContainer>

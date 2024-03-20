@@ -10,7 +10,7 @@ import {
   IconButton,
   Typography,
 } from '@mui/material';
-import { Breadcrumb, Loader, SearchableDropdown, Stripe } from '../Components';
+import { Breadcrumb, Loader, SearchableDropdown } from '../Components';
 import { RedLargeDeleteIcon } from '../Assets/Icons';
 import { CartContainer, quantityDropdown } from './styles';
 import { getAmountWithCommas, getQuantityOptions } from '../utils';
@@ -189,9 +189,6 @@ const Cart = () => {
                 </Typography>
               </Box>
             </Box>
-
-            <Typography variant='h4'>Payment</Typography>
-            <Stripe />
           </Box>
         </Box>
       </Box>

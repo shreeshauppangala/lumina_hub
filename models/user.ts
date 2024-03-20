@@ -75,17 +75,21 @@ const userSchema = new Schema<UserDocument>({
       selected_quantity: Number,
     },
   ],
-  orders: {
-    type: [
-      {
-        items: {
-          type: Schema.Types.ObjectId,
-          ref: 'Product',
-        },
+  orders: [
+    {
+      order_date: Date,
+      shipped_date: Date,
+      delivery_date: Date,
+      cancelled_date: Date,
+      total_amount: Number,
+      order_id: String,
+      current_status: String,
+      product: {
+        item: Object,
+        selected_quantity: Number,
       },
-    ],
-    default: [], // Default value set to an empty array
-  },
+    },
+  ],
   forgotPasswordToken: String,
   forgotPasswordTokenExpiry: Date,
   verifyEmailToken: String,

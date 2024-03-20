@@ -37,7 +37,7 @@ export interface UserI {
   isEmailVerified: boolean;
   isAdmin: boolean;
   cart: CartDataI[];
-  orders: ProductI[];
+  orders: OrdersI[];
   forgotPasswordToken: string | null;
   forgotPasswordTokenExpiry: Date | null;
   verifyEmailToken: string | null;
@@ -122,35 +122,17 @@ export interface CartDataI {
   _id: string;
 }
 
-export interface StripeTokenI {
-  id: string;
-  object: string;
-  card: {
-    id: string;
-    object: string;
-    address_city: null;
-    address_country: null;
-    address_line1: null;
-    address_line1_check: null;
-    address_line2: null;
-    address_state: null;
-    address_zip: string;
-    address_zip_check: string;
-    brand: string;
-    country: string;
-    cvc_check: string;
-    dynamic_last4: null;
-    exp_month: number;
-    exp_year: number;
-    funding: string;
-    last4: string;
-    name: null;
-    tokenization_method: null;
-    wallet: null;
+export interface OrdersI {
+  _id: string;
+  order_date: string;
+  shipped_date: string;
+  delivered_date: string;
+  cancelled_date: string;
+  total_amount: number;
+  order_id: string;
+  current_status: 'Order Placed' | 'shipped' | 'cancelled' | 'delivered';
+  product: {
+    item: ProductI;
+    selected_quantity: number;
   };
-  client_ip: string;
-  created: number;
-  livemode: false;
-  type: string;
-  used: false;
 }

@@ -13,6 +13,7 @@ const API = {
 
   product: 'product',
   cart: 'cart',
+  orders: 'orders',
 };
 
 const pattern = {
