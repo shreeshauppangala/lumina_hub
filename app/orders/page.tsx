@@ -158,7 +158,19 @@ const Orders = () => {
           ))}
         </Box>
       </Box>
-      <CheckoutModal />
+      <CheckoutModal
+        productInfo={{
+          _id: '',
+          pictures: ['string'],
+          name: '',
+          description: '',
+          price: 421,
+          bulb_type: '',
+          watt: 421,
+          quantity_available: 421,
+          __v: 421,
+        }}
+      />
     </OrdersContainer>
   );
 };

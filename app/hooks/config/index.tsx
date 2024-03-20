@@ -43,4 +43,5 @@ export const putApi = (url: string, data: any) => axios.put(url, data);
  * @param {any} [data] - the data to send with the request.
  * @returns {Promise} - the promise of the request.
  */
-export const deleteApi = (url: string, data?: any) => axios.delete(url, data);
+export const deleteApi = (url: string, data?: any) =>
+  axios.delete(url, { data });

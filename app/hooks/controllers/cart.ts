@@ -8,4 +8,5 @@ export const addProductToCart = (id: string) => postApi(API.cart, { _id: id });
 export const updateProductQuantityInCart = (data: any) =>
   patchApi(API.cart, data);
 
-export const deleteProductsFromCart = (id: string) => deleteApi(API.cart, id);
+export const deleteProductsFromCart = (id: string) =>
+  deleteApi(`${API.cart}/${id}`);

@@ -17,7 +17,9 @@ export const headRow = {
 
 export const headCells = {
   style: {
-    ...theme.typography.h5,
+    fontSize: '16px',
+    fontWeight: 600,
+    lineHeight: '20px',
   },
 };
 
@@ -30,7 +32,9 @@ export const rowStyles = {
 
 export const cells = {
   style: {
-    ...theme.typography.body2,
+    fontSize: '14px',
+    fontWeight: 400,
+    lineHeight: '20px',
   },
 };
 
@@ -42,7 +46,9 @@ export const progress = {
 
 export const noData = {
   style: {
-    ...theme.typography.h1,
+    fontSize: '48px',
+    fontWeight: 600,
+    lineHeight: '42px',
     backgroundColor: 'transparent',
   },
 };
