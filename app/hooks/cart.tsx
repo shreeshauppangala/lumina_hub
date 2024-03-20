@@ -12,7 +12,7 @@ import {
   updateProductQuantityInCart,
 } from './controllers/cart';
 import { useSnackBar } from './snackbar';
-import { CartDataI, ProductI } from '../constants/interfaces';
+import { CartDataI } from '../constants/interfaces';
 
 interface ProvideCartI {
   children: ReactNode;
@@ -25,7 +25,10 @@ interface CartI {
   onAddItemsToCart: (id: string) => void;
 
   isUpdatingQuantityInCart: boolean;
-  onUpdateQuantityOfProduct: (data: ProductI) => void;
+  onUpdateQuantityOfProduct: (data: {
+    _id: string;
+    selected_quantity: number;
+  }) => void;
 
   iDeletingProductInCart: boolean;
   onDeleteProductInCart: (id: string) => void;
@@ -76,7 +79,10 @@ const useCartFunc = () => {
     },
   });
 
-  const onUpdateQuantityOfProduct = (data: ProductI) => {
+  const onUpdateQuantityOfProduct = (data: {
+    _id: string;
+    selected_quantity: number;
+  }) => {
     mutateUpdateQuantityOfProduct(data);
   };
 

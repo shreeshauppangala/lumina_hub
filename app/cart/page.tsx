@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Avatar,
   Box,
@@ -15,21 +15,22 @@ import { RedLargeDeleteIcon } from '../Assets/Icons';
 import { CartContainer, quantityDropdown } from './styles';
 import { getAmountWithCommas, getQuantityOptions } from '../utils';
 import { hooks } from '../hooks';
-import { DropdownValue } from '../constants/interfaces';
 
 const Cart = () => {
-  const [quantity, setQuantity] = useState<null | DropdownValue>(null);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
   const { UseGetProfileData } = hooks.useAuth();
 
-  const { UseGetCartData, onDeleteProductInCart } = hooks.useCart();
+  const {
+    UseGetCartData,
+    onDeleteProductInCart,
+    isUpdatingQuantityInCart,
+    onUpdateQuantityOfProduct,
+  } = hooks.useCart();
 
   const { data, isLoading } = UseGetCartData();
 
   const { data: userData } = UseGetProfileData();
-
-  useEffect(() => {}, [quantity]);
 
   const handleCheckboxChange = (id: string) => {
     if (selectedItems.includes(id)) {
@@ -104,11 +105,20 @@ const Cart = () => {
                         <Typography>{item.product.name}</Typography>
                         <Box mt={5} display='flex' alignItems='center'>
                           <SearchableDropdown
-                            value={quantity}
+                            isDisabled={isUpdatingQuantityInCart}
+                            value={{
+                              label: item.selected_quantity,
+                              value: item.selected_quantity,
+                            }}
                             options={getQuantityOptions(
                               item.product.quantity_available,
                             )}
-                            onChange={(value) => setQuantity(value)}
+                            onChange={(value) =>
+                              onUpdateQuantityOfProduct({
+                                _id: item._id,
+                                selected_quantity: value.value,
+                              })
+                            }
                             styles={quantityDropdown}
                             dropdownInnerText='Qty:'
                             type='creatable'
@@ -126,7 +136,7 @@ const Cart = () => {
                     </Typography>
                     <Typography variant='body2'>
                       {getAmountWithCommas(
-                        Math.imul(Number(quantity?.value), item.product.price),
+                        Math.imul(item.selected_quantity, item.product.price),
                       )}
                     </Typography>
                   </Box>

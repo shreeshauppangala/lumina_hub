@@ -56,16 +56,22 @@ export const PATCH = async (request: NextRequest) => {
     const id = getDataFromToken(request);
     const body = await request.json();
     const user = await User.findOne({ _id: id });
-    const cartItemIndex = user?.cart.findIndex((item) => item._id === body._id);
+    const existingCartItem = user?.cart.find(
+      (item) => item._id.toString() === body._id,
+    );
 
-    user!.cart[cartItemIndex!] = body;
-
-    const updatedCart = await User.findByIdAndUpdate(user!._id, user!.cart, {
-      new: true,
-    });
+    const updatedCart = await User.findOneAndUpdate(
+      { _id: id, 'cart._id': existingCartItem?._id },
+      {
+        $set: {
+          'cart.$.selected_quantity': body.selected_quantity,
+        },
+      },
+      { new: true },
+    );
 
     return NextResponse.json({
-      message: `${body?.name} Updated Successfully`,
+      message: `Quantity updated to ${body.selected_quantity} for ${existingCartItem?.product.name}`,
       data: {
         ...updatedCart,
       },
