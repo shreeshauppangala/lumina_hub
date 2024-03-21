@@ -57,45 +57,61 @@ const Cart = () => {
       <Box display='flex' gap={8} flexWrap='wrap' mt={12}>
         <Box className='products_card'>
           <Typography variant='h3'>Shopping Cart</Typography>
-          <Box mt={5} display='flex' alignItems='center'>
-            {data?.length !== selectedItems.length ? (
-              <>
-                <Typography>{selectedItems.length} items selected</Typography>
+          {data?.length ? (
+            <Box mt={5} display='flex' alignItems='center'>
+              {data?.length !== selectedItems.length ? (
+                <>
+                  <Typography>{selectedItems.length} items selected</Typography>
+                  <Button
+                    disabled={!data?.length}
+                    className='select_all_button'
+                    color='inherit'
+                    onClick={() =>
+                      setSelectedItems(
+                        data?.filter(
+                          (item) => item.product.quantity_available > 0,
+                        )!,
+                      )
+                    }
+                  >
+                    Select all items
+                  </Button>
+                </>
+              ) : (
                 <Button
                   disabled={!data?.length}
-                  className='select_all_button'
                   color='inherit'
-                  onClick={() =>
-                    setSelectedItems(
-                      data?.filter(
-                        (item) => item.product.quantity_available > 0,
-                      )!,
-                    )
-                  }
+                  className='select_all_button'
+                  onClick={() => setSelectedItems([])}
                 >
-                  Select all items
+                  Deselect all items
                 </Button>
-              </>
-            ) : (
-              <Button
-                disabled={!data?.length}
-                color='inherit'
-                className='select_all_button'
-                onClick={() => setSelectedItems([])}
+              )}
+            </Box>
+          ) : null}
+          <Box mt={12} maxHeight='50vh' minHeight='50vh' overflow='auto'>
+            {isLoading ? (
+              <Box
+                display='flex'
+                justifyContent='center'
+                alignItems='center'
+                minHeight='30vh'
               >
-                Deselect all items
-              </Button>
-            )}
-          </Box>
-          {isLoading ? (
-            <Loader type='table' />
-          ) : !data?.length ? (
-            <Typography variant='h3' textAlign='center'>
-              Cart Is Empty
-            </Typography>
-          ) : (
-            <Box mt={12} maxHeight='50vh' minHeight='50vh' overflow='auto'>
-              {data?.map((item) => (
+                <Loader type='table' />
+              </Box>
+            ) : !data?.length ? (
+              <Box
+                display='flex'
+                justifyContent='center'
+                alignItems='center'
+                minHeight='30vh'
+              >
+                <Typography variant='h3' textAlign='center'>
+                  Cart Is Empty
+                </Typography>
+              </Box>
+            ) : (
+              data?.map((item) => (
                 <>
                   <Box
                     key={item.product.name}
@@ -161,9 +177,9 @@ const Cart = () => {
                   </Box>
                   <Divider />
                 </>
-              ))}
-            </Box>
-          )}
+              ))
+            )}
+          </Box>
           {selectedItems.length ? (
             <Box display='flex' justifyContent='end' mt={12}>
               <Box display='flex' gap={30} justifyContent='space-between'>
@@ -177,50 +193,52 @@ const Cart = () => {
             </Box>
           ) : null}
         </Box>
-        <Box className='payments_card'>
-          <Typography variant='h3'>Order Info</Typography>
-          <Box display='grid' gap={10} mt={20}>
-            <Box display='flex' justifyContent='space-between'>
-              <Typography variant='h4'>Total</Typography>
-              <Typography variant='h4'>
-                {getAmountWithCommas(totalPrices)}
-              </Typography>
-            </Box>
-            <Box display='flex' justifyContent='space-between' mt={20}>
-              <Typography>Address</Typography>
-              <Box display='grid' gap={5}>
-                <Typography textAlign='right'>
-                  {userData?.house_name}
-                </Typography>
-                <Typography textAlign='right'>{userData?.village}</Typography>
-                <Typography textAlign='right'>
-                  {userData?.city}, {userData?.state} - {userData?.pin_code}
-                </Typography>
-                <Typography textAlign='right'>
-                  +91 {userData?.mobile_number}
+        {selectedItems.length ? (
+          <Box className='payments_card'>
+            <Typography variant='h3'>Order Info</Typography>
+            <Box display='grid' gap={10} mt={20}>
+              <Box display='flex' justifyContent='space-between'>
+                <Typography variant='h4'>Total</Typography>
+                <Typography variant='h4'>
+                  {getAmountWithCommas(totalPrices)}
                 </Typography>
               </Box>
+              <Box display='flex' justifyContent='space-between' mt={20}>
+                <Typography>Address</Typography>
+                <Box display='grid' gap={5}>
+                  <Typography textAlign='right'>
+                    {userData?.house_name}
+                  </Typography>
+                  <Typography textAlign='right'>{userData?.village}</Typography>
+                  <Typography textAlign='right'>
+                    {userData?.city}, {userData?.state} - {userData?.pin_code}
+                  </Typography>
+                  <Typography textAlign='right'>
+                    +91 {userData?.mobile_number}
+                  </Typography>
+                </Box>
+              </Box>
+              <LoadingButton
+                disabled={!selectedItems.length}
+                color='secondary'
+                fullWidth
+                variant='contained'
+                loading={isPlacingOrder}
+                onClick={() =>
+                  onPlaceOrder(
+                    selectedItems.map((item) => ({
+                      _id: item.product._id,
+                      selected_quantity: item.selected_quantity,
+                      cart_id: item._id,
+                    })),
+                  )
+                }
+              >
+                Place Order
+              </LoadingButton>
             </Box>
-            <LoadingButton
-              disabled={!selectedItems.length}
-              color='secondary'
-              fullWidth
-              variant='contained'
-              loading={isPlacingOrder}
-              onClick={() =>
-                onPlaceOrder(
-                  selectedItems.map((item) => ({
-                    _id: item.product._id,
-                    selected_quantity: item.selected_quantity,
-                    cart_id: item._id,
-                  })),
-                )
-              }
-            >
-              Place Order
-            </LoadingButton>
           </Box>
-        </Box>
+        ) : null}
       </Box>
     </CartContainer>
   );

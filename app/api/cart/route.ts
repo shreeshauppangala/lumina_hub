@@ -71,7 +71,7 @@ export const PATCH = async (request: NextRequest) => {
     );
 
     return NextResponse.json({
-      message: `Quantity updated to ${body.selected_quantity} for ${existingCartItem?.product.name}`,
+      message: `Quantity updated to ${body.selected_quantity}`,
       data: {
         ...updatedCart,
       },
