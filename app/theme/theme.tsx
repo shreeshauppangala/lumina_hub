@@ -102,8 +102,8 @@ export const theme = createTheme({
             },
             '&:disabled': {
               backgroundColor: theme.palette.common.white,
-              color: theme.palette.common.white,
-              opacity: 0.5,
+              color: theme.palette.grey[700],
+              opacity: 0.6,
               cursor: 'not-allowed',
               pointerEvents: 'auto',
               boxShadow: 'none',
