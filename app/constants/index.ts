@@ -30,6 +30,7 @@ const pattern = {
   rupees: /^\d*(?:\.\d*)?$/,
   removeSpecialChars: /^[A-Za-z0-9 ]+$/,
   allowOnlyNumbers: /^(\s*|\d+)$/,
+  mongoBDId: /^[0-9a-fA-F]{24}$/,
   /**
    * @requires lowercase letter.
    * @requires uppercase letter.

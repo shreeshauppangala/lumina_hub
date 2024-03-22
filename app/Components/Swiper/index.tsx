@@ -23,7 +23,7 @@ const Swiper = ({ productsData, heading }: PropsI) => {
 
   const ProductCard = ({ data }: { data: ProductI }) => (
     <Box
-      onClick={() => router.push(`details/${data?._id}`)}
+      onClick={() => router.push(`/${data?._id}`)}
       sx={{ cursor: 'pointer' }}
     >
       <ProductImage variant='square' src={data?.pictures[0]} alt={data?.name} />

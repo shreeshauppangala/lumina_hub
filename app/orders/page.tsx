@@ -115,7 +115,7 @@ const Orders = () => {
                         <Typography
                           className='product_name'
                           onClick={() =>
-                            router.push(`/details/${order.product.item._id}`)
+                            router.push(`/${order.product.item._id}`)
                           }
                         >
                           {order.product.item.name}
@@ -125,7 +125,7 @@ const Orders = () => {
                           color='primary'
                           size='small'
                           onClick={() => {
-                            router.push(`/details/${order.product.item._id}`);
+                            router.push(`/${order.product.item._id}`);
                           }}
                         >
                           Buy it again

@@ -2,12 +2,17 @@ import { NextRequest, NextResponse } from 'next/server';
 import Product from '@/models/product';
 import { getDataFromToken } from '@/app/utils/API_utils';
 import User from '@/models/user';
+import { pattern } from '@/app/constants';
 
 export const GET = async (request: NextRequest) => {
   try {
     const id = request.url.split('/')[5];
-    const product = await Product.findOne({ _id: id });
 
+    if (!pattern.mongoBDId.test(id)) {
+      return NextResponse.json({ message: 'Invalid Id' }, { status: 400 });
+    }
+
+    const product = await Product.findById(id);
     if (product) {
       return NextResponse.json(product);
     }

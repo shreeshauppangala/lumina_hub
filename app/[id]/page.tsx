@@ -7,21 +7,21 @@ import { ProductI } from '@/app/constants/interfaces';
 import { hooks } from '@/app/hooks';
 import { MediumGreyCartIcon } from '@/app/Assets/Icons';
 import { getAmountWithCommas } from '@/app/utils';
-import { Breadcrumb, Loader } from '../../Components';
+import { Breadcrumb, Loader } from '../Components';
 import {
   DetailsContainer,
   ListedImages,
   PreviewImage,
   PriceText,
   AddToCart,
-} from '../styles';
-import CheckoutModal from '../CheckoutModal';
+} from './styles';
+import CheckoutModal from './CheckoutModal';
 
 const Page = () => {
   const [previewImageIndex, setPreviewImageIndex] = useState(0);
   const [product, setProduct] = useState<ProductI | null>(null);
 
-  const id = usePathname().split('/')[2];
+  const id = usePathname().split('/')[1];
   const { setOpenCheckoutModal } = hooks.useOrders();
 
   const { UseGetProductDetails } = hooks.useProducts();
