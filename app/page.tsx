@@ -6,10 +6,10 @@ import Img from './Assets/Images/HomeHeaderBG.png';
 import { Loader, SearchBar, Swiper } from './Components';
 import { hooks } from './hooks';
 
-const Categories = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(5, 10),
-  borderBottom: `${theme.spacing(0.5)} solid ${theme.palette.grey[200]}`,
-}));
+// const Categories = styled(Box)(({ theme }) => ({
+//   padding: theme.spacing(5, 10),
+//   borderBottom: `${theme.spacing(0.5)} solid ${theme.palette.grey[200]}`,
+// }));
 
 const HeaderImageBox = styled(Box)(({ theme }) => ({
   position: 'relative',
@@ -49,8 +49,8 @@ const Home = () => {
 
   return (
     <Box>
-      <Categories>dc</Categories>
-      <Box padding='0 20px'>
+      {/* <Categories>dc</Categories> */}
+      <Box padding='0 20px' pt={1}>
         <HeaderImageBox>
           <Box className='bg_color' />
           <Box className='content'>
