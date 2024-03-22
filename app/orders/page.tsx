@@ -55,7 +55,10 @@ const Orders = () => {
                     detail={getAmountWithCommas(order.total_amount)}
                   />
                   <Box display='flex'>
-                    <HeaderDetails header='Ship To' detail='Company' />
+                    <HeaderDetails
+                      header='Ship To'
+                      detail={userData?.house_name!}
+                    />
                     <AddressTooltip
                       title={
                         <Box display='grid' gap={2}>

@@ -39,7 +39,10 @@ export const config = {
     '/signout',
     '/signup',
     '/verify_email',
+
     '/profile',
+    '/orders',
+    '/cart',
     '/add_product',
     '/manage_products',
     '/edit_product',
