@@ -30,6 +30,8 @@ const Page = () => {
 
   const { isAddingToCart, onAddItemsToCart } = hooks.useCart();
 
+  const { user } = hooks.useAuth();
+
   return (
     <DetailsContainer>
       <Breadcrumb item={[{ name: 'Home', link: '/' }, { name: data?.name }]} />
@@ -72,7 +74,7 @@ const Page = () => {
               </Typography>
               <Box display='flex' gap={12} mt={10} alignItems='center'>
                 <Button
-                  disabled={data?.quantity_available! <= 0}
+                  disabled={!user || data?.quantity_available! <= 0}
                   color='primary'
                   variant='contained'
                   onClick={() => {
@@ -83,6 +85,7 @@ const Page = () => {
                   Buy Now
                 </Button>
                 <AddToCart
+                  disabled={!user || data?.quantity_available! <= 0}
                   color='secondary'
                   loading={isAddingToCart}
                   onClick={() => {
@@ -96,7 +99,7 @@ const Page = () => {
           </Box>
         </Box>
       )}
-      <CheckoutModal productInfo={product} />
+      {user && <CheckoutModal productInfo={product} />}
     </DetailsContainer>
   );
 };

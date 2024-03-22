@@ -16,7 +16,7 @@ export const getDataFromToken = (request: NextRequest) => {
         if (err) {
           throw Error(err.name);
         }
-        return decodedData?._doc?._id;
+        return decodedData?._id;
       },
     );
     return data;
