@@ -5,7 +5,7 @@ import {
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
+import { notFound, useRouter } from 'next/navigation';
 import { AddEditProductFormDataI, ProductI } from '../constants/interfaces';
 import {
   addProduct,
@@ -165,6 +165,9 @@ const useProductsFunc = () => {
       queryFn: () => getProductDetails(id),
       select: ({ data }) => data,
       enabled: !!id,
+      throwOnError: () => {
+        notFound();
+      },
     });
 
   return {
