@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { getOrders, placeOrder, updateOrder } from './controllers/orders';
 import { useSnackBar } from './snackbar';
 import { OrdersI } from '../constants/interfaces';
+import { Routes } from '../constants';
 
 interface ProvideOrdersI {
   children: ReactNode;
@@ -56,7 +57,7 @@ const useOrdersFunc = () => {
       queryClient.refetchQueries({ queryKey: ['orders'] });
       ShowSuccessSnackBar(data.message);
       setOpenCheckoutModal(false);
-      router.push('/orders');
+      router.push(Routes.orders);
     },
     onError: (error) => {
       ShowApiErrorSnackBar(error);

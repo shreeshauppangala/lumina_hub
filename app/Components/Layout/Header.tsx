@@ -9,6 +9,7 @@ import {
   MenuItem,
   Typography,
 } from '@mui/material';
+import { useRouter } from 'next/navigation';
 import { hooks } from '@/app/hooks';
 import { SignIn, SignUp, ForgotPassword, SignOut } from '@/app/Auth';
 import {
@@ -17,7 +18,7 @@ import {
   MediumPrimaryOrdersIcon,
   MediumPrimaryUserIcon,
 } from '@/app/Assets/Icons';
-import { useRouter } from 'next/navigation';
+import { Routes } from '@/app/constants';
 import { CustomAppBar, CustomToolbar, ProfileMenu } from './styles';
 
 const Header = () => {
@@ -60,7 +61,7 @@ const Header = () => {
               </Box>
               <MenuItem
                 onClick={() => {
-                  router.push('/profile');
+                  router.push(Routes.profile);
                   setAnchorEl(null);
                 }}
               >
@@ -84,7 +85,7 @@ const Header = () => {
               ) : null}
               <MenuItem
                 onClick={() => {
-                  router.push('/cart');
+                  router.push(Routes.cart);
                   setAnchorEl(null);
                 }}
               >
@@ -95,7 +96,7 @@ const Header = () => {
               </MenuItem>
               <MenuItem
                 onClick={() => {
-                  router.push('/orders');
+                  router.push(Routes.orders);
                   setAnchorEl(null);
                 }}
               >
