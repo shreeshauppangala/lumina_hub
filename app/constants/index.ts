@@ -3,7 +3,7 @@
  * @type {string}
  */
 
-const API = {
+const Routes = {
   signIn: 'signin',
   signUp: 'signup',
   signOut: 'signout',
@@ -57,4 +57,4 @@ const bulbTypes = [
   },
 ];
 
-export { API, pattern, bulbTypes };
+export { Routes, pattern, bulbTypes };

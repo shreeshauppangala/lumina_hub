@@ -11,11 +11,6 @@ interface ServiceI {
  * @returns {Object} - An object with methods for interacting with the local storage.
  */
 const LocalStorageService = (() => {
-  /**
-   * Declares a variable named 'service' of type 'ServiceI'.
-   */
-  let service: ServiceI;
-
   const clear = () => {
     window.localStorage.removeItem('access_token');
     window.localStorage.removeItem('refresh_token');
@@ -35,6 +30,11 @@ const LocalStorageService = (() => {
     }
     return null;
   };
+
+  /**
+   * Declares a variable named 'service' of type 'ServiceI'.
+   */
+  let service: ServiceI;
   /**
    * Returns the service instance. If the service instance does not exist, it creates a new one and returns it.
    * @returns {ServiceI} The service instance.
