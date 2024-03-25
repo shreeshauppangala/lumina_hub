@@ -1,6 +1,6 @@
 import { SignedInUserI } from '../constants/interfaces';
 
-interface ServiceI extends Storage {
+interface ServiceI {
   clear: () => void;
   setUser: (data: SignedInUserI) => void;
   getUser: () => SignedInUserI | null;
@@ -10,38 +10,20 @@ interface ServiceI extends Storage {
  * A service for managing data in the browser's local storage.
  * @returns {Object} - An object with methods for interacting with the local storage.
  */
-// eslint-disable-next-line func-names, prefer-arrow/prefer-arrow-functions
-const LocalStorageService = (function () {
+const LocalStorageService = (() => {
   /**
    * Declares a variable named 'service' of type 'ServiceI'.
    */
   let service: ServiceI;
 
-  /**
-   * Returns the service instance. If the service instance does not exist, it creates a new one and returns it.
-   * @returns {ServiceI} The service instance.
-   */
-  function getService(): ServiceI {
-    if (!service) {
-      // @ts-ignore
-      service = this;
-      return service;
-    }
-    return service;
-  }
-
   const clear = () => {
-    if (typeof window !== 'undefined') {
-      window.localStorage.removeItem('access_token');
-      window.localStorage.removeItem('refresh_token');
-      window.localStorage.removeItem('user');
-    }
+    window.localStorage.removeItem('access_token');
+    window.localStorage.removeItem('refresh_token');
+    window.localStorage.removeItem('user');
   };
 
   const setUser = (data: SignedInUserI) => {
-    if (typeof window !== 'undefined') {
-      window.localStorage.setItem('user', JSON.stringify(data));
-    }
+    window.localStorage.setItem('user', JSON.stringify(data));
   };
 
   const getUser = () => {
@@ -53,12 +35,23 @@ const LocalStorageService = (function () {
     }
     return null;
   };
+  /**
+   * Returns the service instance. If the service instance does not exist, it creates a new one and returns it.
+   * @returns {ServiceI} The service instance.
+   */
+  const getService = (): ServiceI => {
+    if (!service) {
+      service = {
+        clear,
+        setUser,
+        getUser,
+      };
+    }
+    return service;
+  };
 
   return {
     getService,
-    clear,
-    getUser,
-    setUser,
   };
 })();
 

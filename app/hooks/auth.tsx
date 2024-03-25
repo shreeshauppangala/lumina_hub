@@ -161,7 +161,7 @@ const useAuthFunc = () => {
   const { mutate: mutateSignOut, isPending: isSigningOut } = useMutation({
     mutationFn: signOut,
     onSuccess: () => {
-      LocalStorageService.clear();
+      LocalStorage.clear();
       queryClient.clear();
       setUser(null);
       setLogoutModalOpen(false);
