@@ -88,16 +88,18 @@ export const GET = async (request: NextRequest) => {
   try {
     const id = getDataFromToken(request);
     const user = await User.findOne({ _id: id });
-    for (let i = 0; i < user!.cart.length; i++) {
-      const productId = user?.cart[i].product;
-      const productDetails = await Product.findById(productId);
-      if (productDetails) {
-        user!.cart[i].product = productDetails;
-      } else {
-        user?.cart.splice(i, 1);
+    const data = [];
+    if (user) {
+      for (let i = 0; i < user.cart.length; i++) {
+        const productId = user.cart[i].product;
+        const productDetails = await Product.findById(productId);
+        if (productDetails) {
+          const cartData = user.cart[i];
+          data.push({ ...cartData, product: productDetails });
+        }
       }
     }
-    return NextResponse.json(user?.cart);
+    return NextResponse.json(data);
   } catch (error: any) {
     if (error.message.includes('Token')) {
       return NextResponse.json({ message: 'Token Expired' }, { status: 401 });
