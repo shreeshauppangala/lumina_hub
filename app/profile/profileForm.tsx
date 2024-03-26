@@ -4,7 +4,7 @@ import { Box, Button, IconButton } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { useRouter } from 'next/navigation';
 import { SignUpFormDataI } from '../constants/interfaces';
-import { DropZone, InputField } from '../Components';
+import { DropZone, InputField, SearchableDropdown } from '../Components';
 import { pattern } from '../constants';
 import { GreyCrossEye, GreyEye } from '../Assets/Icons';
 import { hooks } from '../hooks';
@@ -19,12 +19,15 @@ const ProfileForm = ({ formData }: PropsI) => {
 
   const { isProfileUpdating, onUpdateProfile } = hooks.useAuth();
 
+  const { getStates, getCity } = hooks.useMisc();
+
   const router = useRouter();
 
-  const { control, handleSubmit, reset, getValues } = useForm<SignUpFormDataI>({
-    mode: 'all',
-    defaultValues: formData,
-  });
+  const { control, handleSubmit, reset, getValues, watch } =
+    useForm<SignUpFormDataI>({
+      mode: 'all',
+      defaultValues: formData,
+    });
   useEffect(() => {
     if (formData?.picture) {
       setImage([formData?.picture as string]);
@@ -188,13 +191,19 @@ const ProfileForm = ({ formData }: PropsI) => {
               required: 'State Is Required',
             }}
             render={({ field, fieldState: { error } }) => (
-              <InputField
+              <SearchableDropdown
                 required
                 {...field}
+                loadOptions={getStates}
                 label='State'
                 error={!!error}
                 helperText={error?.message}
-                placeholder='state'
+                placeholder='State'
+                width='100%'
+                type='asyncPaginate'
+                additional={{
+                  page: 1,
+                }}
               />
             )}
           />
@@ -205,13 +214,36 @@ const ProfileForm = ({ formData }: PropsI) => {
               required: 'City Is Required',
             }}
             render={({ field, fieldState: { error } }) => (
-              <InputField
+              <SearchableDropdown
+                cacheUniqs={[watch('state')]}
                 required
                 {...field}
+                loadOptions={(
+                  usersSearchText: string,
+                  prevOptions: {
+                    name: string;
+                    id: string;
+                  }[],
+                  page: {
+                    page: number;
+                  },
+                ) =>
+                  getCity(
+                    usersSearchText,
+                    prevOptions,
+                    page,
+                    watch('state')?.value!,
+                  )
+                }
                 label='City'
                 error={!!error}
                 helperText={error?.message}
-                placeholder='city'
+                placeholder='City'
+                width='100%'
+                type='asyncPaginate'
+                additional={{
+                  page: 1,
+                }}
               />
             )}
           />

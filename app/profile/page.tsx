@@ -17,6 +17,8 @@ const Profile = () => {
 
   const formData = {
     ...data!,
+    state: { label: data?.state!, value: data?.state! },
+    city: { label: data?.city!, value: data?.city! },
     confirm_password: undefined as unknown as string & { length: { gte: 8 } },
     termsAgreement: true,
   };

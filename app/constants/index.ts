@@ -14,6 +14,9 @@ const Routes = {
   product: 'product',
   cart: 'cart',
   orders: 'orders',
+
+  states: 'states',
+  cities: 'cities',
 };
 
 const pattern = {

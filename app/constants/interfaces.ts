@@ -56,10 +56,14 @@ export interface SignUpFormDataI
     | 'isAdmin'
     | 'isEmailVerified'
     | 'picture'
+    | 'state'
+    | 'city'
   > {
   picture: string | File;
   confirm_password: string & { length: { gte: 8 } };
   termsAgreement: boolean;
+  state: DropdownValue;
+  city: DropdownValue;
 }
 
 export interface GoogleDataI {

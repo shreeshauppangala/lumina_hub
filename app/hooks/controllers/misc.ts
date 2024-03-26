@@ -1,5 +1,5 @@
 import { Routes } from '@/app/constants';
-import { postApi } from '../config';
+import { getApi, postApi } from '../config';
 
 export const fileUpload = (data: {
   file: File;
@@ -12,3 +12,9 @@ export const fileUpload = (data: {
 
   return postApi(Routes.fileUpload, formData);
 };
+
+export const states = (page: number, search: string) =>
+  getApi(`${Routes.states}?page=${page}&search=${search}`);
+
+export const cities = (state: string, page: number, search: string) =>
+  getApi(`${Routes.cities}?state=${state}&page=${page}&search=${search}`);

@@ -94,7 +94,7 @@ export const GET = async (request: NextRequest) => {
         const productId = user.cart[i].product;
         const productDetails = await Product.findById(productId);
         if (productDetails) {
-          const cartData = user.cart[i];
+          const cartData = user.toObject().cart[i];
           data.push({ ...cartData, product: productDetails });
         }
       }
