@@ -35,7 +35,11 @@ const ProfileForm = ({ formData }: PropsI) => {
   }, [formData]);
 
   const onSubmit = (data: SignUpFormDataI) => {
-    onUpdateProfile(data);
+    onUpdateProfile({
+      ...data,
+      city: data.city?.value!,
+      state: data.state?.value!,
+    });
   };
 
   return (

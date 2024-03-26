@@ -17,7 +17,7 @@ import { SignUpFormDataI } from '@/app/constants/interfaces';
 import { hooks } from '@/app/hooks';
 import { pattern } from '@/app/constants';
 import { GreyCrossEye, GreyEye } from '@/app/Assets/Icons';
-import { DropZone, InputField } from '../Components';
+import { DropZone, InputField, SearchableDropdown } from '../Components';
 import { DialogContainer } from './styles';
 import { getDecodedJWT } from '../utils';
 
@@ -33,7 +33,9 @@ const SignUp = () => {
     isSignUpLoading,
   } = hooks.useAuth();
 
-  const { control, handleSubmit, getValues, reset, setValue } =
+  const { getStates, getCity } = hooks.useMisc();
+
+  const { control, handleSubmit, getValues, reset, setValue, watch } =
     useForm<SignUpFormDataI>({
       mode: 'all',
       defaultValues: {
@@ -43,8 +45,8 @@ const SignUp = () => {
         confirm_password: '',
         house_name: '',
         village: '',
-        city: '',
-        state: '',
+        city: null,
+        state: null,
         pin_code: undefined,
         mobile_number: undefined,
         termsAgreement: false,
@@ -52,7 +54,12 @@ const SignUp = () => {
     });
 
   const onSubmit = (data: SignUpFormDataI) => {
-    onSignUp({ ...data, picture: image[0] });
+    onSignUp({
+      ...data,
+      picture: image[0],
+      city: data.city?.value!,
+      state: data.state?.value!,
+    });
   };
 
   return (
@@ -233,13 +240,19 @@ const SignUp = () => {
                 required: 'State Is Required',
               }}
               render={({ field, fieldState: { error } }) => (
-                <InputField
+                <SearchableDropdown
                   required
                   {...field}
+                  loadOptions={getStates}
                   label='State'
                   error={!!error}
                   helperText={error?.message}
-                  placeholder='state'
+                  placeholder='State'
+                  width='100%'
+                  type='asyncPaginate'
+                  additional={{
+                    page: 1,
+                  }}
                 />
               )}
             />
@@ -250,13 +263,37 @@ const SignUp = () => {
                 required: 'City Is Required',
               }}
               render={({ field, fieldState: { error } }) => (
-                <InputField
+                <SearchableDropdown
+                  isDisabled={!watch('state')}
+                  cacheUniqs={[watch('state')]}
                   required
                   {...field}
+                  loadOptions={(
+                    usersSearchText: string,
+                    prevOptions: {
+                      name: string;
+                      id: string;
+                    }[],
+                    page: {
+                      page: number;
+                    },
+                  ) =>
+                    getCity(
+                      usersSearchText,
+                      prevOptions,
+                      page,
+                      watch('state')?.value!,
+                    )
+                  }
                   label='City'
                   error={!!error}
                   helperText={error?.message}
-                  placeholder='city'
+                  placeholder='City'
+                  width='100%'
+                  type='asyncPaginate'
+                  additional={{
+                    page: 1,
+                  }}
                 />
               )}
             />

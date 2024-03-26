@@ -38,7 +38,7 @@ export const customStyles: CustomStyleConfig = {
     background: theme.palette.common.white,
     borderRadius: theme.spacing(12),
     boxShadow: '0px 2px 8px rgba(64,60,67,0.24)',
-    border: `${theme.spacing(0.5)} solid ${state.isDisabled ? theme.palette.grey[400] : 'transparent'}`,
+    border: `${theme.spacing(0.5)} solid transparent`,
     padding: theme.spacing(1, 0),
 
     '&:focus': {
@@ -59,8 +59,8 @@ export const customStyles: CustomStyleConfig = {
     fontWeight: 400,
     fontSize: theme.spacing(9),
     color: state.isDisabled
-      ? (theme.palette.grey as unknown as string)
-      : '#b7b7b8',
+      ? (theme.palette.grey[300] as unknown as string)
+      : theme.palette.grey[400],
     fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
   }),
   /**

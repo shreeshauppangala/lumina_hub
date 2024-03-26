@@ -30,6 +30,11 @@ interface ProvideAuthI {
   children: ReactNode;
 }
 
+interface SignUpData extends Omit<SignUpFormDataI, 'city' | 'state'> {
+  city: string;
+  state: string;
+}
+
 interface AuthI {
   user: SignedInUserI;
 
@@ -40,7 +45,7 @@ interface AuthI {
 
   openSignUp: boolean;
   setOpenSignUp: (open: boolean) => void;
-  onSignUp: (data: SignUpFormDataI | CredentialResponse) => void;
+  onSignUp: (data: SignUpData | CredentialResponse) => void;
   isSignUpLoading: boolean;
 
   logoutModalOpen: boolean;
@@ -56,7 +61,7 @@ interface AuthI {
   setOpenForgotPassword: (openForgotPassword: boolean) => void;
 
   isProfileUpdating: boolean;
-  onUpdateProfile: (data: SignUpFormDataI) => void;
+  onUpdateProfile: (data: SignUpData) => void;
   UseGetProfileData: () => UseQueryResult<UserI, Error>;
 }
 
