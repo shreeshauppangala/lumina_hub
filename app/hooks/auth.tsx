@@ -45,7 +45,7 @@ interface AuthI {
 
   openSignUp: boolean;
   setOpenSignUp: (open: boolean) => void;
-  onSignUp: (data: SignUpData | CredentialResponse) => void;
+  onSignUp: (data: SignUpData) => void;
   isSignUpLoading: boolean;
 
   logoutModalOpen: boolean;
