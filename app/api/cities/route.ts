@@ -8,7 +8,7 @@ export const GET = async (request: NextRequest) => {
     const queryParams = request.nextUrl.searchParams;
     const state = queryParams.get('state');
 
-    const data = await Demographics.findOne({ state });
+    const data = await Demographics.findOne({ state: state! });
 
     return NextResponse.json(data?.toObject().cities);
   } catch (error: any) {
