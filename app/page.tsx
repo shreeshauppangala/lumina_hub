@@ -56,10 +56,10 @@ const Home = () => {
           <Box className='content'>
             <Box>
               <Typography variant='h2' mb={20}>
-                Upgrade to LED Bulbs. Illuminate your space.
+                Upgrade to Bulbs. Illuminate your space.
               </Typography>
               <SearchBar
-                placeholder='What LED bulb are you looking for?'
+                placeholder='What bulb are you looking for?'
                 onChange={(e) => setProductSearch(e.target.value)}
               />
             </Box>

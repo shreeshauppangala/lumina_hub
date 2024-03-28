@@ -10,6 +10,6 @@ const DemographicsSchema = new Schema<DemographicsDocument>({
 });
 
 const Demographics: DemographicsModel =
-  models.Demographics || model('demographics', DemographicsSchema);
+  models.demographics || model('demographics', DemographicsSchema);
 
 export default Demographics;
