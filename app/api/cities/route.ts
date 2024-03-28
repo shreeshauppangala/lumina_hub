@@ -5,8 +5,8 @@ import Demographics from '@/models/demographics';
 connect();
 export const GET = async (request: NextRequest) => {
   try {
-    const searchParam = request.nextUrl.searchParams;
-    const state = searchParam.get('state');
+    const queryParams = request.nextUrl.searchParams;
+    const state = queryParams.get('state');
 
     const query = { [state!]: { $exists: true } };
 

@@ -40,6 +40,8 @@ const useMiscFunc = () => {
   const [isFileUploading, setIsFileUploading] = useState(false);
   const { ShowErrorSnackBar } = useSnackBar();
 
+  const limit = 10;
+
   const onFileUpload = async (formData: {
     file: File;
     folder: 'user' | 'products';
@@ -60,9 +62,9 @@ const useMiscFunc = () => {
     prevOptions: OptionsI[],
     page: { page: number },
   ) => {
-    const data = await states(page.page, usersSearchText);
+    const { data } = await states(page.page, limit, usersSearchText);
 
-    const hasMore = !!data.data.next;
+    const hasMore = data.has_more;
     return {
       options: data.data.map((state: string) => ({
         label: state,
@@ -81,11 +83,11 @@ const useMiscFunc = () => {
     page: { page: number },
     state: string,
   ) => {
-    const data = await cities(state, page.page, usersSearchText);
+    const { data } = await cities(state, page.page, limit, usersSearchText);
 
-    const hasMore = !!data.data.next;
+    const hasMore = false;
     return {
-      options: data.data.map((city: string) => ({
+      options: data.map((city: string) => ({
         label: city,
         value: city,
       })),

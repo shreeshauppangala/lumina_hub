@@ -13,8 +13,15 @@ export const fileUpload = (data: {
   return postApi(Routes.fileUpload, formData);
 };
 
-export const states = (page: number, search: string) =>
-  getApi(`${Routes.states}?page=${page}&search=${search}`);
+export const states = (page: number, limit: number, search: string) =>
+  getApi(`${Routes.states}?page=${page}&limit=${limit}&search=${search}`);
 
-export const cities = (state: string, page: number, search: string) =>
-  getApi(`${Routes.cities}?state=${state}&page=${page}&search=${search}`);
+export const cities = (
+  state: string,
+  page: number,
+  limit: number,
+  search: string,
+) =>
+  getApi(
+    `${Routes.cities}?state=${state}&page=${page}&limit=${limit}&search=${search}`,
+  );
