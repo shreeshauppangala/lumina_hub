@@ -8,11 +8,9 @@ export const GET = async (request: NextRequest) => {
     const queryParams = request.nextUrl.searchParams;
     const state = queryParams.get('state');
 
-    const query = { [state!]: { $exists: true } };
+    const data = await Demographics.findOne({ state });
 
-    const data = await Demographics.findOne(query);
-
-    return NextResponse.json(data?.toObject()[state!]);
+    return NextResponse.json(data?.toObject().cities);
   } catch (error: any) {
     if (error.message.includes('Token')) {
       return NextResponse.json({ message: 'Token Expired' }, { status: 401 });

@@ -6,21 +6,25 @@ connect();
 export const GET = async (request: NextRequest) => {
   try {
     const queryParams = request.nextUrl.searchParams;
-    // const searchText = queryParams.get('search');
+
     const page = Number(queryParams.get('page'));
     const limit = Number(queryParams.get('limit')) || 10;
 
-    const data = await Demographics.find({})
+    const searchText = queryParams.get('search');
+    const searchRegex = new RegExp(`^${searchText}`, 'i');
+    const query = searchText?.length ? { state: { $regex: searchRegex } } : {};
+
+    const data = await Demographics.find(query)
       .skip((page - 1) * limit)
       .limit(limit);
 
-    const total_count = await Demographics.estimatedDocumentCount({});
-    const statesList = data.map((obj) => Object.keys(obj.toObject())[1]);
+    const total_count = await Demographics.countDocuments(query);
+    const statesList = data.map((obj) => obj.toObject().state);
 
     return NextResponse.json({
       page,
       limit,
-      has_more: Math.ceil(total_count / limit) !== page,
+      has_more: total_count ? Math.ceil(total_count / limit) !== page : false,
       data: statesList,
     });
   } catch (error: any) {
