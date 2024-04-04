@@ -41,7 +41,7 @@ export const POST = async (request: NextRequest) => {
     return NextResponse.json({
       message: `${product?.name} Added to Cart Successfully`,
       data: {
-        ...updatedCart,
+        ...updatedCart?.toObject(),
       },
     });
   } catch (error: any) {
@@ -73,7 +73,7 @@ export const PATCH = async (request: NextRequest) => {
     return NextResponse.json({
       message: `Quantity updated to ${body.selected_quantity}`,
       data: {
-        ...updatedCart,
+        ...updatedCart?.toObject(),
       },
     });
   } catch (error: any) {

@@ -66,7 +66,7 @@ const useProductsFunc = () => {
     useMutation({
       mutationFn: addProduct,
       onSuccess: ({ data }) => {
-        ShowSuccessSnackBar(`${data.name} added successfully`);
+        ShowSuccessSnackBar(`${data.data.name} added successfully`);
         router.push('/manage_products');
         queryClient.refetchQueries({ queryKey: ['product_list'] });
       },
@@ -110,7 +110,7 @@ const useProductsFunc = () => {
     useMutation({
       mutationFn: updateProduct,
       onSuccess: ({ data }) => {
-        ShowSuccessSnackBar(`${data.name} Updated successfully`);
+        ShowSuccessSnackBar(`${data.data.name} Updated successfully`);
         router.push('/manage_products');
         queryClient.refetchQueries({ queryKey: ['product_list'] });
       },

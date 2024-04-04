@@ -23,7 +23,7 @@ export const DELETE = async (request: NextRequest) => {
     return NextResponse.json({
       message: `Item Deleted Successfully`,
       data: {
-        ...updatedCart,
+        ...updatedCart?.toObject(),
       },
     });
   } catch (error: any) {

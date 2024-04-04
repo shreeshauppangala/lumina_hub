@@ -50,7 +50,7 @@ export const PATCH = async (request: NextRequest) => {
 
     return NextResponse.json({
       message: 'User Updated',
-      data: updatedUser,
+      data: updatedUser?.toObject(),
     });
   } catch (error) {
     return NextResponse.json(

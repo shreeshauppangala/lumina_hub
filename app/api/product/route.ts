@@ -34,7 +34,7 @@ export const POST = async (request: NextRequest) => {
     return NextResponse.json({
       message: 'Product Added Successfully',
       data: {
-        ...newProduct,
+        ...newProduct.toObject(),
       },
     });
   } catch (error: any) {
@@ -63,7 +63,7 @@ export const PATCH = async (request: NextRequest) => {
     return NextResponse.json({
       message: `${updatedProduct?.name} Updated Successfully`,
       data: {
-        ...updatedProduct,
+        ...updatedProduct?.toObject(),
       },
     });
   } catch (error: any) {

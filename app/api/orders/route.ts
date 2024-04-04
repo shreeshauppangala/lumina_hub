@@ -84,7 +84,7 @@ export const PATCH = async (request: NextRequest) => {
     return NextResponse.json({
       message: `Status updated to ${body.status} for ${existingOrderedItem?.product.item.name}`,
       data: {
-        ...updatedCart,
+        ...updatedCart?.toObject(),
       },
     });
   } catch (error: any) {

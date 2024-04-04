@@ -38,7 +38,7 @@ export const DELETE = async (request: NextRequest) => {
     const deletedProduct = await Product.findByIdAndDelete(id);
     return NextResponse.json({
       message: `${deletedProduct?.name} Deleted Successfully`,
-      data: deletedProduct,
+      data: deletedProduct?.toObject(),
     });
   } catch (error: any) {
     if (error.message.includes('Token')) {
