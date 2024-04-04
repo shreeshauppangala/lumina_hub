@@ -11,7 +11,8 @@
     "prettier": "prettier --check app/**/*.{js,ts,tsx,scss}",
     "prettier:fix": "prettier --write app/**/*.{js,ts,tsx,scss}",
     "prepare": "husky",
-    "type-check": "tsc"
+    "type-check": "tsc",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "@emotion/styled": "^11.11.0",
@@ -22,6 +23,7 @@
     "axios": "^1.6.7",
     "bcryptjs": "^2.4.3",
     "dayjs": "^1.11.10",
+    "gh-pages": "^6.1.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.1.2",
     "next": "^14.1.0",
