@@ -70,7 +70,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out
+          path: ./next
 
   # Deployment job
   deploy:
@@ -83,3 +83,11 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        env:
+         JWT_SECRET: ${{ secrets.JWT_SECRET }}
+         MONGO_URL: ${{ secrets.MONGO_URL }}
+         NEXT_PUBLIC_BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL }}
+         NEXT_PUBLIC_GOOGLE_CLIENT_SECRET: ${{ secrets.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET }}
+         CLOUDINARY_CLOUD_NAME: ${{secrets.CLOUDINARY_CLOUD_NAME}}
+         CLOUDINARY_API_KEY: ${{secrets.CLOUDINARY_API_KEY}}
+         CLOUDINARY_UPLOAD_PRESET: ${{secrets.CLOUDINARY_UPLOAD_PRESET}}
