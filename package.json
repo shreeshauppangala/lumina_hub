@@ -12,7 +12,7 @@
     "prettier:fix": "prettier --write app/**/*.{js,ts,tsx,scss}",
     "prepare": "husky",
     "type-check": "tsc",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d .next"
   },
   "dependencies": {
     "@emotion/styled": "^11.11.0",
