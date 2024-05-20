@@ -190,7 +190,6 @@ const useAuthFunc = () => {
       if (error.response) {
         if (error.response.status === 401) {
           onSignOut();
-          router.push('/');
           ShowErrorSnackBar('Session Expired');
         }
       }

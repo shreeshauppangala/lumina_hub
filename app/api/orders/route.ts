@@ -99,7 +99,11 @@ export const GET = async (request: NextRequest) => {
   try {
     const id = getDataFromToken(request);
     const user = await User.findOne({ _id: id });
-    return NextResponse.json(user?.orders);
+    const sortedOrders = user?.orders.sort(
+      (a, b) =>
+        new Date(a.order_date).getDate() - new Date(b.order_date).getDate(),
+    );
+    return NextResponse.json(sortedOrders);
   } catch (error: any) {
     if (error.message.includes('Token')) {
       return NextResponse.json({ message: 'Token Expired' }, { status: 401 });

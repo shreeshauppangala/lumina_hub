@@ -66,3 +66,21 @@ export const CheckoutDialogContainer = styled(Dialog)(({ theme }) => ({
     },
   },
 }));
+
+export const NotFoundContainer = styled(Box)(({ theme }) => ({
+  backgroundColor: theme.palette.primary.light,
+  padding: theme.spacing(5, 10),
+  paddingBottom: 0,
+
+  '.title': {
+    ...theme.typography.h1,
+    color: theme.palette.primary.main,
+    marginBottom: theme.spacing(10),
+  },
+
+  '.content': {
+    ...theme.typography.body1,
+    color: theme.palette.primary.main,
+    marginBottom: theme.spacing(10),
+  },
+}));
