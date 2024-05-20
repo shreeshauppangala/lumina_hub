@@ -51,6 +51,10 @@ const Cart = () => {
     return total + totalPriceForItem;
   }, 0);
 
+  const filteredOutOfStock = data?.filter(
+    (item) => item.product.quantity_available > 0,
+  );
+
   return (
     <CartContainer>
       <Breadcrumb item={[{ name: 'Home', link: '/' }, { name: 'Cart' }]} />
@@ -59,20 +63,14 @@ const Cart = () => {
           <Typography variant='h3'>Shopping Cart</Typography>
           {data?.length ? (
             <Box mt={5} display='flex' alignItems='center'>
-              {data?.length !== selectedItems.length ? (
+              {filteredOutOfStock?.length !== selectedItems.length ? (
                 <>
                   <Typography>{selectedItems.length} items selected</Typography>
                   <Button
                     disabled={!data?.length}
                     className='select_all_button'
                     color='inherit'
-                    onClick={() =>
-                      setSelectedItems(
-                        data?.filter(
-                          (item) => item.product.quantity_available > 0,
-                        )!,
-                      )
-                    }
+                    onClick={() => setSelectedItems(filteredOutOfStock!)}
                   >
                     Select all items
                   </Button>

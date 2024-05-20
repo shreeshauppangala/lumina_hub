@@ -157,6 +157,7 @@ const useProductsFunc = () => {
       queryKey: ['product_list', productSearch],
       queryFn: () => getProductsList(productSearch),
       select: ({ data }) => data,
+      gcTime: 0,
     });
 
   const UseGetProductDetails = (id: string) =>
@@ -165,6 +166,7 @@ const useProductsFunc = () => {
       queryFn: () => getProductDetails(id),
       select: ({ data }) => data,
       enabled: !!id,
+      gcTime: 0,
       throwOnError: () => {
         notFound();
       },

@@ -3,7 +3,7 @@ import { Swiper as SwiperJs, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { Avatar, Box, Typography, styled } from '@mui/material';
+import { Avatar, Box, FormHelperText, Typography, styled } from '@mui/material';
 import { getAmountWithCommas } from '@/app/utils';
 import { useRouter } from 'next/navigation';
 import { ProductI } from '@/app/constants/interfaces';
@@ -27,12 +27,19 @@ const Swiper = ({ productsData, heading }: PropsI) => {
       sx={{ cursor: 'pointer' }}
     >
       <ProductImage variant='square' src={data?.pictures[0]} alt={data?.name} />
-      <Typography variant='body2' mt={6}>
-        {data?.name}
-      </Typography>
-      <Typography variant='h4' mt={2}>
-        {getAmountWithCommas(data?.price)}
-      </Typography>
+      <Box display='flex' gap={20} alignItems='center'>
+        <Box>
+          <Typography variant='body2' mt={6}>
+            {data?.name}
+          </Typography>
+          <Typography variant='h4' mt={2}>
+            {getAmountWithCommas(data?.price)}
+          </Typography>
+        </Box>
+        {data?.quantity_available! <= 0 && (
+          <FormHelperText error>Out of stock</FormHelperText>
+        )}
+      </Box>
     </Box>
   );
 

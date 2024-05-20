@@ -30,7 +30,7 @@ const Page = () => {
 
   const { isAddingToCart, onAddItemsToCart } = hooks.useCart();
 
-  const { user } = hooks.useAuth();
+  const { user, setOpenSignIn } = hooks.useAuth();
 
   return (
     <DetailsContainer>
@@ -74,22 +74,30 @@ const Page = () => {
               </Typography>
               <Box display='flex' gap={12} mt={10} alignItems='center'>
                 <Button
-                  disabled={!user || data?.quantity_available! <= 0}
+                  disabled={data?.quantity_available! <= 0}
                   color='primary'
                   variant='contained'
                   onClick={() => {
-                    setProduct(data!);
-                    setOpenCheckoutModal(true);
+                    if (user) {
+                      setProduct(data!);
+                      setOpenCheckoutModal(true);
+                    } else {
+                      setOpenSignIn(true);
+                    }
                   }}
                 >
                   Buy Now
                 </Button>
                 <AddToCart
-                  disabled={!user || data?.quantity_available! <= 0}
+                  disabled={data?.quantity_available! <= 0}
                   color='secondary'
                   loading={isAddingToCart}
                   onClick={() => {
-                    onAddItemsToCart(data?._id!);
+                    if (user) {
+                      onAddItemsToCart(data?._id!);
+                    } else {
+                      setOpenSignIn(true);
+                    }
                   }}
                 >
                   <MediumGreyCartIcon /> Add To Cart
