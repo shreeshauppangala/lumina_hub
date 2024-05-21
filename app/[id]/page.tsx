@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { Box, Button, FormHelperText, Typography } from '@mui/material';
-import { usePathname } from 'next/navigation';
 import { ProductI } from '@/app/constants/interfaces';
 import { hooks } from '@/app/hooks';
 import { MediumGreyCartIcon } from '@/app/Assets/Icons';
@@ -17,16 +16,15 @@ import {
 } from './styles';
 import CheckoutModal from './CheckoutModal';
 
-const Page = () => {
+const Page = ({ params }: { params: { id: string } }) => {
   const [previewImageIndex, setPreviewImageIndex] = useState(0);
   const [product, setProduct] = useState<ProductI | null>(null);
 
-  const id = usePathname().split('/')[1];
   const { setOpenCheckoutModal } = hooks.useOrders();
 
   const { UseGetProductDetails } = hooks.useProducts();
 
-  const { data, isLoading } = UseGetProductDetails(id);
+  const { data, isLoading } = UseGetProductDetails(params.id);
 
   const { isAddingToCart, onAddItemsToCart } = hooks.useCart();
 

@@ -2,18 +2,15 @@
 
 import React from 'react';
 import { Typography } from '@mui/material';
-import { usePathname } from 'next/navigation';
 import { Breadcrumb, Loader } from '@/app/Components';
 import { hooks } from '@/app/hooks';
 import AddEditForm from '../../AddEditForm';
 import { AddEditProductContainer } from '../../styles';
 
-const EditProduct = () => {
-  const id = usePathname().split('/')[2];
-
+const EditProduct = ({ params }: { params: { id: string } }) => {
   const { UseGetProductDetails } = hooks.useProducts();
 
-  const { data, isLoading } = UseGetProductDetails(id);
+  const { data, isLoading } = UseGetProductDetails(params.id);
 
   const formData = {
     ...data,
