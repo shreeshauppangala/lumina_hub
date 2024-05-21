@@ -1,4 +1,4 @@
-import { ReactNode, StrictMode } from 'react';
+import { ReactNode } from 'react';
 import { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 import { Box } from '@mui/material';
@@ -24,21 +24,19 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html lang='en'>
       <body className={roboto.className}>
-        <StrictMode>
-          <CustomMuiThemeProvider>
-            <ContextContainer>
-              <GoogleOAuthProvider
-                clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET!}
-              >
-                <Header />
-                <Box mt={42} minHeight='65vh'>
-                  {children}
-                </Box>
-                <Footer />
-              </GoogleOAuthProvider>
-            </ContextContainer>
-          </CustomMuiThemeProvider>
-        </StrictMode>
+        <CustomMuiThemeProvider>
+          <ContextContainer>
+            <GoogleOAuthProvider
+              clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET!}
+            >
+              <Header />
+              <Box mt={42} minHeight='65vh'>
+                {children}
+              </Box>
+              <Footer />
+            </GoogleOAuthProvider>
+          </ContextContainer>
+        </CustomMuiThemeProvider>
       </body>
     </html>
   );
