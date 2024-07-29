@@ -174,17 +174,15 @@ const AddEditForm = ({ type, formData }: PropsI) => {
             )}
           />
         </Box>
-        <Box width='49%'>
-          <DropZone
-            files={productImages}
-            setFiles={setProductImages}
-            accept={{ 'image/png': ['.png', '.gif', '.jpeg', '.jpg'] }}
-            onlyImages
-            label='Product Images'
-            required
-            multiple
-          />
-        </Box>
+        <DropZone
+          files={productImages}
+          setFiles={setProductImages}
+          accept={{ 'image/png': ['.png', '.gif', '.jpeg', '.jpg'] }}
+          onlyImages
+          label='Product Images'
+          required
+          multiple
+        />
         <Box display='flex' justifyContent='end' gap={5}>
           <LoadingButton
             loading={isAddProductAdding || fileUploading || isProductUpdating}

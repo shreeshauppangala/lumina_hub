@@ -17,8 +17,9 @@ export const DropZoneWrapper = styled(Box)(({ theme }) => ({
     },
   },
   '.preview_box': {
-    display: 'grid',
+    display: 'flex',
     gap: theme.spacing(5),
+    flexWrap: 'wrap',
     '.file': {
       display: 'flex',
       justifyContent: 'space-between',
@@ -37,7 +38,6 @@ export const DropZoneWrapper = styled(Box)(({ theme }) => ({
       backgroundColor: theme.palette.primary.light,
       padding: theme.spacing(2.5),
       borderRadius: theme.spacing(8),
-      width: 'fit-content',
       '.only_image_preview': {
         width: theme.spacing(100),
         height: theme.spacing(100),

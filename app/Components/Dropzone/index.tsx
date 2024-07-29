@@ -200,7 +200,7 @@ const DropZone = ({
                     sx={sx}
                   />
                   <Typography className='file_name'>
-                    {truncateString(fileName, 60, '.')}
+                    {truncateString(fileName, 30, '.')}
                   </Typography>
                 </Box>
                 <IconButton
