@@ -78,7 +78,7 @@ export const GET = async (request: NextRequest) => {
   try {
     const searchParam = request.nextUrl.searchParams;
     const searchText = searchParam.get('search');
-    const searchRegex = new RegExp(`^${searchText}`, 'i');
+    const searchRegex = new RegExp(`.*${searchText}.*`, 'i');
     const findObj = searchText?.length
       ? {
           name: { $regex: searchRegex },
