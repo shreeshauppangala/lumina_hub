@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
+import mongoose from 'mongoose';
 import Product from '@/models/product';
 import { getDataFromToken } from '@/app/utils/API_utils';
 import User from '@/models/user';
-import { pattern } from '@/app/constants';
 
 export const GET = async (request: NextRequest) => {
   try {
     const id = request.url.split('/')[5];
 
-    if (!pattern.mongoBDId.test(id)) {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json({ message: 'Invalid Id' }, { status: 400 });
     }
 

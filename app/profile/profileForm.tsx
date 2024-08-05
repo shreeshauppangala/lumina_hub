@@ -28,6 +28,7 @@ const ProfileForm = ({ formData }: PropsI) => {
       mode: 'all',
       defaultValues: formData,
     });
+
   useEffect(() => {
     if (formData?.picture) {
       setImage([formData?.picture as string]);
@@ -35,10 +36,12 @@ const ProfileForm = ({ formData }: PropsI) => {
   }, [formData]);
 
   const onSubmit = (data: SignUpFormDataI) => {
+    const { state, city } = data;
+
     onUpdateProfile({
       ...data,
-      city: data.city?.value!,
-      state: data.state?.value!,
+      city: city?.value!,
+      state: state?.value!,
     });
   };
 
